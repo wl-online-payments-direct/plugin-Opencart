@@ -1,0 +1,199 @@
+{{ header }}{{ column_left }}
+<div id="content" class="payment-worldline">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="float-end">
+				<a href="{{ sign_up }}" target="_blank" class="btn btn-primary">{{ button_sign_up }}</a>
+				<a href="{{ contact_us }}" target="_blank" class="btn btn-primary">{{ button_contact_us }}</a>
+				<button type="submit" form="form-payment" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary button-save"><i class="fas fa-save"></i></button>
+				<a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+			</div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li class="breadcrumb-item"><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if text_version %}
+		<div class="alert alert-info"><i class="fas fa-info-circle"></i> {{ text_version }}</div>
+		{% endif %}
+		<div class="card">
+			<div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_edit }}</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a href="{{ href_account }}" class="nav-link"><i class="fas fa-user"></i> {{ text_tab_account }}</a></li>
+					<li class="nav-item"><a href="{{ href_advanced }}" class="nav-link active"><i class="fas fa-cogs"></i> {{ text_tab_advanced }}</a></li>
+					<li class="nav-item"><a href="{{ href_order_status }}" class="nav-link"><i class="fas fa-shopping-cart"></i> {{ text_tab_order_status }}</a></li>
+					<li class="nav-item"><a href="{{ href_transaction }}" class="nav-link"><i class="fas fa-money-bill"></i> {{ text_tab_transaction }}</a></li>
+					<li class="nav-item"><a href="{{ href_suggest }}" class="nav-link"><i class="far fa-envelope"></i> {{ text_tab_suggest }}</a></li>
+				</ul>
+				<div class="tab-content">
+					<form action="{{ save }}" method="post" id="form-payment" data-oc-toggle="ajax">
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-title">{{ entry_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+								<div class="input-group">
+									<span class="input-group-text"><img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" /></span>
+									<input type="text" name="payment_worldline_setting[advanced][title][{{ language['language_id'] }}]" value="{% if setting['advanced']['title'][language['language_id']] %}{{ setting['advanced']['title'][language['language_id']] }}{% endif %}" placeholder="{{ entry_title }}" id="input-title-{{ language['language_id'] }}" class="form-control" />
+								</div>
+								{% endfor %}
+							</div>
+                        </div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-button-title">{{ entry_button_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+								<div class="input-group">
+									<span class="input-group-text"><img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" /></span>
+									<input type="text" name="payment_worldline_setting[advanced][button_title][{{ language['language_id'] }}]" value="{% if setting['advanced']['button_title'][language['language_id']] %}{{ setting['advanced']['button_title'][language['language_id']] }}{% endif %}" placeholder="{{ entry_button_title }}" id="input-button-title-{{ language['language_id'] }}" class="form-control" />
+								</div>
+								{% endfor %}
+							</div>
+                        </div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-authorization-mode">{{ entry_authorization_mode }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][authorization_mode]" id="input-authorization-mode" class="form-select">
+									{% for authorization_mode in setting['authorization_mode'] %}
+									{% if authorization_mode['code'] == setting['advanced']['authorization_mode'] %}
+									<option value="{{ authorization_mode['code'] }}" selected="selected">{{ attribute(_context, authorization_mode['name']) }}</option>
+									{% else %}
+									<option value="{{ authorization_mode['code'] }}">{{ attribute(_context, authorization_mode['name']) }}</option>
+									{% endif %}
+									{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-group-cards">{{ entry_group_cards }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][group_cards]" id="input-group-cards" class="form-select">
+										{% if setting['advanced']['group_cards'] %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-forced-tokenization">{{ entry_forced_tokenization }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][forced_tokenization]" id="input-forced-tokenization" class="form-select">
+										{% if setting['advanced']['forced_tokenization'] %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-tds-status">{{ entry_tds_status }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][tds_status]" id="input-tds-status" class="form-select">
+										{% if setting['advanced']['tds_status'] %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-tds-challenge-indicator">{{ entry_tds_challenge_indicator }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][tds_challenge_indicator]" id="input-tds-challenge-indicator" class="form-select">
+										{% for tds_challenge_indicator in setting['tds_challenge_indicator'] %}
+										{% if tds_challenge_indicator['code'] == setting['advanced']['tds_challenge_indicator'] %}
+										<option value="{{ tds_challenge_indicator['code'] }}" selected="selected">{{ attribute(_context, tds_challenge_indicator['name']) }}</option>
+										{% else %}
+										<option value="{{ tds_challenge_indicator['code'] }}">{{ attribute(_context, tds_challenge_indicator['name']) }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-tds-exemption-request">{{ entry_tds_exemption_request }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[advanced][tds_exemption_request]" id="input-tds-exemption-request" class="form-select">
+										{% for tds_exemption_request in setting['tds_exemption_request'] %}
+										{% if tds_exemption_request['code'] == setting['advanced']['tds_exemption_request'] %}
+										<option value="{{ tds_exemption_request['code'] }}" selected="selected">{{ attribute(_context, tds_exemption_request['name']) }}</option>
+										{% else %}
+										<option value="{{ tds_exemption_request['code'] }}">{{ attribute(_context, tds_exemption_request['name']) }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-template"><span data-bs-toggle="tooltip" title="{{ help_template }}">{{ entry_template }}</span></label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="text" name="payment_worldline_setting[advanced][template]" value="{{ setting['advanced']['template'] }}" placeholder="{{ entry_template }}" id="input-template" class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-advanced-debug">{{ entry_debug }}</label>
+							<div class="col-sm-10">
+								<div class="form-check form-switch form-switch-lg">
+									<input type="hidden" name="payment_worldline_setting[advanced][debug]" value="0"/>
+									<input type="checkbox" name="payment_worldline_setting[advanced][debug]" value="1" id="input-advanced-debug" class="form-check-input"{% if setting['advanced']['debug'] %} checked{% endif %}/>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_geo_zone_id" id="input-geo-zone" class="form-select">
+										<option value="0">{{ text_all_zones }}</option>
+										{% for geo_zone in geo_zones %}
+										{% if geo_zone['geo_zone_id'] == geo_zone_id %}
+										<option value="{{ geo_zone['geo_zone_id'] }}" selected="selected">{{ geo_zone['name'] }}</option>
+										{% else %}
+										<option value="{{ geo_zone['geo_zone_id'] }}">{{ geo_zone['name'] }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-sort-order">{{ entry_sort_order }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="payment_worldline_sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ footer }}

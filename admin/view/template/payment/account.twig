@@ -1,0 +1,191 @@
+{{ header }}{{ column_left }}
+<div id="content" class="payment-worldline">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="float-end">
+				<a href="{{ sign_up }}" target="_blank" class="btn btn-primary">{{ button_sign_up }}</a>
+				<a href="{{ contact_us }}" target="_blank" class="btn btn-primary">{{ button_contact_us }}</a>
+				<button type="submit" form="form-payment" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary button-save"><i class="fas fa-save"></i></button>
+				<a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+			</div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li class="breadcrumb-item"><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if text_version %}
+		<div class="alert alert-info"><i class="fas fa-info-circle"></i> {{ text_version }}</div>
+		{% endif %}
+		<div class="card">
+			<div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_edit }}</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a href="{{ href_account }}" class="nav-link active"><i class="fas fa-user"></i> {{ text_tab_account }}</a></li>
+					<li class="nav-item"><a href="{{ href_advanced }}" class="nav-link"><i class="fas fa-cogs"></i> {{ text_tab_advanced }}</a></li>
+					<li class="nav-item"><a href="{{ href_order_status }}" class="nav-link"><i class="fas fa-shopping-cart"></i> {{ text_tab_order_status }}</a></li>
+					<li class="nav-item"><a href="{{ href_transaction }}" class="nav-link"><i class="fas fa-money-bill"></i> {{ text_tab_transaction }}</a></li>
+					<li class="nav-item"><a href="{{ href_suggest }}" class="nav-link"><i class="far fa-envelope"></i> {{ text_tab_suggest }}</a></li>
+				</ul>
+				<div class="tab-content">
+					<form action="{{ save }}" method="post" id="form-payment" data-oc-toggle="ajax">
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+							<div class="col-sm-10">
+								<div class="form-check form-switch form-switch-lg">
+									<input type="hidden" name="payment_worldline_status" value="0"/>
+									<input type="checkbox" name="payment_worldline_status" value="1" id="input-status" class="form-check-input"{% if status %} checked{% endif %}/>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-environment">{{ entry_environment }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<select name="payment_worldline_setting[account][environment]" id="input-environment" class="form-select">
+										{% for environment in setting['environment'] %}
+										{% if (environment['code'] == setting['account']['environment']) %}
+										<option value="{{ environment['code'] }}" selected="selected">{{ attribute(_context, environment['name']) }}</option>
+										{% else %}
+										<option value="{{ environment['code'] }}">{{ attribute(_context, environment['name']) }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<br />
+						<p class="alert alert-info">{{ text_api_credential_alert }}</p>
+						{% for environment in setting['environment'] %}
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-merchant-id{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_merchant_id' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="text" name="payment_worldline_setting[account][merchant_id][{{ environment['code'] }}]" value="{% if setting['account']['merchant_id'][environment['code']] %}{{ setting['account']['merchant_id'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_merchant_id' ~ environment['prefix']) }}" id="input-merchant-id{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<div id="error-merchant-id{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][api_key][{{ environment['code'] }}]" value="{% if setting['account']['api_key'][environment['code']] %}{{ setting['account']['api_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}" id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<div id="error-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][api_secret][{{ environment['code'] }}]" value="{% if setting['account']['api_secret'][environment['code']] %}{{ setting['account']['api_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}" id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<div id="error-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-api-endpoint{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_api_endpoint' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="text" name="payment_worldline_setting[account][api_endpoint][{{ environment['code'] }}]" value="{{ setting['account']['api_endpoint'][environment['code']] }}" id="input-api-endpoint{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<button type="button" data-bs-toggle="tooltip" title="{{ button_reset_api_endpoint }}" class="btn btn-light reset-api-endpoint" api_endpoint="{{ setting['environment'][environment['code']]['api_endpoint'] }}" field_id="input-api-endpoint{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fas fa-undo"></i></button>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						<br />
+						<p class="alert alert-info">{{ text_webhook_credential_alert }}</p>
+						{% for environment in setting['environment'] %}
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][webhook_key][{{ environment['code'] }}]" value="{% if setting['account']['webhook_key'][environment['code']] %}{{ setting['account']['webhook_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}" id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<div id="error-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3 required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}d-none{% endif %}">
+							<label class="col-sm-2 col-form-label" for="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}</label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][webhook_secret][{{ environment['code'] }}]" value="{% if setting['account']['webhook_secret'][environment['code']] %}{{ setting['account']['webhook_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}" id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<div id="error-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						<div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="input-webhook-url"><span data-bs-toggle="tooltip" title="{{ help_webhook_url }}">{{ entry_webhook_url }}</span></label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="payment_worldline_setting[account][webhook_token]" value="{{ setting['account']['webhook_token'] }}" />
+								<div class="input-group">
+									<input type="text" value="{{ webhook_url }}" readonly="readonly" id="input-webhook-url" class="form-control" />
+									<button type="button" data-bs-toggle="tooltip" title="{{ button_copy_url }}" class="btn btn-light copy-webhook-url" field_id="input-webhook-url"><i class="fas fa-clipboard"></i></button>
+								</div>
+                            </div>
+                        </div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-cron-url"><span data-bs-toggle="tooltip" title="{{ help_cron_url }}">{{ entry_cron_url }}</span></label>
+							<div class="col-sm-10">
+								<input type="hidden" name="payment_worldline_setting[account][cron_token]" value="{{ setting['account']['cron_token'] }}" />
+								<div class="input-group">
+									<input type="text" value="{{ cron_url }}" readonly="readonly" id="input-cron-url" class="form-control" />
+									<button type="button" data-bs-toggle="tooltip" title="{{ button_copy_url }}" class="btn btn-light copy-cron-url" field_id="input-cron-url"><i class="fas fa-clipboard"></i></button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+
+.payment-worldline .col-form-label span::after {
+	font-family: 'Font Awesome 5 Free';
+	color: #1E91CF;
+	content: '\f059';
+	margin-left: 4px;
+}
+
+</style>	
+<script type="text/javascript">
+
+$('#input-environment').on('change', function() {
+	var environment = $(this).val();
+		
+	if (environment == 'live') {
+		$('.environment-live').removeClass('d-none');
+		$('.environment-test').addClass('d-none');
+	} else {
+		$('.environment-test').removeClass('d-none');
+		$('.environment-live').addClass('d-none');
+	}	
+});
+
+$('#form-payment').delegate('.reset-api-endpoint', 'click', function(event) {
+	event.preventDefault();
+	
+	$('#' + $(this).attr('field_id')).val($(this).attr('api_endpoint'));
+});
+
+$('#form-payment').delegate('.copy-webhook-url', 'click', function(event) {
+	event.preventDefault();
+	
+	navigator.clipboard.writeText($('#' + $(this).attr('field_id')).val());
+});
+
+$('#form-payment').delegate('.copy-cron-url', 'click', function(event) {
+	event.preventDefault();
+	
+	navigator.clipboard.writeText($('#' + $(this).attr('field_id')).val());
+});
+
+</script>
+{{ footer }}
