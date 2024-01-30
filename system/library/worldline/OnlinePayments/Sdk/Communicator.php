@@ -319,7 +319,7 @@ class Communicator implements CommunicatorInterface
         $relativeUriPathWithRequestParameters,
         $contentType = null,
         $clientMetaInfo = '',
-        ?CallContext $callContext = null
+        CallContext $callContext = null
     )
     {
         $requestHeaderGenerator = new RequestHeaderGenerator(

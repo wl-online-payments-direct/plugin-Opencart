@@ -3,6 +3,7 @@
 $_['heading_title']		 						= 'Worldline';
 
 // Text
+$_['text_worldline']		 					= '<img src="view/image/payment/worldline.svg" alt="Worldline" title="Worldline" />';
 $_['text_extensions']   						= 'Estensioni';
 $_['text_edit']        							= 'Modifica Worldline';
 $_['text_version']								= 'Disponibile la nuova versione Worldline. Puoi scaricarlo <a href="%s" target="_blank" class="alert-link">qui</a>!';

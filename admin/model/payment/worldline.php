@@ -1,11 +1,10 @@
 <?php
-namespace Opencart\Admin\Model\Extension\Worldline\Payment;
-class Worldline extends \Opencart\System\Engine\Model {
+class ModelPaymentWorldline extends Model {
 					
-	public function addWorldlineCustomerToken(array $data): void {
+	public function addWorldlineCustomerToken($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "worldline_customer_token` SET";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['customer_id'])) {
 			$implode[] .= "`customer_id` = '" . (int)$data['customer_id'] . "'";
@@ -26,39 +25,39 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 	
-	public function deleteWorldlineCustomerTokens(int $customer_id): void {
+	public function deleteWorldlineCustomerTokens($customer_id) {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
 	}
 	
-	public function setWorldlineCustomerMainToken(int $customer_id, string $payment_type, string $token): void {
+	public function setWorldlineCustomerMainToken($customer_id, $payment_type, $token) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '0' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '1' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
 	}
 	
-	public function getWorldlineCustomerToken(int $customer_id, string $payment_type, string $token): array {
+	public function getWorldlineCustomerToken($customer_id, $payment_type, $token) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
 
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
-	public function getWorldlineCustomerTokens(int $customer_id): array {
+	public function getWorldlineCustomerTokens($customer_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return [];
+			return array();
 		}
 	}
 
-	public function editWorldlineOrder(array $data): void {
+	public function editWorldlineOrder($data) {
 		$sql = "UPDATE `" . DB_PREFIX . "worldline_order` SET";
 
-		$implode = [];
+		$implode = array();
 		
 		if (!empty($data['transaction_id'])) {
 			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
@@ -111,24 +110,24 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 		
-	public function deleteWorldlineOrder(int $order_id): void {
+	public function deleteWorldlineOrder($order_id) {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 	
-	public function getWorldlineOrder(int $order_id): array {
+	public function getWorldlineOrder($order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `order_id` = '" . (int)$order_id . "'");
 		
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
-	public function getWorldlineOrders(array $data = []): array {
+	public function getWorldlineOrders($data = array()) {
 		$sql = "SELECT wo.order_id, wo.transaction_id, wo.transaction_status, wo.payment_product, wo.payment_type, wo.token, wo.total, wo.amount, wo.currency_code, wo.date, wo.environment FROM `" . DB_PREFIX . "worldline_order` wo";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['filter_order_id'])) {
 			$implode[] .= "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
@@ -183,7 +182,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 		}
 		
 		
-		$sort_data = [
+		$sort_data = array(
 			'wo.order_id',
 			'wo.transaction_id',
 			'wo.transaction_status',
@@ -195,7 +194,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 			'wo.currency_code',
 			'wo.date',
 			'wo.environment'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
@@ -226,10 +225,10 @@ class Worldline extends \Opencart\System\Engine\Model {
 		return $query->rows;
 	}
 	
-	public function getTotalWorldlineOrders(array $data = []): int {
+	public function getTotalWorldlineOrders($data = array()) {
 		$sql = "SELECT COUNT(DISTINCT order_id) AS total FROM `" . DB_PREFIX . "worldline_order` wo";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['filter_order_id'])) {
 			$implode[] .= "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
@@ -287,13 +286,13 @@ class Worldline extends \Opencart\System\Engine\Model {
 								
 		return $query->row['total'];
 	}
-		
-	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): void {
+	
+	public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false, $override = false) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
 		$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '" . (int)$notify . "', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
 	}
 	
-	public function checkVersion(string $opencart_version, string $worldline_version): array|bool {
+	public function checkVersion($opencart_version, $worldline_version) {
 		$curl = curl_init();
 			
 		curl_setopt($curl, CURLOPT_URL, 'https://www.opencart.com/index.php?route=api/promotion/worldline&opencart=' . $opencart_version . '&worldline=' . $worldline_version);
@@ -318,18 +317,22 @@ class Worldline extends \Opencart\System\Engine\Model {
 		}
 	}
 		
-	public function sendSuggest(array $data): void {
-		$_config = new \Opencart\System\Engine\Config();
-		$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
+	public function sendSuggest($data) {
+		$_config = new Config();
 		$_config->load('worldline');
 		
 		$config_setting = $_config->get('worldline_setting');
 		
-		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
+		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('worldline_setting'));
 		
+		$data['text_suggest_subject'] = $this->language->get('text_suggest_subject');
 		$data['text_suggest_version'] = sprintf($this->language->get('text_suggest_version'), VERSION, $setting['version']);
 		
-		$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
+		$data['entry_merchant_id'] = $this->language->get('entry_merchant_id');
+		$data['entry_company_name'] = $this->language->get('entry_company_name');
+		
+		$mail = new Mail();
+		$mail->protocol = $this->config->get('config_mail_protocol');
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
@@ -339,23 +342,22 @@ class Worldline extends \Opencart\System\Engine\Model {
 
 		$mail->setTo('dl-dl_shoppingcarts@worldline.com');
 		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender(html_entity_decode($data['payment_worldline_setting']['suggest']['company_name'], ENT_QUOTES, 'UTF-8'));
+		$mail->setSender(html_entity_decode($data['worldline_setting']['suggest']['company_name'], ENT_QUOTES, 'UTF-8'));
 		$mail->setSubject(html_entity_decode($this->language->get('text_suggest_subject'), ENT_QUOTES, 'UTF-8'));
-		$mail->setHtml($this->load->view('extension/worldline/payment/suggest_mail', $data));
+		$mail->setHtml($this->load->view('extension/payment/worldline/suggest_mail', $data));
 		$mail->send();
 	}
 
-	public function log(string|array $data, string $title = ''): void {
-		$_config = new \Opencart\System\Engine\Config();
-		$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
+	public function log($data, $title = '') {
+		$_config = new Config();
 		$_config->load('worldline');
 		
 		$config_setting = $_config->get('worldline_setting');
 		
-		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
+		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('worldline_setting'));
 		
 		if ($setting['advanced']['debug']) {
-			$log = new \Opencart\System\Library\Log('worldline.log');
+			$log = new Log('worldline.log');
 			
 			if (is_string($data)) {
 				$log->write('Worldline debug (' . $title . '): ' . $data);
@@ -365,12 +367,12 @@ class Worldline extends \Opencart\System\Engine\Model {
 		}
 	}
 	
-	public function install(): void {
+	public function install() {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_customer_token` (`customer_id` INT(11) NOT NULL, `payment_type` VARCHAR(20) NOT NULL, `token` VARCHAR(50) NOT NULL, `main_token_status` TINYINT(1) NOT NULL, PRIMARY KEY (`customer_id`, `payment_type`, `token`), KEY `main_token_status` (`main_token_status`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_order` (`order_id` INT(11) NOT NULL, `transaction_id` VARCHAR(20) NOT NULL, `transaction_status` VARCHAR(20) NULL, `payment_product` VARCHAR(40) NULL, `payment_type` VARCHAR(20) NOT NULL, `token` VARCHAR(50), `total` DECIMAL(15,2) NULL, `amount` DECIMAL(15,2) NULL, `currency_code` VARCHAR(3) NULL, `country_code` VARCHAR(2) NULL, `environment` VARCHAR(20) NULL, `date` DATETIME NULL, PRIMARY KEY (`order_id`), KEY `transaction_id` (`transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 	}
 	
-	public function uninstall(): void {
+	public function uninstall() {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldline_customer_token`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldline_order`");
 	}

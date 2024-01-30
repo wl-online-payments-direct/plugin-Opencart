@@ -1,4 +1,4 @@
-{{ header }}
+<?php echo $header; ?>
 <style type="text/css">
 
 .worldline-spinner {
@@ -32,31 +32,36 @@
 </style>
 <div id="payment-worldline" class="container">
 	<ul class="breadcrumb">
-		{% for breadcrumb in breadcrumbs %}
-		<li class="breadcrumb-item"><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
-		{% endfor %}
+		<?php foreach ($breadcrumbs as $breadcrumb) { ?>
+		<li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+		<?php } ?>
 	</ul>
-	<div class="row">
-		{{ column_left }}
-		<div id="content" class="col">
-			{{ content_top }}
-			<h1>{{ text_title }}</h1>
-			{{ text_message }}
+	<div class="row"><?php echo $column_left; ?>
+		<?php if ($column_left && $column_right) { ?>
+		<?php $class = 'col-sm-6'; ?>
+		<?php } elseif ($column_left || $column_right) { ?>
+		<?php $class = 'col-sm-9'; ?>
+		<?php } else { ?>
+		<?php $class = 'col-sm-12'; ?>
+		<?php } ?>
+		<div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+			<h1><?php echo $text_title; ?></h1>
+			<?php echo $text_message; ?>
 			<div class="worldline-spinner"></div>
-			{{ content_bottom }}
+			<?php echo $content_bottom; ?>
 		</div>
-		{{ column_right }}
+		<?php echo $column_right; ?>
 	</div>
 </div>
-{% if order_id %}
+<?php if ($order_id) { ?>
 <script type="text/javascript">
 
 function getWorldlinePaymentInfo() {
 	setTimeout(function() {
 		$.ajax({
 			method: 'post',
-			url: 'index.php?route=extension/worldline/payment/worldline{{ separator }}getPaymentInfo',
-			data: {'order_id' : '{{ order_id }}'},
+			url: 'index.php?route=payment/worldline/getPaymentInfo',
+			data: {'order_id' : '<?php echo $order_id; ?>'},
 			dataType: 'json',
 			success: function(json) {			
 				if (json['redirect']) {
@@ -64,7 +69,7 @@ function getWorldlinePaymentInfo() {
 				}
 				
 				if (json['error'] && json['error']['warning']) {
-					$('#payment-worldline').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close data-bs-dismiss="alert"></button></div>');
+					$('#payment-worldline').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i><button type="button" class="close data-dismiss="alert">&times;</button> ' + json['error']['warning'] + '</div>');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -79,5 +84,5 @@ window.addEventListener('load', function () {
 });
 		
 </script>
-{% endif %}
-{{ footer }}
+<?php } ?>
+<?php echo $footer; ?>

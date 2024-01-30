@@ -1,15 +1,14 @@
 <?php
-namespace Opencart\Catalog\Model\Extension\Worldline\Payment;
-class Worldline extends \Opencart\System\Engine\Model {
+class ModelPaymentWorldline extends Model {
 	
-	public function getMethod(array $address): array {
-		$this->load->language('extension/worldline/payment/worldline');
+	public function getMethod($address, $total) {
+		$this->load->language('payment/worldline');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_worldline_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('worldline_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
 		
-		if ($this->cart->hasSubscription()) {
+		if (($this->config->get('worldline_total') > 0) && ($this->config->get('worldline_total') > $total)) {
 			$status = false;
-		} elseif (!$this->config->get('payment_worldline_geo_zone_id')) {
+		} elseif (!$this->config->get('worldline_geo_zone_id')) {
 			$status = true;
 		} elseif ($query->num_rows) {
 			$status = true;
@@ -17,16 +16,15 @@ class Worldline extends \Opencart\System\Engine\Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$_config = new \Opencart\System\Engine\Config();
-			$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
+			$_config = new Config();
 			$_config->load('worldline');
 			
 			$config_setting = $_config->get('worldline_setting');
 		
-			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
+			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('worldline_setting'));
 			
 			$language_id = $this->config->get('config_language_id');
 					
@@ -36,75 +34,21 @@ class Worldline extends \Opencart\System\Engine\Model {
 				$title = $this->language->get('text_title');
 			}
 						
-			$method_data = [
+			$method_data = array(
 				'code'       => 'worldline',
 				'title'      => $title,
 				'terms'      => '',
-				'sort_order' => $this->config->get('payment_worldline_sort_order')
-			];
+				'sort_order' => $this->config->get('worldline_sort_order')
+			);
 		}
 
 		return $method_data;
 	}
 	
-	public function getMethods(array $address = []): array {
-		$this->load->language('extension/worldline/payment/worldline');
-
-		if ($this->cart->hasSubscription()) {
-			$status = false;
-		} elseif (!$this->config->get('config_checkout_payment_address')) {
-			$status = true;
-		} elseif (!$this->config->get('payment_worldline_geo_zone_id')) {
-			$status = true;
-		} else {
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_worldline_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
-
-			if ($query->num_rows) {
-				$status = true;
-			} else {
-				$status = false;
-			}
-		}
-
-		$method_data = [];
-
-		if ($status) {
-			$_config = new \Opencart\System\Engine\Config();
-			$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
-			$_config->load('worldline');
-			
-			$config_setting = $_config->get('worldline_setting');
-		
-			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
-			
-			$language_id = $this->config->get('config_language_id');
-					
-			if (!empty($setting['advanced']['title'][$language_id])) {
-				$title = $setting['advanced']['title'][$language_id];
-			} else {
-				$title = $this->language->get('text_title');
-			}
-				
-			$option_data['worldline'] = [
-				'code' => 'worldline.worldline',
-				'name' => $title
-			];
-				
-			$method_data = [
-				'code'       => 'worldline',
-				'name'       => $title,
-				'option'     => $option_data,
-				'sort_order' => $this->config->get('payment_worldline_sort_order')
-			];
-		}
-
-		return $method_data;
-	}
-	
-	public function addWorldlineCustomerToken(array $data): void {
+	public function addWorldlineCustomerToken($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "worldline_customer_token` SET";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['customer_id'])) {
 			$implode[] .= "`customer_id` = '" . (int)$data['customer_id'] . "'";
@@ -125,35 +69,35 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 	
-	public function setWorldlineCustomerMainToken(int $customer_id, string $payment_type, string $token): void {
+	public function setWorldlineCustomerMainToken($customer_id, $payment_type, $token) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '0' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '1' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
 	}
 	
-	public function getWorldlineCustomerToken(int $customer_id, string $payment_type, string $token): array {
+	public function getWorldlineCustomerToken($customer_id, $payment_type, $token) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
 
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
-	public function getWorldlineCustomerTokens(int $customer_id): array {
+	public function getWorldlineCustomerTokens($customer_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return [];
+			return array();
 		}
 	}
 		
-	public function addWorldlineOrder(array $data): void {
+	public function addWorldlineOrder($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "worldline_order` SET";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['order_id'])) {
 			$implode[] .= "`order_id` = '" . (int)$data['order_id'] . "'";
@@ -214,10 +158,10 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 	
-	public function editWorldlineOrder(array $data): void {
+	public function editWorldlineOrder($data) {
 		$sql = "UPDATE `" . DB_PREFIX . "worldline_order` SET";
 
-		$implode = [];
+		$implode = array();
 		
 		if (!empty($data['transaction_id'])) {
 			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
@@ -270,37 +214,36 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 		
-	public function deleteWorldlineOrder(int $order_id): void {
+	public function deleteWorldlineOrder($order_id) {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 	
-	public function getWorldlineOrder(int $order_id): array {
+	public function getWorldlineOrder($order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `order_id` = '" . (int)$order_id . "'");
 		
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
-	public function getWaitingWorldlineOrders(): array {
+	public function getWaitingWorldlineOrders() {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `transaction_status` = '' OR `transaction_status` = 'created' OR `transaction_status` = 'authorization_requested' OR `transaction_status` = 'capture_requested' OR `transaction_status` = 'refund_requested'");
 					
 		return $query->rows;
 	}
 		
-	public function log(string|array $data, string $title = ''): void {
-		$_config = new \Opencart\System\Engine\Config();
-		$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
+	public function log($data, $title = '') {
+		$_config = new Config();
 		$_config->load('worldline');
 			
 		$config_setting = $_config->get('worldline_setting');
 		
-		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
+		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('worldline_setting'));
 		
 		if ($setting['advanced']['debug']) {
-			$log = new \Opencart\System\Library\Log('worldline.log');
+			$log = new Log('worldline.log');
 			
 			if (is_string($data)) {
 				$log->write('Worldline debug (' . $title . '): ' . $data);
