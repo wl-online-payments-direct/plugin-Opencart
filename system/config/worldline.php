@@ -1,23 +1,23 @@
 <?php 
-$_['worldline_setting'] = [
+$_['worldline_setting'] = array(
 	'version' => '1.0.0',
-	'account' => [
+	'account' => array(
 		'environment' => 'live',
-		'merchant_id' => [],
-		'api_key' => [],
-		'api_secret' => [],
-		'api_endpoint' => [
+		'merchant_id' => array(),
+		'api_key' => array(),
+		'api_secret' => array(),
+		'api_endpoint' => array(
 			'live' => 'https://payment.direct.worldline-solutions.com',
 			'test' => 'https://payment.preprod.direct.worldline-solutions.com'
-		],
-		'webhook_key' => [],
-		'webhook_secret' => [],
+		),
+		'webhook_key' => array(),
+		'webhook_secret' => array(),
 		'webhook_token' => '',
 		'cron_token' => ''
-	],
-	'advanced' => [
-		'title' => [],
-		'button_title' => [],
+	),
+	'advanced' => array(
+		'title' => array(),
+		'button_title' => array(),
 		'debug' => false,
 		'authorization_mode' => 'sale',
 		'group_cards' => true,
@@ -26,148 +26,148 @@ $_['worldline_setting'] = [
 		'tds_challenge_indicator' => 'challenge-required',
 		'tds_exemption_request' => 'low-value',
 		'template' => ''
-	],
-	'order_status' => [
-		'created' => [
+	),
+	'order_status' => array(
+		'created' => array(
 			'code' => 'created',
 			'name' => 'text_created_status',
 			'id' => 1
-		],
-		'cancelled' => [
+		),
+		'cancelled' => array(
 			'code' => 'cancelled',
 			'name' => 'text_cancelled_status',
 			'id' => 7
-		],
-		'rejected' => [
+		),
+		'rejected' => array(
 			'code' => 'rejected',
 			'name' => 'text_rejected_status',
 			'id' => 8
-		],
-		'pending' =>  [
+		),
+		'pending' =>  array(
 			'code' => 'pending',
 			'name' => 'text_pending_status',
 			'id' => 1
-		],
-		'captured' => [
+		),
+		'captured' => array(
 			'code' => 'captured',
 			'name' => 'text_captured_status',
 			'id' => 5
-		],
-		'refunded' => [
+		),
+		'refunded' => array(
 			'code' => 'refunded',
 			'name' => 'text_refunded_status',
 			'id' => 11
-		]
-	],
-	'suggest' => [
+		)
+	),
+	'suggest' => array(
 		'company_name' => '',
 		'message' => ''
-	],
-	'environment' => [
-		'live' => [
+	),
+	'environment' => array(
+		'live' => array(
 			'code' => 'live',
 			'name' => 'text_live',
 			'prefix' => '',
 			'api_endpoint' => 'https://payment.direct.worldline-solutions.com'
-		],
-		'test' => [
+		),
+		'test' => array(
 			'code' => 'test',
 			'name' => 'text_test',
 			'prefix' => '_test',
 			'api_endpoint' => 'https://payment.preprod.direct.worldline-solutions.com'
-		]
-	],
-	'authorization_mode' => [
-		'pre_authorization' => [
+		)
+	),
+	'authorization_mode' => array(
+		'pre_authorization' => array(
 			'code' => 'pre_authorization',
 			'name' => 'text_pre_authorization'
-		],
-		'final_authorization' => [
+		),
+		'final_authorization' => array(
 			'code' => 'final_authorization',
 			'name' => 'text_final_authorization'
-		],
-		'sale' => [
+		),
+		'sale' => array(
 			'code' => 'sale',
 			'name' => 'text_sale'
-		]
-	],
-	'tds_challenge_indicator' => [
-		'no-preference' => [
+		)
+	),
+	'tds_challenge_indicator' => array(
+		'no-preference' => array(
 			'code' => 'no-preference',
 			'name' => 'text_no_preference'
-		],
-		'no-challenge-requested' => [
+		),
+		'no-challenge-requested' => array(
 			'code' => 'no-challenge-requested',
 			'name' => 'text_no_challenge_requested'
-		],
-		'challenge-requested' => [
+		),
+		'challenge-requested' => array(
 			'code' => 'challenge-requested',
 			'name' => 'text_challenge_requested'
-		],
-		'challenge-required' => [
+		),
+		'challenge-required' => array(
 			'code' => 'challenge-required',
 			'name' => 'text_challenge_required'
-		]
-	],
-	'tds_exemption_request' => [
-		'none' => [
+		)
+	),
+	'tds_exemption_request' => array(
+		'none' => array(
 			'code' => 'none',
 			'name' => 'text_exemption_none'
-		],
-		'transaction-risk-analysis' => [
+		),
+		'transaction-risk-analysis' => array(
 			'code' => 'transaction-risk-analysis',
 			'name' => 'text_exemption_transaction_risk_analysis'
-		],
-		'low-value' => [
+		),
+		'low-value' => array(
 			'code' => 'low-value',
 			'name' => 'text_exemption_low_value'
-		],
-		'whitelist' => [
+		),
+		'whitelist' => array(
 			'code' => 'whitelist',
 			'name' => 'text_exemption_whitelist'
-		]
-	],
-	'transaction_status' => [
-		'created' => [
+		)
+	),
+	'transaction_status' => array(
+		'created' => array(
 			'code' => 'created',
 			'name' => 'text_created'
-		],
-		'cancelled' => [
+		),
+		'cancelled' => array(
 			'code' => 'cancelled',
 			'name' => 'text_cancelled'
-		],
-		'rejected' => [
+		),
+		'rejected' => array(
 			'code' => 'rejected',
 			'name' => 'text_rejected'
-		],
-		'rejected_capture' => [
+		),
+		'rejected_capture' => array(
 			'code' => 'rejected_capture',
 			'name' => 'text_rejected_capture'
-		],
-		'pending_capture' => [
+		),
+		'pending_capture' => array(
 			'code' => 'pending_capture',
 			'name' => 'text_pending_capture'
-		],
-		'captured' => [
+		),
+		'captured' => array(
 			'code' => 'captured',
 			'name' => 'text_captured'
-		],
-		'refunded' => [
+		),
+		'refunded' => array(
 			'code' => 'refunded',
 			'name' => 'text_refunded'
-		],
-		'authorization_requested' => [
+		),
+		'authorization_requested' => array(
 			'code' => 'authorization_requested',
 			'name' => 'text_authorization_requested'
-		],
-		'capture_requested' => [
+		),
+		'capture_requested' => array(
 			'code' => 'capture_requested',
 			'name' => 'text_capture_requested'
-		],
-		'refund_requested' => [
+		),
+		'refund_requested' => array(
 			'code' => 'refund_requested',
 			'name' => 'text_refund_requested'
-		]
-	]
-];
+		)
+	)
+);
 ?>
