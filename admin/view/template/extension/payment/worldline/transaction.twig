@@ -1,0 +1,439 @@
+{{ header }}{{ column_left }}
+<div id="content" class="payment-worldline">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<a href="{{ sign_up }}" target="_blank" class="btn btn-primary">{{ button_sign_up }}</a>
+				<a href="{{ contact_us }}" target="_blank" class="btn btn-primary">{{ button_contact_us }}</a>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+			</div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+		<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		{% endif %}
+		{% if text_version %}
+		<div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_version }}</div>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs">
+					<li class="nav-tab"><a href="{{ href_account }}" class="tab"><i class="fa fa-user"></i> {{ text_tab_account }}</a></li>
+					<li class="nav-tab"><a href="{{ href_advanced }}" class="tab"><i class="fa fa-cogs"></i> {{ text_tab_advanced }}</a></li>
+					<li class="nav-tab"><a href="{{ href_order_status }}" class="tab"><i class="fa fa-shopping-cart"></i> {{ text_tab_order_status }}</a></li>
+					<li class="nav-tab active"><a href="{{ href_transaction }}" class="tab"><i class="fa fa-money"></i> {{ text_tab_transaction }}</a></li>
+					<li class="nav-tab"><a href="{{ href_suggest }}" class="tab"><i class="fa fa-envelope-o"></i> {{ text_tab_suggest }}</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="well">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label class="control-label" for="input-order-id">{{ entry_order_id }}</label>
+									<input type="text" name="filter_order_id" value="{{ filter_order_id }}" id="input-order-id" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-transaction-id">{{ entry_transaction_id }}</label>
+									<input type="text" name="filter_transaction_id" value="{{ filter_transaction_id }}" id="input-transaction-id" class="form-control" />
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label class="control-label" for="input-transaction-status">{{ entry_transaction_status }}</label>
+									<select name="filter_transaction_status" id="input-transaction-status" class="form-control">
+										<option value="*"></option>
+										{% for transaction_status in setting['transaction_status'] %}
+										{% if (transaction_status['code'] == filter_transaction_status) %}
+										<option value="{{ transaction_status['code'] }}" selected="selected">{{ attribute(_context, transaction_status['name']) }}</option>
+										{% else %}
+										<option value="{{ transaction_status['code'] }}">{{ attribute(_context, transaction_status['name']) }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-payment-product">{{ entry_payment_product }}</label>
+									<input type="text" name="filter_payment_product" value="{{ filter_payment_product }}" id="input-payment-product" class="form-control" />
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label class="control-label" for="input_date_from">{{ entry_date_from }}</label>
+									<div class="input-group date">
+										<input type="text" name="filter_date_from" value="{{ filter_date_from }}" data-date-format="YYYY-MM-DD" id="input_date_from" class="form-control" />
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input_date_to">{{ entry_date_to }}</label>
+									<div class="input-group date">
+										<input type="text" name="filter_date_to" value="{{ filter_date_to }}" data-date-format="YYYY-MM-DD" id="input_date_to" class="form-control" />
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label class="control-label" for="inputtotal">{{ entry_total }}</label>
+									<input type="text" name="filter_total" value="{{ filter_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-amount">{{ entry_amount }}</label>
+									<input type="text" name="filter_amount" value="{{ filter_amount }}" placeholder="{{ entry_amount }}" id="input-amount" class="form-control" />
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label class="control-label" for="input-currency">{{ entry_currency }}</label>
+									<select name="filter_currency_code" id="input-currency" class="form-control">
+										<option value="*"></option>
+										{% for currency in currencies %}
+										{% if (currency['code'] == filter_currency_code) %}
+										<option value="{{ currency['code'] }}" selected="selected">{{ currency['code'] }}</option>
+										{% else %}
+										<option value="{{ currency['code'] }}">{{ currency['code'] }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-environment">{{ entry_environment }}</label>
+									<select name="filter_environment" id="input-environment" class="form-control">
+										<option value="*"></option>
+										{% for environment in setting['environment'] %}
+										{% if (environment['code'] == filter_environment) %}
+										<option value="{{ environment['code'] }}" selected="selected">{{ attribute(_context, environment['name']) }}</option>
+										{% else %}
+										<option value="{{ environment['code'] }}">{{ attribute(_context, environment['name']) }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+								<br/>
+								<button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> {{ button_filter }}</button>
+							</div>
+						</div>
+					</div>
+					<div id="orders" class="orders">
+						<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-order">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<td class="text-center">
+												{% if (sort == 'wo.order_id') %}
+												<a href="{{ sort_order_id }}" class="{{ order|lower }}">{{ column_order_id }}</a>
+												{% else %}
+												<a href="{{ sort_order_id }}">{{ column_order_id }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if (sort == 'wo.transaction_id') %}
+												<a href="{{ sort_transaction_id }}" class="{{ order|lower }}">{{ column_transaction_id }}</a>
+												{% else %}
+												<a href="{{ sort_transaction_id }}">{{ column_transaction_id }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if (sort == 'wo.transaction_status') %}
+												<a href="{{ sort_transaction_status }}" class="{{ order|lower }}">{{ column_transaction_status }}</a>
+												{% else %}
+												<a href="{{ sort_transaction_status }}">{{ column_transaction_status }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if (sort == 'wo.payment_product') %}
+												<a href="{{ sort_payment_product }}" class="{{ order|lower }}">{{ column_payment_product }}</a>
+												{% else %}
+												<a href="{{ sort_payment_product }}">{{ column_payment_product }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if sort == 'wo.date' %}
+												<a href="{{ sort_date }}" class="{{ order|lower }}">{{ column_date }}</a>
+												{% else %}
+												<a href="{{ sort_date }}">{{ column_date }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if sort == 'wo.total' %}
+												<a href="{{ sort_total }}" class="{{ order|lower }}">{{ column_total }}</a>
+												{% else %}
+												<a href="{{ sort_total }}">{{ column_total }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if sort == 'wo.amount' %}
+												<a href="{{ sort_amount }}" class="{{ order|lower }}">{{ column_amount }}</a>
+												{% else %}
+												<a href="{{ sort_amount }}">{{ column_amount }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if sort == 'wo.currency_code' %}
+												<a href="{{ sort_currency_code }}" class="{{ order|lower }}">{{ column_currency_code }}</a>
+												{% else %}
+												<a href="{{ sort_currency_code }}">{{ column_currency_code }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">
+												{% if (sort == 'wo.environment') %}
+												<a href="{{ sort_environment }}" class="{{ order|lower }}">{{ column_environment }}</a>
+												{% else %}
+												<a href="{{ sort_environment }}">{{ column_environment }}</a>
+												{% endif %}
+											</td>
+											<td class="text-center">{{ column_action }}</td>
+										</tr>
+									</thead>
+									<tbody>
+										{% if orders %}
+										{% for order_info in orders %}
+										<tr>
+											<td class="text-center"><a href="{{ order_info['order_url'] }}" target="_blank">{{ order_info['order_id'] }}</a></td>
+											<td class="text-center"><a href="{{ order_info['transaction_url'] }}" target="_blank">{{ order_info['transaction_id'] }}</a></td>
+											<td class="text-center">{{ order_info['transaction_status'] }}</td>
+											<td class="text-center">{{ order_info['payment_product'] }}</td>
+											<td class="text-center">{{ order_info['date'] }}</td>
+											<td class="text-center">{{ order_info['total'] }}</td>
+											<td class="text-center">{{ order_info['amount'] }}</td>
+											<td class="text-center">{{ order_info['currency_code'] }}</td>
+											<td class="text-center">{{ order_info['environment'] }}</td>
+											<td class="text-center">
+												{% if (order_info['transaction_status'] == 'pending_capture') %}
+												<button type="button" class="btn btn-primary btn-block button-capture" order_id="{{ order_info['order_id'] }}" transaction_id="{{ order_info['transaction_id'] }}">{{ button_capture }}</button>
+												{% endif %}
+												{% if ((order_info['transaction_status'] == 'created') or (order_info['transaction_status'] == 'rejected') or (order_info['transaction_status'] == 'rejected_capture') or (order_info['transaction_status'] == 'pending_capture')) %}
+												<button type="button" class="btn btn-primary btn-block button-cancel" order_id="{{ order_info['order_id'] }}" transaction_id="{{ order_info['transaction_id'] }}">{{ button_cancel }}</button>
+												{% endif %}
+												{% if (order_info['transaction_status'] == 'captured') %}
+												<button type="button" class="btn btn-primary btn-block button-refund" order_id="{{ order_info['order_id'] }}" transaction_id="{{ order_info['transaction_id'] }}">{{ button_refund }}</button>
+												{% endif %}
+											</td>	
+										</tr>
+										{% endfor %}
+										{% else %}
+										<tr>
+											<td class="text-center" colspan="10">{{ text_no_results }}</td>
+										</tr>
+										{% endif %}
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-sm-6 text-left">{{ pagination }}</div>
+								<div class="col-sm-6 text-right">{{ results }}</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+$('.payment-worldline .date').datetimepicker({
+	language: '{{ datepicker }}',
+	pickDate: true,
+	pickTime: false
+});
+	
+$('.payment-worldline .orders').delegate('.button-capture', 'click', function(event) {
+	var order_id = $(this).attr('order_id');
+	var transaction_id = $(this).attr('transaction_id');
+		
+	$.ajax({
+		type: 'post',
+		url: '{{ capture_url }}',
+		data: {'order_id' : order_id, 'transaction_id' : transaction_id},
+		dataType: 'json',
+		beforeSend: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', true);
+		},
+		complete: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', false);
+		},
+		success: function(json) {
+			$('.payment-worldline .alert-dismissible').remove();
+			
+			if (json['error'] && json['error']['warning']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-danger').offset().top}, 'slow');
+			}
+			
+			if (json['success']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
+				
+				$('.payment-worldline .orders').load($('.payment-worldline #form-order').attr('action') + ' #form-order');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('.payment-worldline .orders').delegate('.button-cancel', 'click', function(event) {
+	var order_id = $(this).attr('order_id');
+	var transaction_id = $(this).attr('transaction_id');
+		
+	$.ajax({
+		type: 'post',
+		url: '{{ cancel_url }}',
+		data: {'order_id' : order_id, 'transaction_id' : transaction_id},
+		dataType: 'json',
+		beforeSend: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', true);
+		},
+		complete: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', false);
+		},
+		success: function(json) {
+			$('.payment-worldline .alert-dismissible').remove();
+			
+			if (json['error'] && json['error']['warning']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-danger').offset().top}, 'slow');
+			}
+			
+			if (json['success']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
+			
+				$('.payment-worldline .orders').load($('.payment-worldline #form-order').attr('action') + ' #form-order');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('.payment-worldline .orders').delegate('.button-refund', 'click', function(event) {
+	var order_id = $(this).attr('order_id');
+	var transaction_id = $(this).attr('transaction_id');
+		
+	$.ajax({
+		type: 'post',
+		url: '{{ refund_url }}',
+		data: {'order_id' : order_id, 'transaction_id' : transaction_id},
+		dataType: 'json',
+		beforeSend: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', true);
+		},
+		complete: function() {
+			$('.payment-worldline .orders .btn').prop('disabled', false);
+		},
+		success: function(json) {
+			$('.payment-worldline .alert-dismissible').remove();
+			
+			if (json['error'] && json['error']['warning']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-danger').offset().top}, 'slow');
+			}
+			
+			if (json['success']) {
+				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
+				
+				$('.payment-worldline .orders').load($('.payment-worldline #form-order').attr('action') + ' #form-order');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('.payment-worldline').on('click', '#button-filter', function() {
+	url = 'index.php?route=extension/payment/worldline/transaction&user_token={{ user_token }}';
+				
+	var filter_order_id = $('input[name=\'filter_order_id\']').val();
+	
+	if (filter_order_id) {
+		url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+	}
+	
+	var filter_transaction_id = $('input[name=\'filter_transaction_id\']').val();
+	
+	if (filter_transaction_id) {
+		url += '&filter_transaction_id=' + encodeURIComponent(filter_transaction_id);
+	}
+	
+	var filter_transaction_status = $('select[name=\'filter_transaction_status\']').val();
+	
+	if (filter_transaction_status != '*') {
+		url += '&filter_transaction_status=' + encodeURIComponent(filter_transaction_status);
+	}
+	
+	var filter_payment_product = $('input[name=\'filter_payment_product\']').val();
+	
+	if (filter_payment_product) {
+		url += '&filter_payment_product=' + encodeURIComponent(filter_payment_product);
+	}
+	
+	var filter_total = $('input[name=\'filter_total\']').val();
+	
+	if (filter_total) {
+		url += '&filter_total=' + encodeURIComponent(filter_total);
+	}
+	
+	var filter_amount = $('input[name=\'filter_amount\']').val();
+	
+	if (filter_amount) {
+		url += '&filter_amount=' + encodeURIComponent(filter_amount);
+	}
+	
+	var filter_currency_code = $('select[name=\'filter_currency_code\']').val();
+	
+	if (filter_currency_code != '*') {
+		url += '&filter_currency_code=' + encodeURIComponent(filter_currency_code);
+	}
+	
+	var filter_date_from = $('input[name=\'filter_date_from\']').val();
+	
+	if (filter_date_from) {
+		url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+	}
+	
+	var filter_date_to = $('input[name=\'filter_date_to\']').val();
+	
+	if (filter_date_to) {
+		url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+	}
+		
+	var filter_environment = $('select[name=\'filter_environment\']').val();
+	
+	if (filter_environment != '*') {
+		url += '&filter_environment=' + encodeURIComponent(filter_environment);
+	}
+	
+	location = url;
+});
+
+</script>
+{{ footer }}							
