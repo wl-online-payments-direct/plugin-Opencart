@@ -1,7 +1,7 @@
 <div id="worldline-form">
 	<div class="buttons">
 		<div class="pull-right">
-			<button type="button" id="worldline-button-confirm" class="btn btn-primary" data-loading-text="{{ text_loading }}"><?php echo $button_title; ?></button>
+			<button type="button" id="worldline-button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>"><?php echo $button_title; ?></button>
 		</div>
 	</div>
 </div>

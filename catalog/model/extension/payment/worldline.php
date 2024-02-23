@@ -51,15 +51,15 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 			
 		if (!empty($data['customer_id'])) {
-			$implode[] .= "`customer_id` = '" . (int)$data['customer_id'] . "'";
+			$implode[] = "`customer_id` = '" . (int)$data['customer_id'] . "'";
 		}
 		
 		if (!empty($data['payment_type'])) {
-			$implode[] .= "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
+			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 										
 		if ($implode) {
@@ -100,55 +100,55 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 			
 		if (!empty($data['order_id'])) {
-			$implode[] .= "`order_id` = '" . (int)$data['order_id'] . "'";
+			$implode[] = "`order_id` = '" . (int)$data['order_id'] . "'";
 		}
 		
 		if (!empty($data['transaction_id'])) {
-			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
+			$implode[] = "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
 		}
 		
 		if (!empty($data['transaction_status'])) {
-			$implode[] .= "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
+			$implode[] = "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
 		}
 		
 		if (!empty($data['payment_product'])) {
-			$implode[] .= "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
+			$implode[] = "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
 		}
 		
 		if (!empty($data['payment_type'])) {
-			$implode[] .= "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
+			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
 		if (!empty($data['total'])) {
-			$implode[] .= "`total` = '" . (float)$data['total'] . "'";
+			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
 		if (!empty($data['amount'])) {
-			$implode[] .= "`amount` = '" . (float)$data['amount'] . "'";
+			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
 		if (!empty($data['amount'])) {
-			$implode[] .= "`amount` = '" . (float)$data['amount'] . "'";
+			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
 		if (!empty($data['currency_code'])) {
-			$implode[] .= "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
+			$implode[] = "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
 		}
 		
 		if (!empty($data['country_code'])) {
-			$implode[] .= "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
+			$implode[] = "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
 		}
 		
 		if (!empty($data['environment'])) {
-			$implode[] .= "`environment` = '" . $this->db->escape($data['environment']) . "'";
+			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
 		if ($implode) {
@@ -164,46 +164,46 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 		
 		if (!empty($data['transaction_id'])) {
-			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
+			$implode[] = "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
 		}
 					
 		if (!empty($data['transaction_status'])) {
-			$implode[] .= "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
+			$implode[] = "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
 		}
 		
 		if (!empty($data['payment_product'])) {
-			$implode[] .= "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
+			$implode[] = "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
 		}
 		
 		if (!empty($data['payment_type'])) {
-			$implode[] .= "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
+			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
 		if (!empty($data['total'])) {
-			$implode[] .= "`total` = '" . (float)$data['total'] . "'";
+			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
 		if (!empty($data['amount'])) {
-			$implode[] .= "`amount` = '" . (float)$data['amount'] . "'";
+			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
 		if (!empty($data['currency_code'])) {
-			$implode[] .= "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
+			$implode[] = "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
 		}
 		
 		if (!empty($data['country_code'])) {
-			$implode[] .= "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
+			$implode[] = "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
 		}
 		
 		if (!empty($data['environment'])) {
-			$implode[] .= "`environment` = '" . $this->db->escape($data['environment']) . "'";
+			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 				
-		$implode[] .= "`date` = COALESCE(`date`, NOW())";
+		$implode[] = "`date` = COALESCE(`date`, NOW())";
 		
 		if ($implode) {
 			$sql .= implode(", ", $implode);

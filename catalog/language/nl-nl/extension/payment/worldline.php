@@ -2,6 +2,7 @@
 // Text
 $_['text_title']							= 'Worldline';
 $_['text_cart']                      		= 'Winkelmand';
+$_['text_handling']							= 'Behandeling';
 $_['text_waiting_page_title']				= 'Wachten op betaling!';
 $_['text_waiting_page_message']				= 'De betaling wordt momenteel verwerkt.';
 $_['text_pending_page_title']				= 'In afwachting van de betaling!';

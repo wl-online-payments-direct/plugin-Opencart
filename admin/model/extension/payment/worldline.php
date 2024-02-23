@@ -7,15 +7,15 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 			
 		if (!empty($data['customer_id'])) {
-			$implode[] .= "`customer_id` = '" . (int)$data['customer_id'] . "'";
+			$implode[] = "`customer_id` = '" . (int)$data['customer_id'] . "'";
 		}
 		
 		if (!empty($data['payment_type'])) {
-			$implode[] .= "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
+			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 				
 		if ($implode) {
@@ -60,46 +60,46 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 		
 		if (!empty($data['transaction_id'])) {
-			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
+			$implode[] = "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
 		}
 					
 		if (!empty($data['transaction_status'])) {
-			$implode[] .= "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
+			$implode[] = "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
 		}
 		
 		if (!empty($data['payment_product'])) {
-			$implode[] .= "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
+			$implode[] = "`payment_product` = '" . $this->db->escape($data['payment_product']) . "'";
 		}
 		
 		if (!empty($data['payment_type'])) {
-			$implode[] .= "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
+			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
 		if (!empty($data['token'])) {
-			$implode[] .= "`token` = '" . $this->db->escape($data['token']) . "'";
+			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
 		if (!empty($data['total'])) {
-			$implode[] .= "`total` = '" . (float)$data['total'] . "'";
+			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
 		if (!empty($data['amount'])) {
-			$implode[] .= "`amount` = '" . (float)$data['amount'] . "'";
+			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
 		if (!empty($data['currency_code'])) {
-			$implode[] .= "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
+			$implode[] = "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
 		}
 		
 		if (!empty($data['country_code'])) {
-			$implode[] .= "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
+			$implode[] = "`country_code` = '" . $this->db->escape($data['country_code']) . "'";
 		}
 		
 		if (!empty($data['environment'])) {
-			$implode[] .= "`environment` = '" . $this->db->escape($data['environment']) . "'";
+			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 		
-		$implode[] .= "`date` = COALESCE(`date`, NOW())";
+		$implode[] = "`date` = COALESCE(`date`, NOW())";
 		
 		if ($implode) {
 			$sql .= implode(", ", $implode);
@@ -130,27 +130,27 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 			
 		if (!empty($data['filter_order_id'])) {
-			$implode[] .= "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
+			$implode[] = "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
 		}
 		
 		if (!empty($data['filter_transaction_id'])) {
-			$implode[] .= "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
+			$implode[] = "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
 		}
 		
 		if (isset($data['filter_transaction_status'])) {
-			$implode[] .= "wo.transaction_status = '" . $this->db->escape($data['filter_transaction_status']) . "'";
+			$implode[] = "wo.transaction_status = '" . $this->db->escape($data['filter_transaction_status']) . "'";
 		}
 		
 		if (isset($data['filter_payment_product'])) {
-			$implode[] .= "wo.payment_product LIKE '%" . $this->db->escape($data['filter_payment_product']) . "%'";
+			$implode[] = "wo.payment_product LIKE '%" . $this->db->escape($data['filter_payment_product']) . "%'";
 		}
 		
 		if (isset($data['filter_payment_type'])) {
-			$implode[] .= "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
+			$implode[] = "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
 		}
 		
 		if (isset($data['filter_token'])) {
-			$implode[] .= "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
+			$implode[] = "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
 		}
 		
 		if (!empty($data['filter_total'])) {
@@ -166,11 +166,11 @@ class ModelExtensionPaymentWorldline extends Model {
 		}
 				
 		if (!empty($data['filter_date_from'])) {
-			$implode[] .= "DATE(wo.date) >= DATE('" . $this->db->escape($data['filter_date_from']) . "')";
+			$implode[] = "DATE(wo.date) >= DATE('" . $this->db->escape($data['filter_date_from']) . "')";
 		}
 		
 		if (!empty($data['filter_date_to'])) {
-			$implode[] .= "DATE(wo.date) <= DATE('" . $this->db->escape($data['filter_date_to']) . "')";
+			$implode[] = "DATE(wo.date) <= DATE('" . $this->db->escape($data['filter_date_to']) . "')";
 		}
 		
 		if (!empty($data['filter_environment'])) {
@@ -231,27 +231,27 @@ class ModelExtensionPaymentWorldline extends Model {
 		$implode = array();
 			
 		if (!empty($data['filter_order_id'])) {
-			$implode[] .= "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
+			$implode[] = "wo.order_id = '" . (int)$data['filter_order_id'] . "'";
 		}
 		
 		if (!empty($data['filter_transaction_id'])) {
-			$implode[] .= "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
+			$implode[] = "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
 		}
 		
 		if (isset($data['filter_transaction_status'])) {
-			$implode[] .= "wo.transaction_status = '" . $this->db->escape($data['filter_transaction_status']) . "'";
+			$implode[] = "wo.transaction_status = '" . $this->db->escape($data['filter_transaction_status']) . "'";
 		}
 		
 		if (isset($data['filter_payment_product'])) {
-			$implode[] .= "wo.payment_product LIKE '%" . $this->db->escape($data['filter_payment_product']) . "%'";
+			$implode[] = "wo.payment_product LIKE '%" . $this->db->escape($data['filter_payment_product']) . "%'";
 		}
 		
 		if (isset($data['filter_payment_type'])) {
-			$implode[] .= "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
+			$implode[] = "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
 		}
 		
 		if (isset($data['filter_token'])) {
-			$implode[] .= "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
+			$implode[] = "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
 		}
 		
 		if (!empty($data['filter_total'])) {
@@ -267,11 +267,11 @@ class ModelExtensionPaymentWorldline extends Model {
 		}
 				
 		if (!empty($data['filter_date_from'])) {
-			$implode[] .= "DATE(wo.date) > DATE('" . $this->db->escape($data['filter_date_from']) . "')";
+			$implode[] = "DATE(wo.date) > DATE('" . $this->db->escape($data['filter_date_from']) . "')";
 		}
 		
 		if (!empty($data['filter_date_to'])) {
-			$implode[] .= "DATE(wo.date) < DATE('" . $this->db->escape($data['filter_date_to']) . "')";
+			$implode[] = "DATE(wo.date) < DATE('" . $this->db->escape($data['filter_date_to']) . "')";
 		}
 		
 		if (!empty($data['filter_environment'])) {
