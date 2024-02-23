@@ -1,6 +1,12 @@
 <?php 
 $_['worldline_setting'] = [
-	'version' => '1.0.0',
+	'extension' => array(
+		'extension_id' => 'WLOP-opencart',
+		'name' => 'Direct Opencart Plugin',
+		'version' => '1.0.0',
+		'creator' => 'Dreamvention',
+		'integrator' => 'OnlinePayments'
+	),
 	'account' => [
 		'environment' => 'live',
 		'merchant_id' => [],
@@ -22,7 +28,7 @@ $_['worldline_setting'] = [
 		'authorization_mode' => 'sale',
 		'group_cards' => true,
 		'forced_tokenization' => true,
-		'tds_secure_status' => true,
+		'tds_status' => true,
 		'tds_challenge_indicator' => 'challenge-required',
 		'tds_exemption_request' => 'low-value',
 		'template' => ''

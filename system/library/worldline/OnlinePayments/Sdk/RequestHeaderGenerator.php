@@ -12,7 +12,7 @@ use UnexpectedValueException;
  */
 class RequestHeaderGenerator
 {
-    const SDK_VERSION = '5.8.2';
+    const SDK_VERSION = '5.12.0';
 
     const AUTHORIZATION_ID = 'GCS';
 
@@ -50,7 +50,7 @@ class RequestHeaderGenerator
                                   $httpMethodText,
                                   $uriPath,
                                   $clientMetaInfo = '',
-        ?CallContext              $callContext = null
+        CallContext               $callContext = null
     )
     {
         if (!in_array($httpMethodText, array('GET', 'PUT', 'POST', 'DELETE'))) {

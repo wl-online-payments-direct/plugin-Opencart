@@ -78,7 +78,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 
 		$data['status'] = $this->config->get('payment_worldline_status');	
 										
-		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['version']);
+		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['extension']['version']);
 		
 		if (!empty($result['href'])) {
 			$data['text_version'] = sprintf($this->language->get('text_version'), $result['href']);
@@ -191,7 +191,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			}
 		}
 								
-		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['version']);
+		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['extension']['version']);
 		
 		if (!empty($result['href'])) {
 			$data['text_version'] = sprintf($this->language->get('text_version'), $result['href']);
@@ -261,7 +261,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 								
-		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['version']);
+		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['extension']['version']);
 		
 		if (!empty($result['href'])) {
 			$data['text_version'] = sprintf($this->language->get('text_version'), $result['href']);
@@ -655,7 +655,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
 								
-		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['version']);
+		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['extension']['version']);
 
 		if (!empty($result['href'])) {
 			$data['text_version'] = sprintf($this->language->get('text_version'), $result['href']);
@@ -723,7 +723,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		$data['sign_up'] = 'https://signup.direct.preprod.worldline-solutions.com/';
 		$data['contact_us'] = 'https://docs.direct.worldline-solutions.com/en/about/contact/index';	
 		$data['suggest_url'] = str_replace('&amp;', '&', $this->url->link('extension/worldline/payment/worldline' . $this->separator . 'sendSuggest', 'user_token=' . $this->session->data['user_token']));								
-		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['version']);
+		$result = $this->model_extension_worldline_payment_worldline->checkVersion(VERSION, $data['setting']['extension']['version']);
 		
 		if (!empty($result['href'])) {
 			$data['text_version'] = sprintf($this->language->get('text_version'), $result['href']);
@@ -815,7 +815,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 		$config_setting = $_config->get('worldline_setting');
 				
-		$setting['worldline_version'] = $config_setting['version'];
+		$setting['worldline_version'] = $config_setting['extension']['version'];
 		
 		$this->load->model('setting/setting');
 		
@@ -838,7 +838,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		$this->model_setting_setting->deleteSetting('worldline_version');
 	}
 	
-	public function customer_delete_customer_before($route, &$data) {
+	public function customer_delete_customer_before(string $route, array &$data): void {
 		$this->load->model('extension/worldline/payment/worldline');
 
 		$customer_id = $data[0];
@@ -933,6 +933,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 						
+			$extension = $setting['extension'];
 			$environment = $setting['account']['environment'];
 			$merchant_id = $setting['account']['merchant_id'][$environment];
 			$api_key = $setting['account']['api_key'][$environment];
@@ -944,7 +945,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				
 			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
-			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  
@@ -1129,6 +1133,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 				
+			$extension = $setting['extension'];
 			$environment = $setting['account']['environment'];
 			$merchant_id = $setting['account']['merchant_id'][$environment];
 			$api_key = $setting['account']['api_key'][$environment];
@@ -1140,7 +1145,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				
 			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
-			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  
@@ -1220,6 +1228,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 				
+			$extension = $setting['extension'];
 			$environment = $setting['account']['environment'];
 			$merchant_id = $setting['account']['merchant_id'][$environment];
 			$api_key = $setting['account']['api_key'][$environment];
@@ -1231,7 +1240,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				
 			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
-			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  
@@ -1315,6 +1327,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 				
+			$extension = $setting['extension'];
 			$environment = $setting['account']['environment'];
 			$merchant_id = $setting['account']['merchant_id'][$environment];
 			$api_key = $setting['account']['api_key'][$environment];
@@ -1326,7 +1339,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				
 			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
-			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  
@@ -1399,6 +1415,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		$setting = $this->request->post['payment_worldline_setting'];
 				
 		if (!empty($setting['account'])) {
+			$extension = $config_setting['extension'];
 			$environment = $setting['account']['environment'];
 		
 			$setting['account']['merchant_id'][$environment] = trim($setting['account']['merchant_id'][$environment]);
@@ -1455,7 +1472,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				try {
 					$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
-					$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+					$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+					$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+					$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 					$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  

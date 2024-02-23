@@ -60,6 +60,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 						
+		$extension = $setting['extension'];
 		$environment = $setting['account']['environment'];
 		$merchant_id = $setting['account']['merchant_id'][$environment];
 		$api_key = $setting['account']['api_key'][$environment];
@@ -82,9 +83,12 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-		$connection = new \OnlinePayments\Sdk\DefaultConnection();	
+		$connection = new \OnlinePayments\Sdk\DefaultConnection();
 
-		$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
+		$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
+
+		$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+		$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 		$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
  
@@ -129,13 +133,6 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 			$item_total += $product_total;
 		}
-
-		$shopping_cart = new \OnlinePayments\Sdk\Domain\ShoppingCart();
-		$shopping_cart->setItems($line_items);
-		
-		$amount_of_money = new \OnlinePayments\Sdk\Domain\AmountOfMoney();
-        $amount_of_money->setAmount($order_total);
-        $amount_of_money->setCurrencyCode($currency_code);
 		
 		$personal_name = new \OnlinePayments\Sdk\Domain\PersonalName();
 		
@@ -148,7 +145,6 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		}
 		
 		$personal_information = new \OnlinePayments\Sdk\Domain\PersonalInformation();
-		
 		$personal_information->setName($personal_name);
 		
 		$contact_details = new \OnlinePayments\Sdk\Domain\ContactDetails();
@@ -265,12 +261,61 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				$shipping_address->setZip($order_info['shipping_postcode']);
 			}
 			
+			if ($order_info['shipping_address_1']) {
+				$shipping_address->setStreet($order_info['shipping_address_1']);
+			}
+			
 			$shipping = new \OnlinePayments\Sdk\Domain\Shipping();
 			$shipping->setShippingCost($shipping_price);
 			$shipping->setShippingCostTax($shipping_tax);
 			$shipping->setAddress($shipping_address);
 			
 			$item_total += $shipping_total;
+		} else {			
+			$personal_name = new \OnlinePayments\Sdk\Domain\PersonalName();
+		
+			if ($order_info['payment_firstname']) {
+				$personal_name->setFirstName($order_info['payment_firstname']);
+			}
+		
+			if ($order_info['payment_lastname']) {
+				$personal_name->setSurname($order_info['payment_lastname']);
+			}
+			
+			$shipping_address = new \OnlinePayments\Sdk\Domain\AddressPersonal();
+		
+			$shipping_address->setName($personal_name);
+			
+			if ($order_info['payment_country_id']) {
+				$country_info = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+			
+				if ($country_info) {
+					$shipping_address->setCountryCode($country_info['iso_code_2']);
+				}
+			}
+		
+			if ($order_info['payment_zone_id']) {
+				$zone_info = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
+			
+				if ($zone_info) {
+					$shipping_address->setState($zone_info['name']);
+				}
+			}
+		
+			if ($order_info['payment_city']) {
+				$shipping_address->setCity($order_info['payment_city']);
+			}
+		
+			if ($order_info['payment_postcode']) {
+				$shipping_address->setZip($order_info['payment_postcode']);
+			}
+			
+			if ($order_info['payment_address_1']) {
+				$shipping_address->setStreet($order_info['payment_address_1']);
+			}
+			
+			$shipping = new \OnlinePayments\Sdk\Domain\Shipping();
+			$shipping->setAddress($shipping_address);
 		}
 		
 		$tokens = [];
@@ -286,22 +331,51 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		$order_references = new \OnlinePayments\Sdk\Domain\OrderReferences();
 		$order_references->setMerchantReference($order_info['order_id'] . '_' . date('Ymd_His'));
  
-        $order = new \OnlinePayments\Sdk\Domain\Order();
-        $order->setAmountOfMoney($amount_of_money);
-		$order->setCustomer($customer);
-		$order->setReferences($order_references);
-		
-		if (!empty($shipping)) {
-			$order->setShipping($shipping);
+       if ($item_total < $order_total) {
+			$order_line_details = new \OnlinePayments\Sdk\Domain\OrderLineDetails();
+			$order_line_details->setProductCode('handling');
+			$order_line_details->setProductName($this->language->get('text_handling'));
+			$order_line_details->setProductPrice($order_total - $item_total);
+			$order_line_details->setQuantity(1);
+			$order_line_details->setTaxAmount(0);
+						
+			$item_amount_of_money = new \OnlinePayments\Sdk\Domain\AmountOfMoney();
+			$item_amount_of_money->setAmount($order_total - $item_total);
+			$item_amount_of_money->setCurrencyCode($currency_code);
+									
+			$line_item = new \OnlinePayments\Sdk\Domain\LineItem();
+			$line_item->setOrderLineDetails($order_line_details);
+			$line_item->setAmountOfMoney($item_amount_of_money);
+			
+			$line_items[] = $line_item;
 		}
+				
+		if ($item_total > $order_total) {
+			$discount = new \OnlinePayments\Sdk\Domain\Discount();
+			$discount->setAmount($item_total - $order_total);
+		}
+
+		$amount_of_money = new \OnlinePayments\Sdk\Domain\AmountOfMoney();
+        $amount_of_money->setAmount($order_total);
+        $amount_of_money->setCurrencyCode($currency_code);     		
 		
-		if ($item_total == $order_total) {
-			$order->setShoppingCart($shopping_cart);
+		$shopping_cart = new \OnlinePayments\Sdk\Domain\ShoppingCart();
+		$shopping_cart->setItems($line_items);
+
+		$order = new \OnlinePayments\Sdk\Domain\Order();
+		$order->setCustomer($customer);
+		$order->setShipping($shipping);
+		$order->setReferences($order_references);
+		$order->setAmountOfMoney($amount_of_money);
+		$order->setShoppingCart($shopping_cart);
+		
+		if (!empty($discount)) {
+			$order->setDiscount($discount);
 		}
 		
 		$three_d_secure = new \OnlinePayments\Sdk\Domain\ThreeDSecure();
-		$three_d_secure->setChallengeIndicator($challenge_indicator);
-		$three_d_secure->setExemptionRequest($exemption_request);
+		$three_d_secure->setChallengeIndicator($setting['advanced']['tds_challenge_indicator']);
+		$three_d_secure->setExemptionRequest($setting['advanced']['tds_exemption_request']);
 						
 		$card_payment_method_specific_input = new \OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput();
 		$card_payment_method_specific_input->setAuthorizationMode($authorization_mode);
@@ -597,12 +671,12 @@ class Worldline extends \Opencart\System\Engine\Controller {
 						}
 						
 						if (($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded')) {
-							$this->response->redirect($this->url->link('extension/worldline/payment' . $this->separator . 'worldline' . $this->separator . 'failurePage', 'language=' . $this->config->get('config_language')));
+							$this->response->redirect($this->url->link('extension/worldline/payment/worldline' . $this->separator . 'failurePage', 'language=' . $this->config->get('config_language')));
 						}
 					}
 				}
 				
-				$this->response->redirect($this->url->link('extension/worldline/payment' . $this->separator . 'waitingPage', 'language=' . $this->config->get('config_language')));
+				$this->response->redirect($this->url->link('extension/worldline/payment/worldline' . $this->separator . 'waitingPage', 'language=' . $this->config->get('config_language')));
 			}
 			
 			return true;
