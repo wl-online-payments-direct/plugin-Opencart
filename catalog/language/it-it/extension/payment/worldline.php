@@ -2,6 +2,7 @@
 // Text
 $_['text_title']							= 'Worldline';
 $_['text_cart']                      		= 'Carrello della spesa';
+$_['text_handling']							= 'Gestione';
 $_['text_waiting_page_title']				= 'Aspettando il pagamento!';
 $_['text_waiting_page_message']				= 'Il pagamento è attualmente in fase di elaborazione.';
 $_['text_pending_page_title']				= 'In attesa del pagamento!';

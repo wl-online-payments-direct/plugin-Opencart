@@ -162,7 +162,14 @@ class Communicator implements CommunicatorInterface
     )
     {
         $relativeUriPathWithRequestParameters = $this->getRelativeUriPathWithRequestParameters($relativeUriPath, $requestParameters);
-        if ($requestBodyObject instanceof DataObject || is_null($requestBodyObject)) {
+        if ($requestBodyObject instanceof MultipartFormDataObject) {
+            $contentType = $requestBodyObject->getContentType();
+            $requestBody = $requestBodyObject;
+        } else if ($requestBodyObject instanceof MultipartDataObject) {
+            $multipart = $requestBodyObject->toMultipartFormDataObject();
+            $contentType = $multipart->getContentType();
+            $requestBody = $multipart;
+        } else if ($requestBodyObject instanceof DataObject || is_null($requestBodyObject)) {
             $contentType = static::MIME_APPLICATION_JSON;
             $requestBody = $requestBodyObject ? $requestBodyObject->toJson() : '';
         } else {
@@ -319,7 +326,7 @@ class Communicator implements CommunicatorInterface
         $relativeUriPathWithRequestParameters,
         $contentType = null,
         $clientMetaInfo = '',
-        ?CallContext $callContext = null
+        CallContext $callContext = null
     )
     {
         $requestHeaderGenerator = new RequestHeaderGenerator(
