@@ -74,6 +74,9 @@
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="password" name="payment_worldline_setting[account][api_key][{{ environment['code'] }}]" value="{% if setting['account']['api_key'][environment['code']] %}{{ setting['account']['api_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}" id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fas fa-eye"></i></button>
+									</span>
 									<div id="error-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
 								</div>
 							</div>
@@ -83,6 +86,9 @@
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="password" name="payment_worldline_setting[account][api_secret][{{ environment['code'] }}]" value="{% if setting['account']['api_secret'][environment['code']] %}{{ setting['account']['api_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}" id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fas fa-eye"></i></button>
+									</span>
 									<div id="error-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
 								</div>
 							</div>
@@ -105,6 +111,9 @@
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="password" name="payment_worldline_setting[account][webhook_key][{{ environment['code'] }}]" value="{% if setting['account']['webhook_key'][environment['code']] %}{{ setting['account']['webhook_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}" id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fas fa-eye"></i></button>
+									</span>
 									<div id="error-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
 								</div>
 							</div>
@@ -114,6 +123,9 @@
 							<div class="col-sm-10">
 								<div class="input-group">
 									<input type="password" name="payment_worldline_setting[account][webhook_secret][{{ environment['code'] }}]" value="{% if setting['account']['webhook_secret'][environment['code']] %}{{ setting['account']['webhook_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}" id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fas fa-eye"></i></button>
+									</span>
 									<div id="error-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="invalid-feedback"></div>
 								</div>
 							</div>
@@ -167,6 +179,16 @@ $('#input-environment').on('change', function() {
 		$('.environment-test').removeClass('d-none');
 		$('.environment-live').addClass('d-none');
 	}	
+});
+
+$('#form-payment').delegate('.view-password', 'click', function(event) {
+	event.preventDefault();
+	
+	if ($('#' + $(this).attr('field_id')).attr('type') == 'password') {
+		$('#' + $(this).attr('field_id')).attr('type', 'text');
+	} else {
+		$('#' + $(this).attr('field_id')).attr('type', 'password');
+	}
 });
 
 $('#form-payment').delegate('.reset-api-endpoint', 'click', function(event) {
