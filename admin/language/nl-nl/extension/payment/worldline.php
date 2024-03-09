@@ -139,6 +139,7 @@ $_['column_action']								= 'Actie';
 $_['button_save']  								= 'Opslaan';
 $_['button_sign_up']							= 'Account aanmaken / Aanmelden';
 $_['button_contact_us']							= 'Neem contact met ons op';
+$_['button_view']								= 'Weergave';
 $_['button_reset_api_endpoint']					= 'Opnieuw instellen API Endpoint';
 $_['button_copy_url']							= 'Kopieer URL naar klembord';
 $_['button_filter']								= 'Filter';

@@ -79,13 +79,23 @@
 						<div class="form-group required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}hidden{% endif %}">
 							<label class="col-sm-2 control-label" for="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}</label>
 							<div class="col-sm-10">
-								<input type="password" name="payment_worldline_setting[account][api_key][{{ environment['code'] }}]" value="{% if setting['account']['api_key'][environment['code']] %}{{ setting['account']['api_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}" id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][api_key][{{ environment['code'] }}]" value="{% if setting['account']['api_key'][environment['code']] %}{{ setting['account']['api_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_key' ~ environment['prefix']) }}" id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-api-key{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fa fa-eye"></i></button>
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="form-group required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}hidden{% endif %}">
 							<label class="col-sm-2 control-label" for="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}</label>
 							<div class="col-sm-10">
-								<input type="password" name="payment_worldline_setting[account][api_secret][{{ environment['code'] }}]" value="{% if setting['account']['api_secret'][environment['code']] %}{{ setting['account']['api_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}" id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][api_secret][{{ environment['code'] }}]" value="{% if setting['account']['api_secret'][environment['code']] %}{{ setting['account']['api_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_api_secret' ~ environment['prefix']) }}" id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-api-secret{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fa fa-eye"></i></button>
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="form-group required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}hidden{% endif %}">
@@ -106,13 +116,23 @@
 						<div class="form-group required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}hidden{% endif %}">
 							<label class="col-sm-2 control-label" for="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}</label>
 							<div class="col-sm-10">
-								<input type="password" name="payment_worldline_setting[account][webhook_key][{{ environment['code'] }}]" value="{% if setting['account']['webhook_key'][environment['code']] %}{{ setting['account']['webhook_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}" id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][webhook_key][{{ environment['code'] }}]" value="{% if setting['account']['webhook_key'][environment['code']] %}{{ setting['account']['webhook_key'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_key' ~ environment['prefix']) }}" id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-webhook-key{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fa fa-eye"></i></button>
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="form-group required environment-{{ environment['code'] }} {% if (environment['code'] != setting['account']['environment']) %}hidden{% endif %}">
 							<label class="col-sm-2 control-label" for="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}">{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}</label>
 							<div class="col-sm-10">
-								<input type="password" name="payment_worldline_setting[account][webhook_secret][{{ environment['code'] }}]" value="{% if setting['account']['webhook_secret'][environment['code']] %}{{ setting['account']['webhook_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}" id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+								<div class="input-group">
+									<input type="password" name="payment_worldline_setting[account][webhook_secret][{{ environment['code'] }}]" value="{% if setting['account']['webhook_secret'][environment['code']] %}{{ setting['account']['webhook_secret'][environment['code']] }}{% endif %}" placeholder="{{ attribute(_context, 'entry_webhook_secret' ~ environment['prefix']) }}" id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}" class="form-control" />
+									<span class="input-group-btn">
+										<button type="button" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-default view-password" field_id="input-webhook-secret{{ environment['prefix']|replace({'_': '-'}) }}"><i class="fa fa-eye"></i></button>
+									</span>
+								</div>
 							</div>
 						</div>
 						{% endfor %}
@@ -158,6 +178,16 @@ $('#input-environment').on('change', function() {
 		$('.environment-test').removeClass('hidden');
 		$('.environment-live').addClass('hidden');
 	}	
+});
+
+$('#form-payment').delegate('.view-password', 'click', function(event) {
+	event.preventDefault();
+	
+	if ($('#' + $(this).attr('field_id')).attr('type') == 'password') {
+		$('#' + $(this).attr('field_id')).attr('type', 'text');
+	} else {
+		$('#' + $(this).attr('field_id')).attr('type', 'password');
+	}
 });
 
 $('#form-payment').delegate('.reset-api-endpoint', 'click', function(event) {
