@@ -139,6 +139,7 @@ $_['column_action']								= 'Azione';
 $_['button_save']  								= 'Salva';
 $_['button_sign_up']							= 'Crea un account/Registrati';
 $_['button_contact_us']							= 'Contattaci';
+$_['button_view']								= 'Visualizzazione';
 $_['button_reset_api_endpoint']					= 'Reimposta API Endpoint';
 $_['button_copy_url']							= 'Copia l\'URL negli appunti';
 $_['button_filter']								= 'Filtra';
