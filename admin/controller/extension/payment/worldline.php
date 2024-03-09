@@ -53,6 +53,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		$data['button_cancel'] = $this->language->get('button_cancel');
 		$data['button_sign_up'] = $this->language->get('button_sign_up');
 		$data['button_contact_us'] = $this->language->get('button_contact_us');
+		$data['button_view'] = $this->language->get('button_view');
 		$data['button_reset_api_endpoint'] = $this->language->get('button_reset_api_endpoint');
 		$data['button_copy_url'] = $this->language->get('button_copy_url');
 							
