@@ -810,7 +810,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		if ($this->config->get('payment_worldline_status') && !empty($this->request->get['order_id'])) {
 			$this->load->language('extension/payment/worldline');
 
-			$content = $this->getPaymentDetails($this->request->get['order_id']);
+			$content = $this->getPaymentDetails((int)$this->request->get['order_id']);
 			
 			if ($content) {												
 				$data['tabs'][] = array(
@@ -828,7 +828,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		if (!empty($this->request->get['order_id'])) {
 			$this->load->language('extension/payment/worldline');
 			
-			$content = $this->getPaymentDetails($this->request->get['order_id']);
+			$content = $this->getPaymentDetails((int)$this->request->get['order_id']);
 		}
 		
 		$this->response->setOutput($content);

@@ -26,7 +26,7 @@ class ModelExtensionPaymentWorldline extends Model {
 	}
 	
 	public function deleteWorldlineCustomerTokens($customer_id) {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
 	}
 	
 	public function setWorldlineCustomerMainToken($customer_id, $payment_type, $token) {
