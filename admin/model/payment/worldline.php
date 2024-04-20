@@ -27,7 +27,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 	}
 	
 	public function deleteWorldlineCustomerTokens(int $customer_id): void {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
 	}
 	
 	public function setWorldlineCustomerMainToken(int $customer_id, string $payment_type, string $token): void {
