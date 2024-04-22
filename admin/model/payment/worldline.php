@@ -327,7 +327,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 		
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 		
-		$data['text_suggest_version'] = sprintf($this->language->get('text_suggest_version'), VERSION, $setting['version']);
+		$data['text_suggest_version'] = sprintf($this->language->get('text_suggest_version'), VERSION, $setting['extension']['version']);
 		
 		$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
