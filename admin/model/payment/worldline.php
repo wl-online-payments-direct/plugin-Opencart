@@ -337,7 +337,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
 		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-		$mail->setTo('dl-dl_shoppingcarts@worldline.com');
+		$mail->setTo('isvpartners@worldline.com');
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender(html_entity_decode($data['payment_worldline_setting']['suggest']['company_name'], ENT_QUOTES, 'UTF-8'));
 		$mail->setSubject(html_entity_decode($this->language->get('text_suggest_subject'), ENT_QUOTES, 'UTF-8'));
