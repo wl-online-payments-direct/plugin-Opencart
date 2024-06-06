@@ -1011,37 +1011,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					$data['payment_product_id'] = $payment_response->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput()->getPaymentProductId();
 					$data['fraud_result'] = $payment_response->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput()->getFraudResults()->getFraudServiceResult();
 				}
-				
-				$order_status_id = 0;
-					
-				if ($data['transaction_status'] == 'created') {
-					$order_status_id = $setting['order_status']['created']['id'];
-				}
-					
-				if ($data['transaction_status'] == 'cancelled') {
-					$order_status_id = $setting['order_status']['cancelled']['id'];
-				}
-					
-				if (($data['transaction_status'] == 'rejected') || ($data['transaction_status'] == 'rejected_capture')) {
-					$order_status_id = $setting['order_status']['rejected']['id'];
-				}
-					
-				if ($data['transaction_status'] == 'pending_capture') {
-					$order_status_id = $setting['order_status']['pending']['id'];
-				}
-					
-				if ($data['transaction_status'] == 'captured') {
-					$order_status_id = $setting['order_status']['captured']['id'];
-				}
-					
-				if ($data['transaction_status'] == 'refunded') {
-					$order_status_id = $setting['order_status']['refunded']['id'];
-				}
-				
-				if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {																		
-					$this->model_extension_worldline_payment_worldline->addHistory($order_id, $order_status_id, '', true);
-				}
-											
+															
 				if (($data['transaction_status'] == 'created') || ($data['transaction_status'] == 'pending_capture') || ($data['transaction_status'] == 'captured') || ($data['transaction_status'] == 'cancelled') || ($data['transaction_status'] == 'rejected') || ($data['transaction_status'] == 'rejected_capture') || ($data['transaction_status'] == 'refunded') || ($data['transaction_status'] == 'authorization_requested') || ($data['transaction_status'] == 'capture_requested') || ($data['transaction_status'] == 'refund_requested')) {							
 					if (!$worldline_order_info['transaction_status']) {
 						$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
