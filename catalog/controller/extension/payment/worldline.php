@@ -540,21 +540,23 @@ class ControllerExtensionPaymentWorldline extends Controller {
 					$order_id = reset($invoice_id);
 					
 					$this->load->model('extension/payment/worldline');
+					$this->load->model('checkout/order');
 					
 					$worldline_order_info = $this->model_extension_payment_worldline->getWorldlineOrder($order_id);
+					$order_info = $this->model_checkout_order->getOrder($order_id);
 					
-					if ($worldline_order_info) {
+					if ($worldline_order_info && $order_info) {
 						$order_status_id = 0;
 					
 						if ($transaction_status == 'created') {
 							$order_status_id = $setting['order_status']['created']['id'];
 						}
 					
-						if ($transaction_status == 'cancelled') {
+						if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['cancelled']['id'];
 						}
 					
-						if (($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) {
+						if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['rejected']['id'];
 						}
 					
@@ -565,19 +567,13 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						if ($transaction_status == 'captured') {
 							$order_status_id = $setting['order_status']['captured']['id'];
 						}
-					
-						if ($transaction_status == 'refunded') {
+				
+						if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['refunded']['id'];
 						}
 					
-						if ($order_status_id) {										
-							$this->load->model('checkout/order');
-							
-							$order_info = $this->model_checkout_order->getOrder($order_id);
-								
-							if ($order_info && ($order_info['order_status_id'] != $order_status_id)) {
-								$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
-							}
+						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
+							$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
 						}
 						
 						if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
@@ -797,10 +793,12 @@ class ControllerExtensionPaymentWorldline extends Controller {
 			$order_id = $this->request->post['order_id'];
 			
 			$this->load->model('extension/payment/worldline');
+			$this->load->model('checkout/order');
 			
 			$worldline_order_info = $this->model_extension_payment_worldline->getWorldlineOrder($order_id);
-					
-			if ($worldline_order_info) {
+			$order_info = $this->model_checkout_order->getOrder($order_id);
+			
+			if ($worldline_order_info && $order_info) {
 				$transaction_id = $worldline_order_info['transaction_id'];
 				$transaction_status = $worldline_order_info['transaction_status'];
 				
@@ -899,11 +897,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 							$order_status_id = $setting['order_status']['created']['id'];
 						}
 					
-						if ($transaction_status == 'cancelled') {
+						if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['cancelled']['id'];
 						}
 					
-						if (($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) {
+						if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['rejected']['id'];
 						}
 					
@@ -914,19 +912,13 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						if ($transaction_status == 'captured') {
 							$order_status_id = $setting['order_status']['captured']['id'];
 						}
-					
-						if ($transaction_status == 'refunded') {
+				
+						if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['refunded']['id'];
 						}
 					
-						if ($order_status_id) {										
-							$this->load->model('checkout/order');
-							
-							$order_info = $this->model_checkout_order->getOrder($order_id);
-								
-							if ($order_info && ($order_info['order_status_id'] != $order_status_id)) {
-								$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
-							}
+						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
+							$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
 						}
 						
 						if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
@@ -1134,11 +1126,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 							$order_status_id = $setting['order_status']['created']['id'];
 						}
 					
-						if ($transaction_status == 'cancelled') {
+						if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['cancelled']['id'];
 						}
 					
-						if (($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) {
+						if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['rejected']['id'];
 						}
 					
@@ -1150,7 +1142,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 							$order_status_id = $setting['order_status']['captured']['id'];
 						}
 				
-						if ($transaction_status == 'refunded') {
+						if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
 							$order_status_id = $setting['order_status']['refunded']['id'];
 						}
 					
@@ -1325,11 +1317,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 								$order_status_id = $setting['order_status']['created']['id'];
 							}
 					
-							if ($transaction_status == 'cancelled') {
+							if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
 								$order_status_id = $setting['order_status']['cancelled']['id'];
 							}
 					
-							if (($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) {
+							if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
 								$order_status_id = $setting['order_status']['rejected']['id'];
 							}
 					
@@ -1341,7 +1333,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 								$order_status_id = $setting['order_status']['captured']['id'];
 							}
 					
-							if ($transaction_status == 'refunded') {
+							if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
 								$order_status_id = $setting['order_status']['refunded']['id'];
 							}
 							
