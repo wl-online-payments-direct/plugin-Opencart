@@ -34,7 +34,7 @@ $('#worldline-form #worldline-button-confirm').on('click', function() {
 				
 			if (json['error']) {
 				if (json['error']['warning']) {
-					$('#worldline-form').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i><button type="button" class="close data-dismiss="alert">&times;</button> ' + json['error']['warning'] + '</div>');
+					$('#worldline-form').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['error']['warning'] + '</div>');
 				}
 			}
 			
