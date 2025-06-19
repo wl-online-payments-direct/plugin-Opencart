@@ -104,6 +104,7 @@ $_['entry_debug']				 				= 'Debug Logging';
 $_['entry_total']		 						= 'Total';
 $_['entry_geo_zone']     						= 'Geo Zone';
 $_['entry_sort_order']   						= 'Sort Order';
+$_['entry_final_order_status']					= 'Final Order Status';
 $_['entry_order_id']							= 'Order ID';
 $_['entry_transaction_id']						= 'Transaction ID';
 $_['entry_transaction_status']					= 'Transaction Status';
@@ -120,6 +121,7 @@ $_['help_webhook_url']		  					= 'Set webhooks in Worldline Back Office to call 
 $_['help_cron_url']		  						= 'Set a cron to call this URL.';
 $_['help_template']								= 'If you are using a customized template, please enter the name here. If empty, the standard payment page will be displayed. Payment page look and feel can be customized on Worldline Back Office.';
 $_['help_total']         						= 'The checkout total the order must reach before this payment method becomes active.';
+$_['help_final_order_status']					= 'Set the order status to final and Worldline will not be able to change it.';
 $_['help_company_name']          				= 'Your company name.';
 $_['help_message']          					= 'Please explain how our payment plugin can be further improved.';
 

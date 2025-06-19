@@ -104,6 +104,7 @@ $_['entry_debug']				 				= 'Debug Protokollierung';
 $_['entry_total']		 						= 'Summe';
 $_['entry_geo_zone']     						= 'Geozone';
 $_['entry_sort_order']   						= 'Reihenfolge';
+$_['entry_final_order_status']					= 'Endgültiger Bestellstatus';
 $_['entry_order_id']							= 'Auftragsnr';
 $_['entry_transaction_id']						= 'Transaktion ID';
 $_['entry_transaction_status']					= 'Transaktion Status';
@@ -120,6 +121,7 @@ $_['help_webhook_url']		  					= 'Legen Sie Webhooks im Worldline Back Office fe
 $_['help_cron_url']		  						= 'Legen Sie einen Cron fest, um diese URL aufzurufen.';
 $_['help_template']								= 'Wenn Sie eine benutzerdefinierte Vorlage verwenden, geben Sie bitte hier den Namen ein. Wenn leer, wird die Standard-Zahlungsseite angezeigt. Das Erscheinungsbild der Zahlungsseite kann im Worldline Back Office angepasst werden.';
 $_['help_total']         						= 'Mindestgesamtsumme im Warenkorb damit diese Zahlungsart verfügbar ist.';
+$_['рудз_final_order_status']					= 'Setzen Sie den Bestellstatus auf „endgültig“ und Worldline kann ihn nicht mehr ändern.';
 $_['help_company_name']          				= 'Ihr Firmenname.';
 $_['help_message']          					= 'Bitte erläutern Sie, wie unser Zahlungs-Plugin weiter verbessert werden kann.';
 
