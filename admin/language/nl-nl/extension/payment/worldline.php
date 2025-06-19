@@ -104,6 +104,7 @@ $_['entry_debug']				 				= 'Foutopsporing in logboekregistratie';
 $_['entry_total']		 						= 'Totaal';
 $_['entry_geo_zone']     						= 'Geo-zone';
 $_['entry_sort_order']   						= 'Sorteervolgorde';
+$_['entry_final_order_status']					= 'Definitieve bestelstatus';
 $_['entry_order_id']							= 'Order ID';
 $_['entry_transaction_id']						= 'Transactie ID';
 $_['entry_transaction_status']					= 'Transactiestatus';
@@ -120,6 +121,7 @@ $_['help_webhook_url']		  					= 'Stel webhooks in Worldline Back Office in om d
 $_['help_cron_url']		  						= 'Stel een cron in om deze URL aan te roepen.';
 $_['help_template']								= 'Als u een aangepast sjabloon gebruikt, voer dan hier de naam in. Indien leeg wordt de standaard betaalpagina weergegeven. Het uiterlijk van de betaalpagina kan worden aangepast in de Worldline Back Office.';
 $_['help_total']         						= 'Het afrekentotaal dat de bestelling moet bereiken voordat deze betaalmethode actief wordt.';
+$_['help_final_order_status']					= 'Als u de status van uw bestelling op definitief zet, kan Worldline dit niet meer wijzigen.';
 $_['help_company_name']          				= 'Je bedrijfsnaam.';
 $_['help_message']          					= 'Leg uit hoe onze betalingsplug-in verder kan worden verbeterd.';
 

@@ -304,6 +304,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		$data['text_captured_status'] = $this->language->get('text_captured_status');
 		$data['text_refunded_status'] = $this->language->get('text_refunded_status');
 		
+		$data['entry_final_order_status'] = $this->language->get('entry_final_order_status');
+		
+		$data['help_final_order_status'] = $this->language->get('help_final_order_status');
+		
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 		$data['button_sign_up'] = $this->language->get('button_sign_up');
@@ -911,6 +915,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateSave()) {
 			$setting = $this->model_setting_setting->getSetting('worldline');
+			
+			if (!empty($this->request->post['worldline_setting']['order_status'])) {
+				$setting['worldline_setting']['final_order_status'] = array();
+			}
 			
 			$setting = array_replace_recursive($setting, $this->request->post);
 						
