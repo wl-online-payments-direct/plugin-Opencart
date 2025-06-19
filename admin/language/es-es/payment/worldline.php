@@ -104,6 +104,7 @@ $_['entry_debug']				 				= 'Registro de depuración';
 $_['entry_total']		 						= 'Total';
 $_['entry_geo_zone']     						= 'Zona Geográfica';
 $_['entry_sort_order']   						= 'Orden de aparición';
+$_['entry_final_order_status']					= 'Estado final del pedido';
 $_['entry_order_id']							= 'Solicitar ID';
 $_['entry_transaction_id']						= 'ID de transacción';
 $_['entry_transaction_status']					= 'Estado de la transacción';
@@ -120,6 +121,7 @@ $_['help_webhook_url']		  					= 'Configure webhooks en el Back Office de Worldl
 $_['help_cron_url']		  						= 'Configure un cron para llamar a esta URL.';
 $_['help_template']								= 'Si está utilizando una plantilla personalizada, ingrese el nombre aquí. Si está vacía, se mostrará la página de pago estándar. La apariencia de la página de pago se puede personalizar en el Back Office de Worldline.';
 $_['help_total']         						= 'El total que el pedido debe alcanzar para que este método de pago sea activado.';
+$_['help_final_order_status']					= 'Establezca el estado del pedido como final y Worldline no podrá cambiarlo.';
 $_['help_company_name']          				= 'El nombre de tu compañía.';
 $_['help_message']          					= 'Explique cómo se puede mejorar aún más nuestro complemento de pago.';
 

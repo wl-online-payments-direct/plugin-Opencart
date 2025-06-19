@@ -55,6 +55,21 @@
 							</div>
 						</div>
 						<?php } ?>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-final-order-status"><span data-toggle="tooltip" title="<?php echo $help_final_order_status; ?>"><?php echo $entry_final_order_status; ?></span></label>
+							<div class="col-sm-10">
+								<div class="well well-sm" style="height: 150px; overflow: auto;">
+									<?php foreach ($order_statuses as $order_status) { ?>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="worldline_setting[final_order_status][]" value="<?php echo $order_status['order_status_id']; ?>" <?php if (in_array($order_status['order_status_id'], $setting['final_order_status'])) { ?> checked="checked" <?php } ?> />
+											<?php echo $order_status['name']; ?>
+										</label>
+									</div>
+									<?php } ?>
+								</div>
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>
