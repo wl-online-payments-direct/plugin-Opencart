@@ -3,7 +3,7 @@ $_['worldline_setting'] = [
 	'extension' => array(
 		'extension_id' => 'WLOP-opencart',
 		'name' => 'Direct Opencart Plugin',
-		'version' => '1.0.5',
+		'version' => '1.0.6',
 		'creator' => 'Dreamvention',
 		'integrator' => 'OnlinePayments'
 	),
@@ -65,6 +65,7 @@ $_['worldline_setting'] = [
 			'id' => 11
 		]
 	],
+	'final_order_status' => [],
 	'suggest' => [
 		'company_name' => '',
 		'message' => ''

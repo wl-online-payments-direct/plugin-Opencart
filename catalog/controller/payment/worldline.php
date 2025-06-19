@@ -1165,7 +1165,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							$order_status_id = $setting['order_status']['refunded']['id'];
 						}
 					
-						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
+						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id) && !in_array($order_info['order_status_id'], $setting['final_order_status'])) {
 							$this->model_checkout_order->addHistory($order_id, $order_status_id, '', true);
 						}
 						
@@ -1353,7 +1353,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 								$order_status_id = $setting['order_status']['refunded']['id'];
 							}
 							
-							if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
+							if ($order_status_id && ($order_info['order_status_id'] != $order_status_id) && !in_array($order_info['order_status_id'], $setting['final_order_status'])) {
 								$this->model_checkout_order->addHistory($order_id, $order_status_id, '', true);
 							}
 						

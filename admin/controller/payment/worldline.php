@@ -753,6 +753,10 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateSave()) {
 			$setting = $this->model_setting_setting->getSetting('payment_worldline');
 			
+			if (!empty($this->request->post['payment_worldline_setting']['order_status'])) {
+				$setting['payment_worldline_setting']['final_order_status'] = [];
+			}
+			
 			$setting = array_replace_recursive($setting, $this->request->post);
 						
 			$this->model_setting_setting->editSetting('payment_worldline', $setting);
