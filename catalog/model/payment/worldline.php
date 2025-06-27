@@ -182,11 +182,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 		if (!empty($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
-		
-		if (!empty($data['amount'])) {
-			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
-		}
-		
+				
 		if (!empty($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
