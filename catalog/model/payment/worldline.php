@@ -130,11 +130,7 @@ class ModelPaymentWorldline extends Model {
 		if (!empty($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
-		
-		if (!empty($data['amount'])) {
-			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
-		}
-		
+				
 		if (!empty($data['currency_code'])) {
 			$implode[] = "`currency_code` = '" . $this->db->escape($data['currency_code']) . "'";
 		}
