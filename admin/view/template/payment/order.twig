@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-lg-6">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -9,7 +9,7 @@
 			<tbody>
 				<tr>
 					<td>{{ text_transaction_id }}</td>
-					<td><a href="{{ transaction_url }}" target="_blank">{{ transaction_id }}</a></td>
+					<td><a href="{{ transaction_url }}" target="_blank">{{ transaction_number }}</a></td>
 				</tr>
 				<tr>
 					<td>{{ text_transaction_status }}</td>
@@ -31,6 +31,18 @@
 					<td>{{ text_amount }}</td>
 					<td>{{ amount }}</td>
 				</tr>
+				{% if amount_captured > 0 %}
+				<tr>
+					<td>{{ text_amount_captured }}</td>
+					<td>{{ amount_captured }}</td>
+				</tr>
+				{% endif %}
+				{% if amount_refunded > 0 %}
+				<tr>
+					<td>{{ text_amount_refunded }}</td>
+					<td>{{ amount_refunded }}</td>
+				</tr>
+				{% endif %}
 				<tr>
 					<td>{{ text_currency_code }}</td>
 					<td>{{ currency_code }}</td>
@@ -48,8 +60,8 @@
 				</tr>
 				{% endif %}
 				<tr>
-					<td>{{ text_date }}</td>
-					<td>{{ date }}</td>
+					<td>{{ text_date_created }}</td>
+					<td>{{ date_created }}</td>
 				</tr>
 				<tr>
 					<td>{{ text_environment }}</td>
@@ -60,13 +72,37 @@
 					<td>{{ text_transaction_action }}</td>
 					<td>
 						{% if (transaction_status == 'pending_capture') %}
-						<button type="button" class="btn btn-primary button-capture">{{ button_capture }}</button>
+						{% if payment_product == 'TWINTWL' %}
+						<div class="twint">{{ text_twint }}</div>
+						{% endif %}
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary w-100 button-capture">{{ button_capture }}</button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="capture_amount" value="{{ capture_amount }}" id="input_capture_amount" class="form-control" />
+							</div>
+						</div>
 						{% endif %}
 						{% if ((transaction_status == 'created') or (transaction_status == 'rejected') or (transaction_status == 'rejected_capture') or (transaction_status == 'pending_capture')) %}
-						<button type="button" class="btn btn-primary button-cancel">{{ button_cancel }}</button>
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary w-100 button-cancel">{{ button_cancel }}</button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="cancel_amount" value="{{ cancel_amount }}" id="input_cancel_amount" class="form-control" />
+							</div>
+						</div>
 						{% endif %}
 						{% if (transaction_status == 'captured') %}
-						<button type="button" class="btn btn-primary button-refund">{{ button_refund }}</button>
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary w-100 button-refund">{{ button_refund }}</button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="refund_amount" value="{{ refund_amount }}" id="input_refund_amount" class="form-control" />
+							</div>
+						</div>
 						{% endif %}
 					</td>
 				</tr>
@@ -74,7 +110,8 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-lg-6">
+		{% if fraud_result or liability or exemption or authentication_status %}
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -108,6 +145,7 @@
 				{% endif %}
 			</tbody>
 		</table>
+		{% endif %}
 	</div>
 </div>
 <script type="text/javascript">
@@ -116,7 +154,7 @@ $('#tab-worldline').on('click', '.button-capture', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ capture_url }}',
-		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}'},
+		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}', 'capture_amount': $('#tab-worldline #input_capture_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);
@@ -147,7 +185,7 @@ $('#tab-worldline').on('click', '.button-cancel', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ cancel_url }}',
-		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}'},
+		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}', 'cancel_amount': $('#tab-worldline #input_cancel_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);
@@ -178,7 +216,7 @@ $('#tab-worldline').on('click', '.button-refund', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ refund_url }}',
-		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}'},
+		data: {'order_id' : '{{ order_id }}', 'transaction_id' : '{{ transaction_id }}', 'refund_amount': $('#tab-worldline #input_refund_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);

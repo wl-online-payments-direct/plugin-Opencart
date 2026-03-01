@@ -1,6 +1,7 @@
 <?php
 // Text
-$_['text_title']							= 'Worldline';
+$_['text_hosted_checkout_title']			= 'Worldline';
+$_['text_hosted_tokenization_title']		= 'Tarjetas de crédito y débito (Worldline)';
 $_['text_cart']                      		= 'Carro de la compra';
 $_['text_handling']							= 'Manejo';
 $_['text_waiting_page_title']				= '¡A la espera del pago!';
@@ -13,10 +14,18 @@ $_['text_transaction_cancelled']			= 'La transacción/autorización ha sido canc
 $_['text_transaction_rejected']				= 'La solicitud de autorización/reembolso ha sido rechazada.';
 $_['text_transaction_rejected_capture']		= 'La solicitud de captura ha sido rechazada.';
 $_['text_transaction_refunded']				= 'La solicitud de reembolso ha sido exitosa.';
+$_['text_surcharging']						= 'Tenga en cuenta que se puede agregar un recargo a la cantidad que debe pagar según el método de pago que haya elegido.';
+$_['text_card_masked_number']          		= '%s terminando en %s';
+$_['text_card_new']          				= 'Nueva tarjeta';
 $_['text_loading']          				= 'Cargando...';
 
+// Entry
+$_['entry_card_token_save']					= 'Guarde esta tarjeta de forma segura en su perfil de cliente';
+
 // Button
-$_['button_title']							= 'Paga con Worldline';
+$_['button_hosted_checkout_title']			= 'Paga con Worldline';
+$_['button_hosted_tokenization_title']		= 'Pagar con tarjeta';
+$_['button_pay']							= 'Pagar';
 $_['button_continue']						= 'Continuar';
 
 // Error

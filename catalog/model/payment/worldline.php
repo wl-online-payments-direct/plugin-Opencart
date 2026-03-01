@@ -28,20 +28,22 @@ class Worldline extends \Opencart\System\Engine\Model {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 			
-			$language_id = $this->config->get('config_language_id');
-					
-			if (!empty($setting['advanced']['title'][$language_id])) {
-				$title = $setting['advanced']['title'][$language_id];
-			} else {
-				$title = $this->language->get('text_title');
-			}
+			if ($setting['hosted_checkout']['status']) {
+				$language_id = $this->config->get('config_language_id');
 						
-			$method_data = [
-				'code'       => 'worldline',
-				'title'      => $title,
-				'terms'      => '',
-				'sort_order' => $this->config->get('payment_worldline_sort_order')
-			];
+				if (!empty($setting['hosted_checkout']['title'][$language_id])) {
+					$title = $setting['hosted_checkout']['title'][$language_id];
+				} else {
+					$title = $this->language->get('text_hosted_checkout_title');
+				}
+							
+				$method_data = [
+					'code'       => 'worldline',
+					'title'      => $title,
+					'terms'      => '',
+					'sort_order' => $this->config->get('payment_worldline_sort_order')
+				];
+			}
 		}
 
 		return $method_data;
@@ -77,25 +79,42 @@ class Worldline extends \Opencart\System\Engine\Model {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 			
-			$language_id = $this->config->get('config_language_id');
+			if ($setting['hosted_checkout']['status'] || $setting['hosted_tokenization']['status']) {
+				$language_id = $this->config->get('config_language_id');
+
+				if (!empty($setting['hosted_checkout']['title'][$language_id])) {
+					$title = $setting['hosted_checkout']['title'][$language_id];
+				} else {
+					$title = $this->language->get('text_hosted_checkout_title');
+				}
+				
+				if ($setting['hosted_checkout']['status']) {
+					$option_data['hosted_checkout'] = [
+						'code' => 'worldline.hosted_checkout',
+						'name' => $title
+					];
+				}
+			
+				if ($setting['hosted_tokenization']['status']) {
+					if (!empty($setting['hosted_tokenization']['title'][$language_id])) {
+						$hosted_tokenization_title = $setting['hosted_tokenization']['title'][$language_id];
+					} else {
+						$hosted_tokenization_title = $this->language->get('text_hosted_tokenization_title');
+					}
 					
-			if (!empty($setting['advanced']['title'][$language_id])) {
-				$title = $setting['advanced']['title'][$language_id];
-			} else {
-				$title = $this->language->get('text_title');
+					$option_data['hosted_tokenization'] = [
+						'code' => 'worldline.hosted_tokenization',
+						'name' => $hosted_tokenization_title
+					];
+				}
+							
+				$method_data = [
+					'code'       => 'worldline',
+					'name'       => $title,
+					'option'     => $option_data,
+					'sort_order' => $this->config->get('payment_worldline_sort_order')
+				];
 			}
-				
-			$option_data['worldline'] = [
-				'code' => 'worldline.worldline',
-				'name' => $title
-			];
-				
-			$method_data = [
-				'code'       => 'worldline',
-				'name'       => $title,
-				'option'     => $option_data,
-				'sort_order' => $this->config->get('payment_worldline_sort_order')
-			];
 		}
 
 		return $method_data;
@@ -116,6 +135,18 @@ class Worldline extends \Opencart\System\Engine\Model {
 		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
+		}
+		
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
 		}
 										
 		if ($implode) {
@@ -140,9 +171,13 @@ class Worldline extends \Opencart\System\Engine\Model {
 		}
 	}
 	
-	public function getWorldlineCustomerTokens(int $customer_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
-
+	public function getWorldlineCustomerTokens(int $customer_id, string $payment_type = ''): array {
+		if ($payment_type) {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
+		} else {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
+		}
+		
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
@@ -175,15 +210,31 @@ class Worldline extends \Opencart\System\Engine\Model {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
+		if (isset($data['tokenize'])) {
+			$implode[] = "`tokenize` = '" . (int)$data['tokenize'] . "'";
+		}
+		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
-		if (!empty($data['total'])) {
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
+		
+		if (isset($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 				
-		if (!empty($data['amount'])) {
+		if (isset($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
@@ -199,8 +250,8 @@ class Worldline extends \Opencart\System\Engine\Model {
 			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 		
-		if (!empty($data['token'])) {
-			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
+		if (!empty($data['date_captured'])) {
+			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
 		}
 		
 		if ($implode) {
@@ -231,15 +282,31 @@ class Worldline extends \Opencart\System\Engine\Model {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
+		if (isset($data['tokenize'])) {
+			$implode[] = "`tokenize` = '" . (int)$data['tokenize'] . "'";
+		}
+		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
-		if (!empty($data['total'])) {
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
+		
+		if (isset($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
-		if (!empty($data['amount'])) {
+		if (isset($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
@@ -253,6 +320,10 @@ class Worldline extends \Opencart\System\Engine\Model {
 		
 		if (!empty($data['environment'])) {
 			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
+		}
+		
+		if (!empty($data['date_captured'])) {
+			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
 		}
 				
 		$implode[] = "`date` = COALESCE(`date`, NOW())";
@@ -282,6 +353,12 @@ class Worldline extends \Opencart\System\Engine\Model {
 	
 	public function getWaitingWorldlineOrders(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `transaction_status` = '' OR `transaction_status` = 'created' OR `transaction_status` = 'authorization_requested' OR `transaction_status` = 'capture_requested' OR `transaction_status` = 'refund_requested'");
+					
+		return $query->rows;
+	}
+	
+	public function getWaitingCaptureWorldlineOrders(): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `transaction_status` = 'pending_capture' AND DATE(`date_captured`) <= DATE(NOW())");
 					
 		return $query->rows;
 	}
