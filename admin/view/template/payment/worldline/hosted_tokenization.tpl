@@ -34,32 +34,53 @@
 					<li class="nav-tab"><a href="<?php echo $href_account; ?>" class="tab"><i class="fa fa-user"></i> <?php echo $text_tab_account; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_advanced; ?>" class="tab"><i class="fa fa-cogs"></i> <?php echo $text_tab_advanced; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_hosted_checkout; ?>" class="tab"><i class="fa fa-list-alt"></i> <?php echo $text_tab_hosted_checkout; ?></a></li>
-					<li class="nav-tab"><a href="<?php echo $href_hosted_tokenization; ?>" class="tab"><i class="fa fa-credit-card"></i> <?php echo $text_tab_hosted_tokenization; ?></a></li>
+					<li class="nav-tab active"><a href="<?php echo $href_hosted_tokenization; ?>" class="tab"><i class="fa fa-credit-card"></i> <?php echo $text_tab_hosted_tokenization; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_order_status; ?>" class="tab"><i class="fa fa-shopping-cart"></i> <?php echo $text_tab_order_status; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_transaction; ?>" class="tab"><i class="fa fa-money"></i> <?php echo $text_tab_transaction; ?></a></li>
-					<li class="nav-tab active"><a href="<?php echo $href_suggest; ?>" class="tab"><i class="fa fa-envelope-o"></i> <?php echo $text_tab_suggest; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_suggest; ?>" class="tab"><i class="fa fa-envelope-o"></i> <?php echo $text_tab_suggest; ?></a></li>
 				</ul>
 				<div class="tab-content">
 					<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-2 control-label"><?php echo $entry_merchant_id; ?></span></label>
-							<label class="col-sm-10 control-label"><div class="text-left"><?php echo $setting['account']['merchant_id'][$setting['account']['environment']]; ?></div></label>
-						</div>
-						<div class="form-group required">
-							<label class="col-sm-2 control-label" for="input-suggest-company-name"><span data-toggle="tooltip" title="<?php echo $help_company_name; ?>"><?php echo $entry_company_name; ?></span></label>
+							<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 							<div class="col-sm-10">
-								<input type="text" name="worldline_setting[suggest][company_name]" value="<?php echo $setting['suggest']['company_name']; ?>" placeholder="<?php echo $entry_company_name; ?>" id="input-suggest-company-name" class="form-control" />
-							</div>
-						</div>
-						<div class="form-group required">
-							<label class="col-sm-2 control-label" for="input-suggest-message"><span data-toggle="tooltip" title="<?php echo $help_message; ?>"><?php echo $entry_message; ?></span></label>
-							<div class="col-sm-10">
-								<textarea name="worldline_setting[suggest][message]" placeholder="<?php echo $entry_message; ?>" id="input-suggest-message" class="form-control"><?php echo $setting['suggest']['message']; ?></textarea>
+								<select name="worldline_setting[hosted_tokenization][status]" id="input-status" class="form-control">
+									<?php if ($setting['hosted_tokenization']['status']) { ?>
+									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+									<option value="0"><?php echo $text_disabled; ?></option>
+									<?php } else { ?>
+									<option value="1"><?php echo $text_enabled; ?></option>
+									<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+									<?php } ?>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="button" class="btn btn-primary button-send-suggest"><?php echo $button_send_suggest; ?></button>
+							<label class="col-sm-2 control-label" for="input-title"><?php echo $entry_title; ?></label>
+							<div class="col-sm-10">
+								<?php foreach ($languages as $language) { ?>
+								<div class="input-group">
+									<span class="input-group-addon" style="min-width: 65px"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['language_code']; ?></span>
+									<input type="text" name="worldline_setting[hosted_tokenization][title][<?php echo $language['language_id']; ?>]" value="<?php if (!empty($setting['hosted_tokenization']['title'][$language['language_id']])) { ?><?php echo $setting['hosted_tokenization']['title'][$language['language_id']]; ?><?php } ?>" placeholder="<?php echo $entry_title; ?>" id="input-title-<?php echo $language['language_id']; ?>" class="form-control" />
+								</div>
+								<?php } ?>
+							</div>
+                        </div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-button-title"><?php echo $entry_button_title; ?></label>
+							<div class="col-sm-10">
+								<?php foreach ($languages as $language) { ?>
+								<div class="input-group">
+									<span class="input-group-addon" style="min-width: 65px"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['language_code']; ?></span>
+									<input type="text" name="worldline_setting[hosted_tokenization][button_title][<?php echo $language['language_id']; ?>]" value="<?php if (!empty($setting['hosted_tokenization']['button_title'][$language['language_id']])) { ?><?php echo $setting['hosted_tokenization']['button_title'][$language['language_id']]; ?><?php } ?>" placeholder="<?php echo $entry_button_title; ?>" id="input-button-title-<?php echo $language['language_id']; ?>" class="form-control" />
+								</div>
+								<?php } ?>
+							</div>
+                        </div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-template"><span data-toggle="tooltip" title="<?php echo $help_template; ?>"><?php echo $entry_template; ?></span></label>
+							<div class="col-sm-10">
+								<input type="text" name="worldline_setting[hosted_tokenization][template]" value="<?php echo $setting['hosted_tokenization']['template']; ?>" placeholder="<?php echo $entry_template; ?>" id="input-template" class="form-control" />
 							</div>
 						</div>
 					</form>
@@ -69,48 +90,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-
-$('.payment-worldline').on('click', '.button-send-suggest', function() {
-	$.ajax({
-		type: 'post',
-		url: '<?php echo $suggest_url; ?>',
-		data: $('#form-payment').serialize(),
-		dataType: 'json',
-		success: function(json) {
-			$('.payment-worldline .alert-dismissible, .payment-worldline .text-danger').remove();
-			$('.payment-worldline .form-group').removeClass('has-error');
-						
-			if (json['error']) {
-				if (json['error']['warning']) {
-					$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-					
-					$('html, body').animate({scrollTop: $('.payment-worldline > .container-fluid .alert-danger').offset().top}, 'slow');
-				}				
-				
-				for (i in json['error']) {
-					var element = $('#input-' + i.replaceAll('_', '-'));
-
-					if (element.parent().hasClass('input-group')) {
-                   		$(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
-					} else {
-						$(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
-					}
-				}				
-				
-				$('.payment-worldline .text-danger').parentsUntil('.form-group').parent().addClass('has-error');
-			}
-			
-			if (json['success']) {
-				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-				
-				$('html, body').animate({scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-});
 
 $('.payment-worldline').on('click', '.button-save', function() {
     $.ajax({
@@ -155,4 +134,4 @@ $('.payment-worldline').on('click', '.button-save', function() {
 });
 
 </script>
-<?php echo $footer; ?>							
+<?php echo $footer; ?>

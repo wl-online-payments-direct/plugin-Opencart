@@ -33,6 +33,8 @@
 				<ul class="nav nav-tabs">
 					<li class="nav-tab"><a href="<?php echo $href_account; ?>" class="tab"><i class="fa fa-user"></i> <?php echo $text_tab_account; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_advanced; ?>" class="tab"><i class="fa fa-cogs"></i> <?php echo $text_tab_advanced; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_checkout; ?>" class="tab"><i class="fa fa-list-alt"></i> <?php echo $text_tab_hosted_checkout; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_tokenization; ?>" class="tab"><i class="fa fa-credit-card"></i> <?php echo $text_tab_hosted_tokenization; ?></a></li>
 					<li class="nav-tab active"><a href="<?php echo $href_order_status; ?>" class="tab"><i class="fa fa-shopping-cart"></i> <?php echo $text_tab_order_status; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_transaction; ?>" class="tab"><i class="fa fa-money"></i> <?php echo $text_tab_transaction; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_suggest; ?>" class="tab"><i class="fa fa-envelope-o"></i> <?php echo $text_tab_suggest; ?></a></li>

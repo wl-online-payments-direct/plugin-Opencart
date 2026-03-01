@@ -26,20 +26,22 @@ class ModelPaymentWorldline extends Model {
 		
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('worldline_setting'));
 			
-			$language_id = $this->config->get('config_language_id');
-					
-			if (!empty($setting['advanced']['title'][$language_id])) {
-				$title = $setting['advanced']['title'][$language_id];
-			} else {
-				$title = $this->language->get('text_title');
-			}
+			if ($setting['hosted_checkout']['status']) {
+				$language_id = $this->config->get('config_language_id');
 						
-			$method_data = array(
-				'code'       => 'worldline',
-				'title'      => $title,
-				'terms'      => '',
-				'sort_order' => $this->config->get('worldline_sort_order')
-			);
+				if (!empty($setting['hosted_checkout']['title'][$language_id])) {
+					$title = $setting['hosted_checkout']['title'][$language_id];
+				} else {
+					$title = $this->language->get('text_hosted_checkout_title');
+				}
+							
+				$method_data = array(
+					'code'       => 'worldline',
+					'title'      => $title,
+					'terms'      => '',
+					'sort_order' => $this->config->get('worldline_sort_order')
+				);
+			}
 		}
 
 		return $method_data;
@@ -57,9 +59,21 @@ class ModelPaymentWorldline extends Model {
 		if (!empty($data['payment_type'])) {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
-		
+
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
+		}
+		
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
 		}
 										
 		if ($implode) {
@@ -67,6 +81,10 @@ class ModelPaymentWorldline extends Model {
 		}
 		
 		$this->db->query($sql);
+	}
+	
+	public function deleteWorldlineCustomerToken($customer_id, $payment_type, $token) {
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
 	}
 	
 	public function setWorldlineCustomerMainToken($customer_id, $payment_type, $token) {
@@ -84,8 +102,12 @@ class ModelPaymentWorldline extends Model {
 		}
 	}
 	
-	public function getWorldlineCustomerTokens($customer_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
+	public function getWorldlineCustomerTokens($customer_id, $payment_type = '') {
+		if ($payment_type) {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
+		} else {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
+		}
 
 		if ($query->num_rows) {
 			return $query->rows;
@@ -93,7 +115,7 @@ class ModelPaymentWorldline extends Model {
 			return array();
 		}
 	}
-		
+			
 	public function addWorldlineOrder($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "worldline_order` SET";
 
@@ -119,15 +141,31 @@ class ModelPaymentWorldline extends Model {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
+		if (isset($data['tokenize'])) {
+			$implode[] = "`tokenize` = '" . (int)$data['tokenize'] . "'";
+		}
+		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
-		if (!empty($data['total'])) {
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
+		
+		if (isset($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
-		if (!empty($data['amount'])) {
+		if (isset($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 				
@@ -143,10 +181,10 @@ class ModelPaymentWorldline extends Model {
 			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 		
-		if (!empty($data['token'])) {
-			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
+		if (!empty($data['date_captured'])) {
+			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
 		}
-		
+						
 		if ($implode) {
 			$sql .= implode(", ", $implode);
 		}
@@ -175,15 +213,31 @@ class ModelPaymentWorldline extends Model {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
+		if (isset($data['tokenize'])) {
+			$implode[] = "`tokenize` = '" . (int)$data['tokenize'] . "'";
+		}
+		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
-		if (!empty($data['total'])) {
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
+		
+		if (isset($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
-		if (!empty($data['amount'])) {
+		if (isset($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
@@ -198,8 +252,12 @@ class ModelPaymentWorldline extends Model {
 		if (!empty($data['environment'])) {
 			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
+		
+		if (!empty($data['date_captured'])) {
+			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
+		}
 				
-		$implode[] = "`date` = COALESCE(`date`, NOW())";
+		$implode[] = "`date_created` = COALESCE(`date_created`, NOW())";
 		
 		if ($implode) {
 			$sql .= implode(", ", $implode);
@@ -226,6 +284,12 @@ class ModelPaymentWorldline extends Model {
 	
 	public function getWaitingWorldlineOrders() {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `transaction_status` = '' OR `transaction_status` = 'created' OR `transaction_status` = 'authorization_requested' OR `transaction_status` = 'capture_requested' OR `transaction_status` = 'refund_requested'");
+					
+		return $query->rows;
+	}
+	
+	public function getWaitingCaptureWorldlineOrders() {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_order` WHERE `transaction_status` = 'pending_capture' AND DATE(`date_captured`) <= DATE(NOW())");
 					
 		return $query->rows;
 	}
