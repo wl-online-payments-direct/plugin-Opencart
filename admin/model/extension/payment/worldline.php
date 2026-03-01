@@ -17,6 +17,18 @@ class ModelExtensionPaymentWorldline extends Model {
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
+		
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
 				
 		if ($implode) {
 			$sql .= implode(", ", $implode);
@@ -44,8 +56,12 @@ class ModelExtensionPaymentWorldline extends Model {
 		}
 	}
 	
-	public function getWorldlineCustomerTokens($customer_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
+	public function getWorldlineCustomerTokens($customer_id, $payment_type = '') {
+		if ($payment_type) {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
+		} else {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "'");
+		}
 
 		if ($query->num_rows) {
 			return $query->rows;
@@ -75,15 +91,31 @@ class ModelExtensionPaymentWorldline extends Model {
 			$implode[] = "`payment_type` = '" . $this->db->escape($data['payment_type']) . "'";
 		}
 		
+		if (isset($data['tokenize'])) {
+			$implode[] = "`tokenize` = '" . (int)$data['tokenize'] . "'";
+		}
+		
 		if (!empty($data['token'])) {
 			$implode[] = "`token` = '" . $this->db->escape($data['token']) . "'";
 		}
 		
-		if (!empty($data['total'])) {
+		if (!empty($data['card_brand'])) {
+			$implode[] = "`card_brand` = '" . $this->db->escape($data['card_brand']) . "'";
+		}
+				
+		if (!empty($data['card_last_digits'])) {
+			$implode[] = "`card_last_digits` = '" . $this->db->escape($data['card_last_digits']) . "'";
+		}
+		
+		if (!empty($data['card_expiry'])) {
+			$implode[] = "`card_expiry` = '" . $this->db->escape($data['card_expiry']) . "'";
+		}
+		
+		if (isset($data['total'])) {
 			$implode[] = "`total` = '" . (float)$data['total'] . "'";
 		}
 		
-		if (!empty($data['amount'])) {
+		if (isset($data['amount'])) {
 			$implode[] = "`amount` = '" . (float)$data['amount'] . "'";
 		}
 		
@@ -99,7 +131,11 @@ class ModelExtensionPaymentWorldline extends Model {
 			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 		
-		$implode[] = "`date` = COALESCE(`date`, NOW())";
+		if (!empty($data['date_captured'])) {
+			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
+		}
+		
+		$implode[] = "`date_created` = COALESCE(`date_created`, NOW())";
 		
 		if ($implode) {
 			$sql .= implode(", ", $implode);
@@ -125,7 +161,7 @@ class ModelExtensionPaymentWorldline extends Model {
 	}
 	
 	public function getWorldlineOrders($data = array()) {
-		$sql = "SELECT wo.order_id, wo.transaction_id, wo.transaction_status, wo.payment_product, wo.payment_type, wo.token, wo.total, wo.amount, wo.currency_code, wo.date, wo.environment FROM `" . DB_PREFIX . "worldline_order` wo";
+		$sql = "SELECT wo.order_id, wo.transaction_id, wo.transaction_status, wo.payment_product, wo.payment_type, wo.token, wo.total, wo.amount, wo.currency_code, wo.date_created, wo.environment FROM `" . DB_PREFIX . "worldline_order` wo";
 
 		$implode = array();
 			
@@ -134,7 +170,7 @@ class ModelExtensionPaymentWorldline extends Model {
 		}
 		
 		if (!empty($data['filter_transaction_id'])) {
-			$implode[] = "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
+			$implode[] = "wo.transaction_id LIKE '%" . $this->db->escape($data['filter_transaction_id']) . "%'";
 		}
 		
 		if (isset($data['filter_transaction_status'])) {
@@ -148,16 +184,12 @@ class ModelExtensionPaymentWorldline extends Model {
 		if (isset($data['filter_payment_type'])) {
 			$implode[] = "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
 		}
-		
-		if (isset($data['filter_token'])) {
-			$implode[] = "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
-		}
-		
-		if (!empty($data['filter_total'])) {
+				
+		if (isset($data['filter_total'])) {
 			$implode[] = "wo.total = '" . (float)$data['filter_total'] . "'";
 		}
 		
-		if (!empty($data['filter_amount'])) {
+		if (isset($data['filter_amount'])) {
 			$implode[] = "wo.amount = '" . (float)$data['filter_amount'] . "'";
 		}
 		
@@ -165,12 +197,12 @@ class ModelExtensionPaymentWorldline extends Model {
 			$implode[] = "wo.currency_code = '" . $this->db->escape($data['filter_currency_code']) . "'";
 		}
 				
-		if (!empty($data['filter_date_from'])) {
-			$implode[] = "DATE(wo.date) >= DATE('" . $this->db->escape($data['filter_date_from']) . "')";
+		if (!empty($data['filter_date_created_from'])) {
+			$implode[] = "DATE(wo.date_created) >= DATE('" . $this->db->escape($data['filter_date_created_from']) . "')";
 		}
 		
-		if (!empty($data['filter_date_to'])) {
-			$implode[] = "DATE(wo.date) <= DATE('" . $this->db->escape($data['filter_date_to']) . "')";
+		if (!empty($data['filter_date_created_to'])) {
+			$implode[] = "DATE(wo.date_created) <= DATE('" . $this->db->escape($data['filter_date_created_to']) . "')";
 		}
 		
 		if (!empty($data['filter_environment'])) {
@@ -188,11 +220,10 @@ class ModelExtensionPaymentWorldline extends Model {
 			'wo.transaction_status',
 			'wo.payment_product',
 			'wo.payment_type',
-			'wo.token',
 			'wo.total',
 			'wo.amount',
 			'wo.currency_code',
-			'wo.date',
+			'wo.date_created',
 			'wo.environment'
 		);
 
@@ -235,7 +266,7 @@ class ModelExtensionPaymentWorldline extends Model {
 		}
 		
 		if (!empty($data['filter_transaction_id'])) {
-			$implode[] = "wo.transaction_id = '" . $this->db->escape($data['filter_transaction_id']) . "'";
+			$implode[] = "wo.transaction_id LIKE '%" . $this->db->escape($data['filter_transaction_id']) . "%'";
 		}
 		
 		if (isset($data['filter_transaction_status'])) {
@@ -249,16 +280,12 @@ class ModelExtensionPaymentWorldline extends Model {
 		if (isset($data['filter_payment_type'])) {
 			$implode[] = "wo.payment_type = '" . $this->db->escape($data['filter_payment_type']) . "'";
 		}
-		
-		if (isset($data['filter_token'])) {
-			$implode[] = "wo.token = '" . $this->db->escape($data['filter_token']) . "'";
-		}
-		
-		if (!empty($data['filter_total'])) {
+				
+		if (isset($data['filter_total'])) {
 			$implode[] = "wo.total = '" . (float)$data['filter_total'] . "'";
 		}
 		
-		if (!empty($data['filter_amount'])) {
+		if (isset($data['filter_amount'])) {
 			$implode[] = "wo.amount = '" . (float)$data['filter_amount'] . "'";
 		}
 		
@@ -266,12 +293,12 @@ class ModelExtensionPaymentWorldline extends Model {
 			$implode[] = "wo.currency_code = '" . $this->db->escape($data['filter_currency_code']) . "'";
 		}
 				
-		if (!empty($data['filter_date_from'])) {
-			$implode[] = "DATE(wo.date) > DATE('" . $this->db->escape($data['filter_date_from']) . "')";
+		if (!empty($data['filter_date_created_from'])) {
+			$implode[] = "DATE(wo.date_created) > DATE('" . $this->db->escape($data['filter_date_created_from']) . "')";
 		}
 		
-		if (!empty($data['filter_date_to'])) {
-			$implode[] = "DATE(wo.date) < DATE('" . $this->db->escape($data['filter_date_to']) . "')";
+		if (!empty($data['filter_date_created_to'])) {
+			$implode[] = "DATE(wo.date_created) < DATE('" . $this->db->escape($data['filter_date_created_to']) . "')";
 		}
 		
 		if (!empty($data['filter_environment'])) {
@@ -358,8 +385,8 @@ class ModelExtensionPaymentWorldline extends Model {
 	}
 	
 	public function install() {
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_customer_token` (`customer_id` INT(11) NOT NULL, `payment_type` VARCHAR(20) NOT NULL, `token` VARCHAR(50) NOT NULL, `main_token_status` TINYINT(1) NOT NULL, PRIMARY KEY (`customer_id`, `payment_type`, `token`), KEY `main_token_status` (`main_token_status`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_order` (`order_id` INT(11) NOT NULL, `transaction_id` VARCHAR(20) NOT NULL, `transaction_status` VARCHAR(20) NULL, `payment_product` VARCHAR(40) NULL, `payment_type` VARCHAR(20) NOT NULL, `token` VARCHAR(50), `total` DECIMAL(15,2) NULL, `amount` DECIMAL(15,2) NULL, `currency_code` VARCHAR(3) NULL, `country_code` VARCHAR(2) NULL, `environment` VARCHAR(20) NULL, `date` DATETIME NULL, PRIMARY KEY (`order_id`), KEY `transaction_id` (`transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_customer_token` (`customer_id` INT(11) NOT NULL, `payment_type` VARCHAR(20) NOT NULL, `token` VARCHAR(50) NOT NULL, `main_token_status` TINYINT(1) NOT NULL, `card_brand` VARCHAR(40) NOT NULL, `card_last_digits` VARCHAR(4) NOT NULL, `card_expiry` VARCHAR(20) NOT NULL, PRIMARY KEY (`customer_id`, `payment_type`, `token`), KEY `main_token_status` (`main_token_status`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldline_order` (`order_id` INT(11) NOT NULL, `transaction_id` VARCHAR(30) NOT NULL, `transaction_status` VARCHAR(20) NULL, `payment_product` VARCHAR(40) NULL, `payment_type` VARCHAR(20) NOT NULL, `tokenize` TINYINT(1) NOT NULL, `token` VARCHAR(50), `card_brand` VARCHAR(40) NOT NULL, `card_last_digits` VARCHAR(4) NOT NULL, `card_expiry` VARCHAR(20) NOT NULL, `total` DECIMAL(15,2) NULL, `amount` DECIMAL(15,2) NULL, `currency_code` VARCHAR(3) NULL, `country_code` VARCHAR(2) NULL, `environment` VARCHAR(20) NULL, `date_created` DATETIME NULL, `date_captured` DATETIME NULL, PRIMARY KEY (`order_id`), KEY `transaction_id` (`transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 	}
 	
 	public function uninstall() {

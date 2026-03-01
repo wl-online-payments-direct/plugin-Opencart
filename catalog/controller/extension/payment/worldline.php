@@ -16,19 +16,42 @@ class ControllerExtensionPaymentWorldline extends Controller {
 			$this->load->language('extension/payment/worldline');	
 
 			$language_id = $this->config->get('config_language_id');
+			
+			$data['surcharging_status'] = $setting['advanced']['surcharging_status'];
+			
+			$data['hosted_checkout']['status'] = $setting['hosted_checkout']['status'];
 		
-			if (!empty($setting['advanced']['button_title'][$language_id])) {
-				$data['button_title'] = $setting['advanced']['button_title'][$language_id];
+			if (!empty($setting['hosted_checkout']['button_title'][$language_id])) {
+				$data['hosted_checkout']['button_title'] = $setting['hosted_checkout']['button_title'][$language_id];
 			} else {
-				$data['button_title'] = $this->language->get('button_title');
+				$data['hosted_checkout']['button_title'] = $this->language->get('button_hosted_checkout_title');
 			}
-
-			return $this->load->view('extension/payment/worldline/worldline', $data);
+									
+			$data['api_url'] = $setting['account']['api_endpoint'][$environment];
+						
+			return $this->load->view('extension/payment/worldline/worldline_hosted_checkout', $data);
 		}
 		
 		return '';
 	}
 		
+	public function deleteCustomerToken() {
+		$this->load->language('extension/payment/worldline');
+		
+		$this->load->model('extension/payment/worldline');
+
+		if ($this->customer->isLogged() && isset($this->request->post['token'])) {
+			$this->model_extension_payment_worldline->deleteWorldlineCustomerToken($this->customer->getId(), 'card', $this->request->post['token']);
+					
+			$data['success'] = true;
+		}
+		
+		$data['error'] = $this->error;
+				
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($data));
+	}
+			
 	public function confirm() {					
 		$this->load->language('extension/payment/worldline');
 		
@@ -51,9 +74,24 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		$api_secret = $setting['account']['api_secret'][$environment];
 		$api_endpoint = $setting['account']['api_endpoint'][$environment];
 		$authorization_mode = strtoupper($setting['advanced']['authorization_mode']);
+				
+		$date_captured = '';
+		
+		if (($authorization_mode == 'PRE_AUTHORIZATION') || ($authorization_mode == 'FINAL_AUTHORIZATION')) {
+			$capture_days = $setting['capture_installation'][$setting['advanced']['capture_installation']]['days'];
+			
+			if ($capture_days) {
+				$date_captured = new DateTime('now');
+				
+				$date_captured->modify('+' . $capture_days . ' day');
+				
+				$date_captured = $date_captured->format('Y-m-d 00:00:00');
+			}
+		}
 													
 		$language_code = explode('-', $this->session->data['language']);
-		$language_code = reset($language_code);
+		$language_code_1 = reset($language_code);
+		$language_code_2 = end($language_code);
 				
 		$currency_code = $this->session->data['currency'];
 		$currency_value = $this->currency->getValue($this->session->data['currency']);
@@ -175,10 +213,15 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		$browser_data->setColorDepth($this->request->post['browser_color_depth']);
 		$browser_data->setScreenHeight($this->request->post['browser_screen_height']);
 		$browser_data->setScreenWidth($this->request->post['browser_screen_width']);
+		$browser_data->setJavaScriptEnabled(false);
 			
 		$customer_device = new OnlinePayments\Sdk\Domain\CustomerDevice();
 		$customer_device->setBrowserData($browser_data);
 		$customer_device->setIpAddress($this->request->server['REMOTE_ADDR']);
+		$customer_device->setAcceptHeader($this->request->server['HTTP_ACCEPT']);
+		$customer_device->setLocale($language_code_1 . '_' . strtoupper($language_code_2));
+		$customer_device->setTimezoneOffsetUtcMinutes($this->request->post['browser_timezone_offset']);
+		$customer_device->setUserAgent($this->request->server['HTTP_USER_AGENT']);
 		
 		$customer = new OnlinePayments\Sdk\Domain\Customer();
 		$customer->setPersonalInformation($personal_information);
@@ -304,6 +347,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		
 		$order_references = new OnlinePayments\Sdk\Domain\OrderReferences();
 		$order_references->setMerchantReference($order_info['order_id'] . '_' . date('Ymd_His'));
+		$order_references->setDescriptor($this->config->get('config_name'));
 		 				
 		if ($item_total < $order_total) {
 			$order_line_details = new OnlinePayments\Sdk\Domain\OrderLineDetails();
@@ -334,7 +378,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
         $amount_of_money->setCurrencyCode($currency_code);     		
 		
 		$shopping_cart = new OnlinePayments\Sdk\Domain\ShoppingCart();
-		$shopping_cart->setItems($line_items);    
+		$shopping_cart->setItems($line_items); 
 
 		$order = new OnlinePayments\Sdk\Domain\Order();
 		$order->setCustomer($customer);
@@ -346,110 +390,216 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		if (!empty($discount)) {
 			$order->setDiscount($discount);
 		}
+		
+		if ($setting['advanced']['surcharging_status']) {
+			$surcharge_specific_input = new OnlinePayments\Sdk\Domain\SurchargeSpecificInput();
+			$surcharge_specific_input->setMode('on-behalf-of');
+			
+			$order->setSurchargeSpecificInput($surcharge_specific_input);
+		}
+				
+		$redirection_data = new OnlinePayments\Sdk\Domain\RedirectionData();
+		$redirection_data->setReturnUrl(str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', '', true)));
 				
 		$three_d_secure = new OnlinePayments\Sdk\Domain\ThreeDSecure();
+		$three_d_secure->setRedirectionData($redirection_data);
 		$three_d_secure->setChallengeIndicator($setting['advanced']['tds_challenge_indicator']);
 		$three_d_secure->setExemptionRequest($setting['advanced']['tds_exemption_request']);
-						
+		$three_d_secure->setSkipAuthentication(false);
+		
+		$payment_product_130_three_d_secure = new OnlinePayments\Sdk\Domain\PaymentProduct130SpecificThreeDSecure();
+		$payment_product_130_three_d_secure->setUsecase('single-amount');
+		$payment_product_130_three_d_secure->setNumberOfItems(5);
+		
+		$payment_product_130_specific_input = new OnlinePayments\Sdk\Domain\PaymentProduct130SpecificInput();
+		$payment_product_130_specific_input->setThreeDSecure($payment_product_130_three_d_secure);
+										
 		$card_payment_method_specific_input = new OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput();
 		$card_payment_method_specific_input->setAuthorizationMode($authorization_mode);
 		$card_payment_method_specific_input->setTransactionChannel('ECOMMERCE');
+		$card_payment_method_specific_input->setReturnUrl(str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', '', true)));
+		$card_payment_method_specific_input->setPaymentProduct130SpecificInput($payment_product_130_specific_input);
 		
-		if ($setting['advanced']['tds_status']) {
+		if ($setting['advanced']['tds_status']) {			
 			$card_payment_method_specific_input->setSkipAuthentication(false);
 			$card_payment_method_specific_input->setThreeDSecure($three_d_secure);
 		} else {
 			$card_payment_method_specific_input->setSkipAuthentication(true);
 		}
-				
-		if ($setting['advanced']['forced_tokenization']) {
-			$card_payment_method_specific_input->setTokenize(true);
-		} else {
-			$card_payment_method_specific_input->setTokenize(false);
-		}
-					
-		$redirect_payment_method_specific_input = new OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput();
 		
-		if ($authorization_mode == 'SALE') {
-			$redirect_payment_method_specific_input->setRequiresApproval(false);
-		} else {
-			$redirect_payment_method_specific_input->setRequiresApproval(true);
-		}
-						
-		if ($this->customer->isLogged() && $setting['advanced']['forced_tokenization']) {
-			$redirect_payment_method_specific_input->setTokenize(true);
-		} else {
-			$redirect_payment_method_specific_input->setTokenize(false);
-		}
-				
-		$mobile_payment_method_specific_input = new OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput();
-		$mobile_payment_method_specific_input->setAuthorizationMode($authorization_mode);
-		
-		$card_payment_method_specific_input_for_hosted_checkout = new OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout();
-		$card_payment_method_specific_input_for_hosted_checkout->setGroupCards((bool)$setting['advanced']['group_cards']);
-				
-		$hosted_checkout_specific_input = new OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput();
-		$hosted_checkout_specific_input->setLocale($language_code . '-' . strtoupper($language_code));
-		$hosted_checkout_specific_input->setReturnUrl(str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', '', true)));
-		$hosted_checkout_specific_input->setCardPaymentMethodSpecificInput($card_payment_method_specific_input_for_hosted_checkout);
-		
-		if ($setting['advanced']['template']) {
-			$hosted_checkout_specific_input->setVariant($setting['advanced']['template']);
-		}
-		
-		if ($tokens) {
-			$hosted_checkout_specific_input->setTokens(implode(',', $tokens));
-		}
-
-        $create_hosted_checkout_request = new OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest();
-		$create_hosted_checkout_request->setOrder($order);
-		$create_hosted_checkout_request->setCardPaymentMethodSpecificInput($card_payment_method_specific_input);
-		$create_hosted_checkout_request->setRedirectPaymentMethodSpecificInput($redirect_payment_method_specific_input);
-		$create_hosted_checkout_request->setMobilePaymentMethodSpecificInput($mobile_payment_method_specific_input);
-		$create_hosted_checkout_request->setHostedCheckoutSpecificInput($hosted_checkout_specific_input);
-		
-        $errors = array();
-
-		try {
-			$create_hosted_checkout_response = $client->merchant($merchant_id)->hostedCheckout()->createHostedCheckout($create_hosted_checkout_request);
-		} catch (OnlinePayments\Sdk\ResponseException $exception) {			
-			$errors = $exception->getResponse()->getErrors();
-								
-			if ($errors) {
-				$error_messages = array();
-					
-				foreach ($errors as $error) {
-					$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
-					
-					$error_messages[] = $error->getMessage() . ' (' . $error->getCode() . ')';
-				}	
-				
-				$this->error['warning'] = implode('. ', $error_messages);
+		if (!empty($this->request->get['hostedTokenizationId'])) {
+			$hosted_tokenization_id = $this->request->get['hostedTokenizationId'];
+			$card_token_save = $this->request->get['cardTokenSave'];
+			
+			if ($card_token_save || $setting['advanced']['forced_tokenization']) {
+				$tokenize = 1;
+			} else {
+				$tokenize = 0;
 			}
-		}
-		
-		if (!empty($this->error['warning'])) {
-			$this->error['warning'] .= ' ' . sprintf($this->language->get('error_payment'), $this->url->link('information/contact', '', true));
-		}
-		
-		if (!$errors) {
-			$hosted_checkout_id = $create_hosted_checkout_response->getHostedCheckoutId();
-			$hosted_checkout_url = $create_hosted_checkout_response->getRedirectUrl();
-			
-			$this->model_extension_payment_worldline->deleteWorldlineOrder($order_id);
-										
-			$worldline_order_data = array(
-				'order_id' => $order_id,
-				'transaction_id' => $hosted_checkout_id,
-				'total' => ($order_info['total'] * $currency_value),
-				'currency_code' => $currency_code,
-				'country_code' => (!empty($country_info['iso_code_2']) ? $country_info['iso_code_2'] : ''),
-				'environment' => $environment
-			);
+						
+			$create_payment_request = new OnlinePayments\Sdk\Domain\CreatePaymentRequest();
+			$create_payment_request->setHostedTokenizationId($hosted_tokenization_id);
+			$create_payment_request->setOrder($order);
+			$create_payment_request->setCardPaymentMethodSpecificInput($card_payment_method_specific_input);
+						
+			$errors = array();
 
-			$this->model_extension_payment_worldline->addWorldlineOrder($worldline_order_data);
+			try {
+				$create_payment_response = $client->merchant($merchant_id)->payments()->createPayment($create_payment_request);
+				
+			} catch (OnlinePayments\Sdk\ResponseException $exception) {		
+				$errors = $exception->getResponse()->getErrors();
+									
+				if ($errors) {
+					$error_messages = array();
+						
+					foreach ($errors as $error) {
+						$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+						
+						$error_messages[] = $error->getMessage() . ' (' . $error->getCode() . ')';
+					}	
+					
+					$this->error['warning'] = implode('. ', $error_messages);
+				}
+			}
 			
-			$data['redirect'] = $hosted_checkout_url;
+			if (!empty($this->error['warning'])) {
+				$this->error['warning'] .= ' ' . sprintf($this->language->get('error_payment'), $this->url->link('information/contact', '', true));
+			}
+			
+			if (!$errors) {
+				$merchant_action = $create_payment_response->getMerchantAction();
+				$transaction_id = $create_payment_response->getPayment()->getId();
+								
+				$this->model_extension_payment_worldline->deleteWorldlineOrder($order_id);
+											
+				$worldline_order_data = array(
+					'order_id' => $order_id,
+					'transaction_id' => $transaction_id,
+					'tokenize' => $tokenize,
+					'total' => ($order_info['total'] * $currency_value),
+					'currency_code' => $currency_code,
+					'country_code' => (!empty($country_info['iso_code_2']) ? $country_info['iso_code_2'] : ''),
+					'environment' => $environment,
+					'date_captured' => $date_captured
+				);
+
+				$this->model_extension_payment_worldline->addWorldlineOrder($worldline_order_data);
+				
+				if (!empty($merchant_action) && ($merchant_action->getActionType() == 'REDIRECT')) {
+					$data['redirect'] = $merchant_action->getRedirectData()->getRedirectURL();
+				} else {
+					$data['redirect'] = str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', 'paymentId=' . $transaction_id, true));
+				}
+			}
+		}	
+								
+		if (empty($this->request->get['hostedTokenizationId'])) {
+			$tokenize = 1;
+			
+			if ($setting['advanced']['forced_tokenization']) {
+				$card_payment_method_specific_input->setTokenize(true);
+			} else {
+				$card_payment_method_specific_input->setTokenize(false);
+			}
+			
+			$redirect_payment_product_900_specific_input = new OnlinePayments\Sdk\Domain\RedirectPaymentProduct900SpecificInput();
+			
+			if (($authorization_mode == 'PRE_AUTHORIZATION') || ($authorization_mode == 'FINAL_AUTHORIZATION')) {
+				$redirect_payment_product_900_specific_input->setCaptureTrigger($setting['hosted_checkout']['wero_capture_trigger']);
+			}
+			
+			$redirect_payment_product_5408_specific_input = new OnlinePayments\Sdk\Domain\RedirectPaymentProduct5408SpecificInput();
+			$redirect_payment_product_5408_specific_input->setInstantPaymentOnly(true);
+			
+			$redirect_payment_method_specific_input = new OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput();
+			$redirect_payment_method_specific_input->setPaymentProduct900SpecificInput($redirect_payment_product_900_specific_input);						
+			$redirect_payment_method_specific_input->setRedirectionData($redirection_data);
+			$redirect_payment_method_specific_input->setPaymentProduct5408SpecificInput($redirect_payment_product_5408_specific_input);
+			$redirect_payment_method_specific_input->setReturnUrl(str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', '', true)));
+			
+			if ($authorization_mode == 'SALE') {
+				$redirect_payment_method_specific_input->setRequiresApproval(false);
+			} else {
+				$redirect_payment_method_specific_input->setRequiresApproval(true);
+			}
+							
+			if ($setting['advanced']['forced_tokenization']) {
+				$redirect_payment_method_specific_input->setTokenize(true);
+			} else {
+				$redirect_payment_method_specific_input->setTokenize(false);
+			}
+				
+			$mobile_payment_method_specific_input = new OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput();
+			$mobile_payment_method_specific_input->setAuthorizationMode($authorization_mode);
+			
+			$card_payment_method_specific_input_for_hosted_checkout = new OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout();
+			$card_payment_method_specific_input_for_hosted_checkout->setGroupCards((bool)$setting['hosted_checkout']['group_cards']);
+			
+			$hosted_checkout_specific_input = new OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput();
+			$hosted_checkout_specific_input->setLocale($language_code_1 . '_' . strtoupper($language_code_2));
+			$hosted_checkout_specific_input->setReturnUrl(str_replace('&amp;', '&', $this->url->link('extension/payment/worldline/callback', '', true)));
+			$hosted_checkout_specific_input->setCardPaymentMethodSpecificInput($card_payment_method_specific_input_for_hosted_checkout);
+			
+			if ($setting['hosted_checkout']['template']) {
+				$hosted_checkout_specific_input->setVariant($setting['hosted_checkout']['template']);
+			}
+			
+			if ($tokens) {
+				$hosted_checkout_specific_input->setTokens(implode(',', $tokens));
+			}
+			
+			$create_hosted_checkout_request = new OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest();
+			$create_hosted_checkout_request->setOrder($order);
+			$create_hosted_checkout_request->setCardPaymentMethodSpecificInput($card_payment_method_specific_input);
+			$create_hosted_checkout_request->setRedirectPaymentMethodSpecificInput($redirect_payment_method_specific_input);
+			$create_hosted_checkout_request->setMobilePaymentMethodSpecificInput($mobile_payment_method_specific_input);
+			$create_hosted_checkout_request->setHostedCheckoutSpecificInput($hosted_checkout_specific_input);
+			
+			$errors = array();
+
+			try {
+				$create_hosted_checkout_response = $client->merchant($merchant_id)->hostedCheckout()->createHostedCheckout($create_hosted_checkout_request);
+			} catch (OnlinePayments\Sdk\ResponseException $exception) {			
+				$errors = $exception->getResponse()->getErrors();
+									
+				if ($errors) {
+					$error_messages = array();
+						
+					foreach ($errors as $error) {
+						$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+						
+						$error_messages[] = $error->getMessage() . ' (' . $error->getCode() . ')';
+					}	
+					
+					$this->error['warning'] = implode('. ', $error_messages);
+				}
+			}
+			
+			if (!empty($this->error['warning'])) {
+				$this->error['warning'] .= ' ' . sprintf($this->language->get('error_payment'), $this->url->link('information/contact', '', true));
+			}
+			
+			if (!$errors) {
+				$hosted_checkout_id = $create_hosted_checkout_response->getHostedCheckoutId();
+				$hosted_checkout_url = $create_hosted_checkout_response->getRedirectUrl();
+				
+				$this->model_extension_payment_worldline->deleteWorldlineOrder($order_id);
+											
+				$worldline_order_data = array(
+					'order_id' => $order_id,
+					'tokenize' => $tokenize,
+					'total' => ($order_info['total'] * $currency_value),
+					'currency_code' => $currency_code,
+					'country_code' => (!empty($country_info['iso_code_2']) ? $country_info['iso_code_2'] : ''),
+					'environment' => $environment,
+					'date_captured' => $date_captured
+				);
+
+				$this->model_extension_payment_worldline->addWorldlineOrder($worldline_order_data);
+				
+				$data['redirect'] = $hosted_checkout_url;
+			}
 		}
 							
 		$data['error'] = $this->error;
@@ -459,9 +609,9 @@ class ControllerExtensionPaymentWorldline extends Controller {
 	}
 	
 	public function callback() {
-		if (!empty($this->request->get['hostedCheckoutId'])) {
-			$hosted_checkout_id = $this->request->get['hostedCheckoutId'];
-			
+		if (!empty($this->request->get['hostedCheckoutId']) || !empty($this->request->get['paymentId'])) {
+			$this->load->model('extension/payment/worldline');
+						
 			$_config = new Config();
 			$_config->load('worldline');
 			
@@ -492,165 +642,214 @@ class ControllerExtensionPaymentWorldline extends Controller {
 			
 			$errors = array();
 			
+			$transaction_id = '';
+			
+			if (!empty($this->request->get['hostedCheckoutId'])) {
+				$hosted_checkout_id = $this->request->get['hostedCheckoutId'];
+				
+				try {
+					$hosted_checkout_response = $client->merchant($merchant_id)->hostedCheckout()->getHostedCheckout($hosted_checkout_id);
+				} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
+					$errors = $exception->getResponse()->getErrors();
+									
+					if ($errors) {
+						foreach ($errors as $error) {
+							$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+						}	
+					}
+				}
+				
+				if (!$errors && !empty($hosted_checkout_response->getCreatedPaymentOutput())) {
+					$transaction_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getId();
+				}
+			} else {
+				$transaction_id = $this->request->get['paymentId'];
+			}
+
 			try {
-				$hosted_checkout_response = $client->merchant($merchant_id)->hostedCheckout()->getHostedCheckout($hosted_checkout_id);
+				$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id);
 			} catch (OnlinePayments\Sdk\ResponseException $exception) {			
 				$errors = $exception->getResponse()->getErrors();
-								
+						
 				if ($errors) {
+					$error_messages = array();
+			
 					foreach ($errors as $error) {
 						$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+			
+						$error_messages[] = $error->getMessage() . ' (' . $error->getCode() . ')';
 					}	
+		
+					$this->error['warning'] = implode('. ', $error_messages);
 				}
 			}
 			
 			if (!$errors) {
-				if (!empty($hosted_checkout_response->getCreatedPaymentOutput())) {
-					$merchant_reference = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getReferences()->getMerchantReference();
-					$transaction_status = strtolower($hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getStatus());
-					$total = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getAmountOfMoney()->getAmount() / 100;
-					$amount = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getAcquiredAmount()->getAmount() / 100;
-					$currency_code = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getAmountOfMoney()->getCurrencyCode();
+				$merchant_reference = $payment_response->getPaymentOutput()->getReferences()->getMerchantReference();
+				$transaction_status = strtolower($payment_response->getStatus());
+				$total = $payment_response->getPaymentOutput()->getAmountOfMoney()->getAmount() / 100;
+				$amount = $payment_response->getPaymentOutput()->getAcquiredAmount()->getAmount() / 100;
+				$currency_code = $payment_response->getPaymentOutput()->getAmountOfMoney()->getCurrencyCode();
 					
-					$payment_product_id = '';
-					$payment_type = '';
-					$token = '';
-										
-					if (!empty($hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getCardPaymentMethodSpecificOutput())) {
-						$payment_product_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
-						$token = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
-						$payment_type = 'card';
-					}
+				$payment_product_id = '';
+				$payment_type = '';
+				$token = '';
+				$card_brand = '';
+				$card_last_digits = '';
+				$card_expiry = '';
 				
-					if (!empty($hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
-						$payment_product_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
-					}
-				
-					if (!empty($hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
-						$payment_product_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getPaymentProductId();
-						$token = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getToken();
-						$payment_type = 'redirect';
-					}
-				
-					if (!empty($hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput())) {
-						$payment_product_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput()->getPaymentProductId();
-					}
-										
-					$invoice_id = explode('_', $merchant_reference);
-					$order_id = reset($invoice_id);
-					
-					$this->load->model('extension/payment/worldline');
-					$this->load->model('checkout/order');
-					
-					$worldline_order_info = $this->model_extension_payment_worldline->getWorldlineOrder($order_id);
-					$order_info = $this->model_checkout_order->getOrder($order_id);
-					
-					if ($worldline_order_info && $order_info) {
-						$order_status_id = 0;
-					
-						if ($transaction_status == 'created') {
-							$order_status_id = $setting['order_status']['created']['id'];
-						}
-					
-						if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
-							$order_status_id = $setting['order_status']['cancelled']['id'];
-						}
-					
-						if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
-							$order_status_id = $setting['order_status']['rejected']['id'];
-						}
-					
-						if ($transaction_status == 'pending_capture') {
-							$order_status_id = $setting['order_status']['pending']['id'];
-						}
-					
-						if ($transaction_status == 'captured') {
-							$order_status_id = $setting['order_status']['captured']['id'];
-						}
-				
-						if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
-							$order_status_id = $setting['order_status']['refunded']['id'];
-						}
-					
-						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
-							$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
-						}
-						
-						if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
-							$payment_product = $worldline_order_info['payment_product'];
-							
-							if (!$worldline_order_info['transaction_status']) {
-								$payment_product_params = new OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
-								$payment_product_params->setCurrencyCode($currency_code);
-								$payment_product_params->setCountryCode($worldline_order_info['country_code']);							
-						
-								try {
-									$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
-								} catch (OnlinePayments\Sdk\ResponseException $exception) {			
-									$errors = $exception->getResponse()->getErrors();
-								
-									if ($errors) {
-										foreach ($errors as $error) {
-											$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
-										}
-									}
-								}
-				
-								if (!$errors) {
-									if (!empty($payment_product_response->getDisplayHints())) {
-										if (!empty($payment_product_response->getPaymentProductGroup())) {
-											$payment_product .= $payment_product_response->getPaymentProductGroup() . ' ';
-										}
-						
-										$payment_product .= $payment_product_response->getDisplayHints()->getLabel();
-									}
-								}
-							}
-							
-							$worldline_order_data = array(
-								'order_id' => $order_id,
-								'transaction_status' => $transaction_status,
-								'payment_product' => $payment_product,
-								'payment_type' => $payment_type,
-								'token' => $token,
-								'total' => $total,
-								'amount' => $amount,
-								'currency_code' => $currency_code
-							);
-							
-							$this->model_extension_payment_worldline->editWorldlineOrder($worldline_order_data);
-							
-							if ($this->customer->isLogged() && $token) {
-								$customer_id = $this->customer->getId();
-								
-								$worldline_customer_token_info = $this->model_extension_payment_worldline->getWorldlineCustomerToken($customer_id, $payment_type, $token);
-								
-								if (!$worldline_customer_token_info) {
-									$worldline_customer_token_data = array(
-										'customer_id' => $customer_id,
-										'payment_type' => $payment_type,
-										'token' => $token
-									);
-									
-									$this->model_extension_payment_worldline->addWorldlineCustomerToken($worldline_customer_token_data);
-								}
-								
-								$this->model_extension_payment_worldline->setWorldlineCustomerMainToken($customer_id, $payment_type, $token);	
-							}
-						}
-						
-						if (($transaction_status == 'pending_capture') || ($transaction_status == 'captured')) {
-							$this->response->redirect($this->url->link('checkout/success', '', true));
-						}
-						
-						if (($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded')) {
-							$this->response->redirect($this->url->link('extension/payment/worldline/failurePage', '', true));
-						}
-					}
+				if (!empty($payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput())) {
+					$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
+					$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
+					$payment_type = 'card';
+					$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+					$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
 				}
 				
-				$this->response->redirect($this->url->link('extension/payment/worldline/waitingPage', '', true));
+				if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
+					$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+				}
+				
+				if (!empty($payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
+					$payment_product_id = $payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getPaymentProductId();
+					$token = $payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getToken();
+					$payment_type = 'redirect';
+				}
+				
+				if (!empty($payment_response->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput())) {
+					$payment_product_id = $payment_response->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput()->getPaymentProductId();
+				}
+														
+				$invoice_id = $merchant_reference;
+				$invoice_array = explode('_', $invoice_id);
+				$order_id = reset($invoice_array);
+			
+				$this->load->model('checkout/order');
+				
+				$worldline_order_info = $this->model_extension_payment_worldline->getWorldlineOrder($order_id);
+				$order_info = $this->model_checkout_order->getOrder($order_id);
+					
+				if ($worldline_order_info && $order_info) {
+					$order_status_id = 0;
+				
+					if ($transaction_status == 'created') {
+						$order_status_id = $setting['order_status']['created']['id'];
+					}
+				
+					if (($transaction_status == 'cancelled') && ($order_info['order_status_id'] != 0)) {
+						$order_status_id = $setting['order_status']['cancelled']['id'];
+					}
+				
+					if ((($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture')) && ($order_info['order_status_id'] != 0)) {
+						$order_status_id = $setting['order_status']['rejected']['id'];
+					}
+				
+					if ($transaction_status == 'pending_capture') {
+						$order_status_id = $setting['order_status']['pending']['id'];
+					}
+				
+					if ($transaction_status == 'captured') {
+						$order_status_id = $setting['order_status']['captured']['id'];
+					}
+			
+					if (($transaction_status == 'refunded') && ($order_info['order_status_id'] != 0)) {
+						$order_status_id = $setting['order_status']['refunded']['id'];
+					}
+				
+					if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {
+						$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
+					}
+					
+					if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
+						$payment_product = $worldline_order_info['payment_product'];
+						$tokenize = $worldline_order_info['tokenize'];
+						
+						if (!$token) $tokenize = 0;
+						if (!$tokenize) $token = '';
+																		
+						if (!$worldline_order_info['transaction_status']) {
+							$payment_product_params = new OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
+							$payment_product_params->setCurrencyCode($currency_code);
+							$payment_product_params->setCountryCode($worldline_order_info['country_code']);							
+					
+							try {
+								$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
+							} catch (OnlinePayments\Sdk\ResponseException $exception) {			
+								$errors = $exception->getResponse()->getErrors();
+							
+								if ($errors) {
+									foreach ($errors as $error) {
+										$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+									}
+								}
+							}
+			
+							if (!$errors) {
+								if (!empty($payment_product_response->getDisplayHints())) {
+									if (!empty($payment_product_response->getPaymentProductGroup())) {
+										$payment_product .= $payment_product_response->getPaymentProductGroup() . ' ';
+									}
+					
+									$payment_product .= $payment_product_response->getDisplayHints()->getLabel();
+									
+									if ($payment_type == 'card') {
+										$card_brand = $payment_product_response->getDisplayHints()->getLabel();
+									}
+								}
+							}
+						}
+																		
+						$worldline_order_data = array(
+							'order_id' => $order_id,
+							'transaction_id' => $transaction_id,
+							'transaction_status' => $transaction_status,
+							'payment_product' => $payment_product,
+							'payment_type' => $payment_type,
+							'tokenize' => $tokenize,
+							'token' => $token,
+							'card_brand' => $card_brand,
+							'card_last_digits' => $card_last_digits,
+							'card_expiry' => $card_expiry,
+							'total' => $total,
+							'amount' => $amount,
+							'currency_code' => $currency_code
+						);
+						
+						$this->model_extension_payment_worldline->editWorldlineOrder($worldline_order_data);
+						
+						if ($this->customer->isLogged() && $token) {
+							$customer_id = $this->customer->getId();
+							
+							$worldline_customer_token_info = $this->model_extension_payment_worldline->getWorldlineCustomerToken($customer_id, $payment_type, $token);
+							
+							if (!$worldline_customer_token_info) {
+								$worldline_customer_token_data = array(
+									'customer_id' => $customer_id,
+									'payment_type' => $payment_type,
+									'token' => $token,
+									'card_brand' => $card_brand,
+									'card_last_digits' => $card_last_digits,
+									'card_expiry' => $card_expiry
+								);
+								
+								$this->model_extension_payment_worldline->addWorldlineCustomerToken($worldline_customer_token_data);
+							}
+							
+							$this->model_extension_payment_worldline->setWorldlineCustomerMainToken($customer_id, $payment_type, $token);	
+						}
+					}
+					
+					if (($transaction_status == 'pending_capture') || ($transaction_status == 'captured')) {
+						$this->response->redirect($this->url->link('checkout/success', '', true));
+					}
+					
+					if (($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded')) {
+						$this->response->redirect($this->url->link('extension/payment/worldline/failurePage', '', true));
+					}
+				}
 			}
+			
+			$this->response->redirect($this->url->link('extension/payment/worldline/waitingPage', '', true));
 			
 			return true;
 		}
@@ -844,7 +1043,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 					$errors = array();
 			
 					try {
-						$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id . '_0');
+						$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id);
 					} catch (OnlinePayments\Sdk\ResponseException $exception) {			
 						$errors = $exception->getResponse()->getErrors();
 								
@@ -870,11 +1069,16 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						$payment_product_id = '';
 						$payment_type = '';
 						$token = '';
-											
+						$card_brand = '';
+						$card_last_digits = '';
+						$card_expiry = '';
+						
 						if (!empty($payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput())) {
 							$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 							$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 							$payment_type = 'card';
+							$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+							$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
 						}
 				
 						if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
@@ -923,6 +1127,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						
 						if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
 							$payment_product = $worldline_order_info['payment_product'];
+							$tokenize = $worldline_order_info['tokenize'];
+						
+							if (!$token) $tokenize = 0;
+							if (!$tokenize) $token = '';
 							
 							if (!$worldline_order_info['transaction_status']) {
 								$payment_product_params = new OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
@@ -948,6 +1156,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 										}
 						
 										$payment_product .= $payment_product_response->getDisplayHints()->getLabel();
+										
+										if ($payment_type == 'card') {
+											$card_brand = $payment_product_response->getDisplayHints()->getLabel();
+										}
 									}
 								}
 							}
@@ -957,7 +1169,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 								'transaction_status' => $transaction_status,
 								'payment_product' => $payment_product,
 								'payment_type' => $payment_type,
+								'tokenize' => $tokenize,
 								'token' => $token,
+								'card_brand' => $card_brand,
+								'card_last_digits' => $card_last_digits,
+								'card_expiry' => $card_expiry,
 								'total' => $total,
 								'amount' => $amount,
 								'currency_code' => $currency_code
@@ -974,7 +1190,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 									$worldline_customer_token_data = array(
 										'customer_id' => $customer_id,
 										'payment_type' => $payment_type,
-										'token' => $token
+										'token' => $token,
+										'card_brand' => $card_brand,
+										'card_last_digits' => $card_last_digits,
+										'card_expiry' => $card_expiry
 									);
 									
 									$this->model_extension_payment_worldline->addWorldlineCustomerToken($worldline_customer_token_data);
@@ -1006,7 +1225,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 					
-	public function webhook() {									
+	public function webhook() {							
 		if (!empty($this->request->get['webhook_token'])) {
 			$_config = new Config();
 			$_config->load('worldline');
@@ -1017,7 +1236,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		
 			$webhook_info = json_decode(html_entity_decode(file_get_contents('php://input')), true);
 			
-			if (hash_equals($setting['account']['webhook_token'], $this->request->get['webhook_token']) && !empty($webhook_info['payment']['id']) && !empty($webhook_info['payment']['status'])) {	
+			if (hash_equals($setting['account']['webhook_token'], $this->request->get['webhook_token']) && !empty($webhook_info['payment']['id']) && !empty($webhook_info['payment']['status'])) {		
 				$this->load->language('extension/payment/worldline');
 		
 				$this->load->model('extension/payment/worldline');
@@ -1089,13 +1308,18 @@ class ControllerExtensionPaymentWorldline extends Controller {
 					$payment_product_id = '';
 					$payment_type = '';
 					$token = '';
-											
+					$card_brand = '';
+					$card_last_digits = '';
+					$card_expiry = '';
+					
 					if (!empty($payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput())) {
 						$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 						$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 						$payment_type = 'card';
-					}
-				
+						$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+						$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
+					}						
+									
 					if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
 						$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
 					}
@@ -1110,12 +1334,12 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						$payment_product_id = $payment_response->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput()->getPaymentProductId();
 					}
 									
-					$invoice_id = explode('_', $merchant_reference);
-					$order_id = reset($invoice_id);
+					$invoice_id = $merchant_reference;
+					$invoice_array = explode('_', $invoice_id);
+					$order_id = reset($invoice_array);
 									
-					$payment_id = explode('_', $webhook_info['payment']['id']);
-					$transaction_id = reset($payment_id);
-					
+					$transaction_id = $webhook_info['payment']['id'];
+										
 					$worldline_order_info = $this->model_extension_payment_worldline->getWorldlineOrder($order_id);
 					$order_info = $this->model_checkout_order->getOrder($order_id);
 					
@@ -1152,6 +1376,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						
 						if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
 							$payment_product = $worldline_order_info['payment_product'];
+							$tokenize = $worldline_order_info['tokenize'];
+						
+							if (!$token) $tokenize = 0;
+							if (!$tokenize) $token = '';
 							
 							if (!$worldline_order_info['transaction_status']) {
 								$payment_product_params = new OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
@@ -1177,6 +1405,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 										}
 						
 										$payment_product .= $payment_product_response->getDisplayHints()->getLabel();
+										
+										if ($payment_type == 'card') {
+											$card_brand = $payment_product_response->getDisplayHints()->getLabel();
+										}
 									}
 								}
 							}
@@ -1186,7 +1418,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 								'transaction_status' => $transaction_status,
 								'payment_product' => $payment_product,
 								'payment_type' => $payment_type,
+								'tokenize' => $tokenize,
 								'token' => $token,
+								'card_brand' => $card_brand,
+								'card_last_digits' => $card_last_digits,
+								'card_expiry' => $card_expiry,
 								'total' => $total,
 								'amount' => $amount,
 								'currency_code' => $currency_code
@@ -1203,7 +1439,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 									$worldline_customer_token_data = array(
 										'customer_id' => $customer_id,
 										'payment_type' => $payment_type,
-										'token' => $token
+										'token' => $token,
+										'card_brand' => $card_brand,
+										'card_last_digits' => $card_last_digits,
+										'card_expiry' => $card_expiry
 									);
 									
 									$this->model_extension_payment_worldline->addWorldlineCustomerToken($worldline_customer_token_data);
@@ -1238,8 +1477,9 @@ class ControllerExtensionPaymentWorldline extends Controller {
 				$this->load->model('checkout/order');
 	
 				$waiting_worldline_orders = $this->model_extension_payment_worldline->getWaitingWorldlineOrders();
+				$waiting_capture_worldline_orders = $this->model_extension_payment_worldline->getWaitingCaptureWorldlineOrders();
 			
-				if ($waiting_worldline_orders) {
+				if ($waiting_worldline_orders || $waiting_capture_worldline_orders) {
 					$extension = $setting['extension'];
 					$environment = $setting['account']['environment'];
 					$merchant_id = $setting['account']['merchant_id'][$environment];
@@ -1270,7 +1510,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						$errors = array();
 			
 						try {
-							$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id . '_0');
+							$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id);
 						} catch (OnlinePayments\Sdk\ResponseException $exception) {			
 							$errors = $exception->getResponse()->getErrors();
 								
@@ -1290,11 +1530,16 @@ class ControllerExtensionPaymentWorldline extends Controller {
 							$payment_product_id = '';
 							$payment_type = '';
 							$token = '';
-											
+							$card_brand = '';
+							$card_last_digits = '';
+							$card_expiry = '';
+							
 							if (!empty($payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput())) {
 								$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 								$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 								$payment_type = 'card';
+								$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+								$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
 							}
 				
 							if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
@@ -1343,6 +1588,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 						
 							if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {
 								$payment_product = $waiting_worldline_order['payment_product'];
+								$tokenize = $waiting_worldline_order['tokenize'];
+						
+								if (!$token) $tokenize = 0;
+								if (!$tokenize) $token = '';
 							
 								if (!$waiting_worldline_order['transaction_status']) {
 									$payment_product_params = new OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
@@ -1368,6 +1617,10 @@ class ControllerExtensionPaymentWorldline extends Controller {
 											}
 						
 											$payment_product .= $payment_product_response->getDisplayHints()->getLabel();
+											
+											if ($payment_type == 'card') {
+												$card_brand = $payment_product_response->getDisplayHints()->getLabel();
+											}
 										}
 									}
 								}
@@ -1377,7 +1630,11 @@ class ControllerExtensionPaymentWorldline extends Controller {
 									'transaction_status' => $transaction_status,
 									'payment_product' => $payment_product,
 									'payment_type' => $payment_type,
+									'tokenize' => $tokenize,
 									'token' => $token,
+									'card_brand' => $card_brand,
+									'card_last_digits' => $card_last_digits,
+									'card_expiry' => $card_expiry,
 									'total' => $total,
 									'amount' => $amount,
 									'currency_code' => $currency_code
@@ -1394,13 +1651,113 @@ class ControllerExtensionPaymentWorldline extends Controller {
 										$worldline_customer_token_data = array(
 											'customer_id' => $customer_id,
 											'payment_type' => $payment_type,
-											'token' => $token
+											'token' => $token,
+											'card_brand' => $card_brand,
+											'card_last_digits' => $card_last_digits,
+											'card_expiry' => $card_expiry
 										);
 									
 										$this->model_extension_payment_worldline->addWorldlineCustomerToken($worldline_customer_token_data);
 									}
 								
 									$this->model_extension_payment_worldline->setWorldlineCustomerMainToken($customer_id, $payment_type, $token);	
+								}
+							}
+						}
+					}
+					
+					foreach ($waiting_capture_worldline_orders as $waiting_capture_worldline_order) {
+						$order_id = $waiting_capture_worldline_order['order_id'];
+						$transaction_id = $waiting_capture_worldline_order['transaction_id'];
+						
+						$order_info = $this->model_checkout_order->getOrder($order_id);
+						
+						$errors = array();
+						
+						$capture_amount = 0;
+			
+						try {
+							$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id);
+						} catch (OnlinePayments\Sdk\ResponseException $exception) {			
+							$errors = $exception->getResponse()->getErrors();
+											
+							if ($errors) {
+								$error_messages = array();
+								
+								foreach ($errors as $error) {
+									$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+								}	
+							}
+						}
+
+						if (!$errors) {
+							$amount = $payment_response->getPaymentOutput()->getAcquiredAmount()->getAmount();
+						
+							$amount_captured = 0;
+											
+							foreach ($payment_response->getOperations() as $operation) {
+								if (($operation->getStatus() == 'CAPTURED') && ($operation->getStatusOutput()->getStatusCategory() == 'COMPLETED')) { 
+									$amount_captured += $operation->getAmountOfMoney()->getAmount();
+								}
+							}
+						
+							$capture_amount = $amount - $amount_captured;
+						}
+							
+						if ($capture_amount) {
+							$capture_payment_request = new OnlinePayments\Sdk\Domain\CapturePaymentRequest();
+							$capture_payment_request->setAmount($capture_amount);
+							
+							try {
+								$capture_response = $client->merchant($merchant_id)->payments()->capturePayment($transaction_id, $capture_payment_request);
+							} catch (OnlinePayments\Sdk\ResponseException $exception) {
+								$errors = $exception->getResponse()->getErrors();
+												
+								if ($errors) {
+									$error_messages = array();
+									
+									foreach ($errors as $error) {
+										$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+									
+										$error_messages[] = $error->getMessage() . ' (' . $error->getCode() . ')';
+									}	
+								
+									$this->error['warning'] = implode('. ', $error_messages);
+								}
+							}
+						}
+			
+						if (!$errors) {
+							try {
+								$payment_response = $client->merchant($merchant_id)->payments()->getPaymentDetails($transaction_id);
+							} catch (OnlinePayments\Sdk\ResponseException $exception) {			
+								$errors = $exception->getResponse()->getErrors();
+												
+								if ($errors) {
+									$error_messages = array();
+									
+									foreach ($errors as $error) {
+										$this->model_extension_payment_worldline->log($error->getMessage() . ' (' . $error->getCode() . ')', 'Error');
+									}	
+								}
+							}
+							
+							if (!$errors) {
+								$transaction_status = strtolower($payment_response->getStatus());
+								$total = $payment_response->getPaymentOutput()->getAmountOfMoney()->getAmount() / 100;
+								$amount = $payment_response->getPaymentOutput()->getAcquiredAmount()->getAmount() / 100;
+								$currency_code = $payment_response->getPaymentOutput()->getAmountOfMoney()->getCurrencyCode();
+											
+								if (($transaction_status == 'created') || ($transaction_status == 'pending_capture') || ($transaction_status == 'captured') || ($transaction_status == 'cancelled') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'refunded') || ($transaction_status == 'authorization_requested') || ($transaction_status == 'capture_requested') || ($transaction_status == 'refund_requested')) {					
+									$worldline_order_data = array(
+										'order_id' => $order_id,
+										'transaction_status' => $transaction_status,
+										'total' => $total,
+										'amount' => $amount,
+										'currency_code' => $currency_code
+									);
+											
+									$this->model_extension_payment_worldline->editWorldlineOrder($worldline_order_data);
 								}
 							}
 						}
@@ -1413,6 +1770,31 @@ class ControllerExtensionPaymentWorldline extends Controller {
 		
 		return false;
 	}
+	
+	public function extension_get_extensions_after($route, $data, &$output) {
+		if ($this->config->get('payment_worldline_status')) {
+			$type = $data[0];
+			
+			if ($type == 'payment') {			
+				$_config = new Config();
+				$_config->load('worldline');
+			
+				$config_setting = $_config->get('worldline_setting');
+		
+				$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
+												
+				if ($setting['hosted_tokenization']['status']) {
+					$this->config->set('payment_worldline_hosted_tokenization_status', 1);
+					
+					$output[] = array(
+						'extension_id' => 0,
+						'type' => 'payment',
+						'code' => 'worldline_hosted_tokenization'
+					);
+				}
+			}
+		}			
+	}
 			
 	public function order_delete_order_before($route, $data) {
 		$this->load->model('extension/payment/worldline');
@@ -1421,7 +1803,7 @@ class ControllerExtensionPaymentWorldline extends Controller {
 
 		$this->model_extension_payment_worldline->deleteWorldlineOrder($order_id);
 	}
-	
+		
 	private function getallheaders() {		
 		if (function_exists('getallheaders')) {
 			return getallheaders();

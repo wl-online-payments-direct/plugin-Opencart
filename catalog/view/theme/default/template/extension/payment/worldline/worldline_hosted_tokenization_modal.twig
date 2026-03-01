@@ -1,0 +1,40 @@
+<div id="worldline-modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fal fa-close"></i></button>
+				<h4 class="modal-title">{{ text_worldline_title }}</h4>
+			</div>
+			<div class="modal-body">
+				<div id="worldline-hosted-tokenization-form">
+					{% if error['warning'] %}
+					<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error['warning'] }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>
+					{% endif %}
+					{% if card_customer_tokens %}
+					<div id="worldline-card-tokens" class="worldline-card-tokens">
+						<div id="worldline-card-tokens-container" class="worldline-card-tokens-container">
+							<div class="worldline-card-token">
+								<div type="button" class="btn card-token-button card-new-token-button selected"><i class="card-icon"></i>{{ text_card_new }}</div>
+							</div>
+							{% for card_customer_token in card_customer_tokens %}
+							<div class="worldline-card-token">
+								<div type="button" class="btn card-token-button" token="{{ card_customer_token['token'] }}"><i class="card-icon card-icon-{{ card_customer_token['card_brand']|lower|split(' ')|first }}"></i><span class="card-number">{{ card_customer_token['card_number'] }}</span></div><div type="button" class="btn card-token-delete-button" token="{{ card_customer_token['token'] }}"><i class="fa fal fa-close"></i></div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+					<div id="worldline-card-form" hosted-tokenization-url="{{ hosted_tokenization_url }}" tokens="{{ tokens|last }}"></div>
+					{% if logged and not forced_tokenization %}
+					<div class="checkbox checkbox-save">
+						<label>
+							<input type="checkbox" name="worldline_card_token_save" id="worldline-card-token-save" value="1" checked /> {{ entry_card_token_save }}
+						</label>
+					</div>
+					{% endif %}
+					<button type="button" id="worldline-card-button" class="worldline-button btn btn-primary btn-block" disabled>{{ button_pay }}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
