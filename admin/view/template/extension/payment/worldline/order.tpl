@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-lg-6">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -9,7 +9,7 @@
 			<tbody>
 				<tr>
 					<td><?php echo $text_transaction_id; ?></td>
-					<td><a href="<?php echo $transaction_url; ?>" target="_blank"><?php echo $transaction_id; ?></a></td>
+					<td><a href="<?php echo $transaction_url; ?>" target="_blank"><?php echo $transaction_number; ?></a></td>
 				</tr>
 				<tr>
 					<td><?php echo $text_transaction_status; ?></td>
@@ -31,6 +31,18 @@
 					<td><?php echo $text_amount; ?></td>
 					<td><?php echo $amount; ?></td>
 				</tr>
+				<?php if ($amount_captured > 0) { ?>
+				<tr>
+					<td><?php echo $text_amount_captured; ?></td>
+					<td><?php echo $amount_captured; ?></td>
+				</tr>
+				<?php } ?>
+				<?php if ($amount_refunded > 0) { ?>
+				<tr>
+					<td><?php echo $text_amount_refunded; ?></td>
+					<td><?php echo $amount_refunded; ?></td>
+				</tr>
+				<?php } ?>
 				<tr>
 					<td><?php echo $text_currency_code; ?></td>
 					<td><?php echo $currency_code; ?></td>
@@ -48,8 +60,8 @@
 				</tr>
 				<?php } ?>
 				<tr>
-					<td><?php echo $text_date; ?></td>
-					<td><?php echo $date; ?></td>
+					<td><?php echo $text_date_created; ?></td>
+					<td><?php echo $date_created; ?></td>
 				</tr>
 				<tr>
 					<td><?php echo $text_environment; ?></td>
@@ -60,13 +72,37 @@
 					<td><?php echo $text_transaction_action; ?></td>
 					<td>
 						<?php if ($transaction_status == 'pending_capture') { ?>
-						<button type="button" class="btn btn-primary button-capture"><?php echo $button_capture; ?></button>
+						<?php if ($payment_product == 'TWINTWL') { ?>
+						<div class="twint">{{ text_twint }}</div>
+						<?php } ?>
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary btn-block button-capture"><?php echo $button_capture; ?></button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="capture_amount" value="<?php echo $capture_amount; ?>" id="input_capture_amount" class="form-control" />
+							</div>
+						</div>
 						<?php } ?>
 						<?php if (($transaction_status == 'created') || ($transaction_status == 'rejected') || ($transaction_status == 'rejected_capture') || ($transaction_status == 'pending_capture')) { ?>
-						<button type="button" class="btn btn-primary button-cancel"><?php echo $button_cancel; ?></button>
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary btn-block button-cancel"><?php echo $button_cancel; ?></button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="cancel_amount" value="<?php echo $cancel_amount; ?>" id="input_cancel_amount" class="form-control" />
+							</div>
+						</div>
 						<?php } ?>
 						<?php if ($transaction_status == 'captured') { ?>
-						<button type="button" class="btn btn-primary button-refund"><?php echo $button_refund; ?></button>
+						<div class="row" style="margin: 0px -4px">
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<button type="button" class="btn btn-primary btn-block button-refund"><?php echo $button_refund; ?></button>
+							</div>
+							<div class="col-lg-4" style="padding: 4px 4px;">
+								<input type="text" name="refund_amount" value="<?php echo $refund_amount; ?>" id="input_refund_amount" class="form-control" />
+							</div>
+						</div>
 						<?php } ?>
 					</td>
 				</tr>
@@ -74,7 +110,8 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-lg-6">
+		<?php if ($fraud_result || $liability || $exemption || $authentication_status) { ?>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -108,6 +145,7 @@
 				<?php } ?>
 			</tbody>
 		</table>
+		<?php } ?>
 	</div>
 </div>
 <script type="text/javascript">
@@ -116,7 +154,7 @@ $('#tab-worldline').on('click', '.button-capture', function() {
 	$.ajax({
 		type: 'post',
 		url: '<?php echo $capture_url; ?>',
-		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>'},
+		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>', 'capture_amount': $('#tab-worldline #input_capture_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);
@@ -151,7 +189,7 @@ $('#tab-worldline').on('click', '.button-cancel', function() {
 	$.ajax({
 		type: 'post',
 		url: '<?php echo $cancel_url; ?>',
-		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>'},
+		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>', 'cancel_amount': $('#tab-worldline #input_cancel_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);
@@ -186,7 +224,7 @@ $('#tab-worldline').on('click', '.button-refund', function() {
 	$.ajax({
 		type: 'post',
 		url: '<?php echo $refund_url; ?>',
-		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>'},
+		data: {'order_id' : '<?php echo $order_id; ?>', 'transaction_id' : '<?php echo $transaction_id; ?>', 'refund_amount': $('#tab-worldline #input_refund_amount').val()},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#tab-worldline .btn').prop('disabled', true);

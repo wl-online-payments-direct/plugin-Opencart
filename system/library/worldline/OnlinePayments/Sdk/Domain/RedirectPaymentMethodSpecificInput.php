@@ -43,6 +43,11 @@ class RedirectPaymentMethodSpecificInput extends DataObject
      * @var RedirectPaymentProduct840SpecificInput
      */
     private $paymentProduct840SpecificInput;
+	
+	 /**
+     * @var RedirectPaymentProduct900SpecificInput
+     */
+    private $paymentProduct900SpecificInput;
 
     /**
      * @var int
@@ -58,6 +63,11 @@ class RedirectPaymentMethodSpecificInput extends DataObject
      * @var bool
      */
     private $requiresApproval;
+	
+	/**
+     * @var string
+     */
+    private $returnUrl;
 
     /**
      * @var string
@@ -159,6 +169,21 @@ class RedirectPaymentMethodSpecificInput extends DataObject
     {
         $this->paymentProduct840SpecificInput = $value;
     }
+	
+	/**
+     * @return RedirectPaymentProduct900SpecificInput
+     */
+    public function getPaymentProduct900SpecificInput()
+    {
+        return $this->paymentProduct900SpecificInput;
+    }
+    /**
+     * @var RedirectPaymentProduct900SpecificInput
+     */
+    public function setPaymentProduct900SpecificInput($value)
+    {
+        $this->paymentProduct900SpecificInput = $value;
+    }
 
     /**
      * @return int
@@ -203,6 +228,21 @@ class RedirectPaymentMethodSpecificInput extends DataObject
     public function setRequiresApproval($value)
     {
         $this->requiresApproval = $value;
+    }
+	
+	 /**
+     * @return string
+     */
+    public function getReturnUrl()
+    {
+        return $this->returnUrl;
+    }
+    /**
+     * @var string
+     */
+    public function setReturnUrl($value)
+    {
+        $this->returnUrl = $value;
     }
 
     /**
@@ -259,6 +299,9 @@ class RedirectPaymentMethodSpecificInput extends DataObject
         if ($this->paymentProduct840SpecificInput !== null) {
             $object->paymentProduct840SpecificInput = $this->paymentProduct840SpecificInput->toObject();
         }
+		if ($this->paymentProduct900SpecificInput !== null) {
+            $object->paymentProduct900SpecificInput = $this->paymentProduct900SpecificInput->toObject();
+        }
         if ($this->paymentProductId !== null) {
             $object->paymentProductId = $this->paymentProductId;
         }
@@ -267,6 +310,9 @@ class RedirectPaymentMethodSpecificInput extends DataObject
         }
         if ($this->requiresApproval !== null) {
             $object->requiresApproval = $this->requiresApproval;
+        }
+		if ($this->returnUrl !== null) {
+            $object->returnUrl = $this->returnUrl;
         }
         if ($this->token !== null) {
             $object->token = $this->token;
@@ -323,6 +369,13 @@ class RedirectPaymentMethodSpecificInput extends DataObject
             $value = new RedirectPaymentProduct840SpecificInput();
             $this->paymentProduct840SpecificInput = $value->fromObject($object->paymentProduct840SpecificInput);
         }
+		 if (property_exists($object, 'paymentProduct900SpecificInput')) {
+            if (!is_object($object->paymentProduct900SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct900SpecificInput, true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct900SpecificInput();
+            $this->paymentProduct900SpecificInput = $value->fromObject($object->paymentProduct900SpecificInput);
+        }
         if (property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;
         }
@@ -335,6 +388,9 @@ class RedirectPaymentMethodSpecificInput extends DataObject
         }
         if (property_exists($object, 'requiresApproval')) {
             $this->requiresApproval = $object->requiresApproval;
+        }
+		if (property_exists($object, 'returnUrl')) {
+            $this->returnUrl = $object->returnUrl;
         }
         if (property_exists($object, 'token')) {
             $this->token = $object->token;

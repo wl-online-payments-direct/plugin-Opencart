@@ -33,34 +33,14 @@
 				<ul class="nav nav-tabs">
 					<li class="nav-tab"><a href="<?php echo $href_account; ?>" class="tab"><i class="fa fa-user"></i> <?php echo $text_tab_account; ?></a></li>
 					<li class="nav-tab active"><a href="<?php echo $href_advanced; ?>" class="tab"><i class="fa fa-cogs"></i> <?php echo $text_tab_advanced; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_checkout; ?>" class="tab"><i class="fa fa-list-alt"></i> <?php echo $text_tab_hosted_checkout; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_tokenization; ?>" class="tab"><i class="fa fa-credit-card"></i> <?php echo $text_tab_hosted_tokenization; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_order_status; ?>" class="tab"><i class="fa fa-shopping-cart"></i> <?php echo $text_tab_order_status; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_transaction; ?>" class="tab"><i class="fa fa-money"></i> <?php echo $text_tab_transaction; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_suggest; ?>" class="tab"><i class="fa fa-envelope-o"></i> <?php echo $text_tab_suggest; ?></a></li>
 				</ul>
 				<div class="tab-content">
 					<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-title"><?php echo $entry_title; ?></label>
-							<div class="col-sm-10">
-								<?php foreach ($languages as $language) { ?>
-								<div class="input-group">
-									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-									<input type="text" name="worldline_setting[advanced][title][<?php echo $language['language_id']; ?>]" value="<?php if (!empty($setting['advanced']['title'][$language['language_id']])) { ?><?php echo $setting['advanced']['title'][$language['language_id']]; ?><?php } ?>" placeholder="<?php echo $entry_title; ?>" id="input-title-<?php echo $language['language_id']; ?>" class="form-control" />
-								</div>
-								<?php } ?>
-							</div>
-                        </div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-button-title"><?php echo $entry_button_title; ?></label>
-							<div class="col-sm-10">
-								<?php foreach ($languages as $language) { ?>
-								<div class="input-group">
-									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-									<input type="text" name="worldline_setting[advanced][button_title][<?php echo $language['language_id']; ?>]" value="<?php if (!empty($setting['advanced']['button_title'][$language['language_id']])) { ?><?php echo $setting['advanced']['button_title'][$language['language_id']]; ?><?php } ?>" placeholder="<?php echo $entry_button_title; ?>" id="input-button-title-<?php echo $language['language_id']; ?>" class="form-control" />
-								</div>
-								<?php } ?>
-							</div>
-                        </div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="input-authorization-mode"><?php echo $entry_authorization_mode; ?></label>
 							<div class="col-sm-10">
@@ -76,10 +56,24 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-group-cards"><?php echo $entry_group_cards; ?></label>
+							<label class="col-sm-2 control-label" for="input-capture-installation"><span data-toggle="tooltip" title="<?php echo $help_capture_installation; ?>"><?php echo $entry_capture_installation; ?></span></label>
 							<div class="col-sm-10">
-								<select name="worldline_setting[advanced][group_cards]" id="input-group-cards" class="form-control">
-									<?php if ($setting['advanced']['group_cards']) { ?>
+								<select name="worldline_setting[advanced][capture_installation]" id="input-capture-installation" class="form-control">
+								<?php foreach ($setting['capture_installation'] as $capture_installation) { ?>
+								<?php if ($capture_installation['code'] == $setting['advanced']['capture_installation']) { ?>
+								<option value="<?php echo $capture_installation['code']; ?>" selected="selected"><?php echo ${$capture_installation['name']}; ?></option>
+								<?php } else { ?>
+								<option value="<?php echo $capture_installation['code']; ?>"><?php echo  ${$capture_installation['name']}; ?></option>
+								<?php } ?>
+								<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-forced-tokenization"><?php echo $entry_forced_tokenization; ?></label>
+							<div class="col-sm-10">
+								<select name="worldline_setting[advanced][forced_tokenization]" id="input-forced-tokenization" class="form-control">
+									<?php if ($setting['advanced']['forced_tokenization']) { ?>
 									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 									<option value="0"><?php echo $text_disabled; ?></option>
 									<?php } else { ?>
@@ -90,10 +84,10 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-forced-tokenization"><?php echo $entry_forced_tokenization; ?></label>
+							<label class="col-sm-2 control-label" for="input-surcharging-status"><?php echo $entry_surcharging_status; ?></label>
 							<div class="col-sm-10">
-								<select name="worldline_setting[advanced][forced_tokenization]" id="input-forced-tokenization" class="form-control">
-									<?php if ($setting['advanced']['forced_tokenization']) { ?>
+								<select name="worldline_setting[advanced][surcharging_status]" id="input-forced-tokenization" class="form-control">
+									<?php if ($setting['advanced']['surcharging_status']) { ?>
 									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 									<option value="0"><?php echo $text_disabled; ?></option>
 									<?php } else { ?>
@@ -143,12 +137,6 @@
 									<?php } ?>
 									<?php } ?>
 								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-template"><span data-toggle="tooltip" title="<?php echo $help_template; ?>"><?php echo $entry_template; ?></span></label>
-							<div class="col-sm-10">
-								<input type="text" name="worldline_setting[advanced][template]" value="<?php echo $setting['advanced']['template']; ?>" placeholder="<?php echo $entry_template; ?>" id="input-template" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group">

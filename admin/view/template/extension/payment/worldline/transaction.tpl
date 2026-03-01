@@ -32,6 +32,8 @@
 				<ul class="nav nav-tabs">
 					<li class="nav-tab"><a href="<?php echo $href_account; ?>" class="tab"><i class="fa fa-user"></i> <?php echo $text_tab_account; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_advanced; ?>" class="tab"><i class="fa fa-cogs"></i> <?php echo $text_tab_advanced; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_checkout; ?>" class="tab"><i class="fa fa-list-alt"></i> <?php echo $text_tab_hosted_checkout; ?></a></li>
+					<li class="nav-tab"><a href="<?php echo $href_hosted_tokenization; ?>" class="tab"><i class="fa fa-credit-card"></i> <?php echo $text_tab_hosted_tokenization; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_order_status; ?>" class="tab"><i class="fa fa-shopping-cart"></i> <?php echo $text_tab_order_status; ?></a></li>
 					<li class="nav-tab active"><a href="<?php echo $href_transaction; ?>" class="tab"><i class="fa fa-money"></i> <?php echo $text_tab_transaction; ?></a></li>
 					<li class="nav-tab"><a href="<?php echo $href_suggest; ?>" class="tab"><i class="fa fa-envelope-o"></i> <?php echo $text_tab_suggest; ?></a></li>
@@ -70,18 +72,18 @@
 							</div>
 							<div class="col-sm-2">
 								<div class="form-group">
-									<label class="control-label" for="input_date_from"><?php echo $entry_date_from; ?></label>
+									<label class="control-label" for="input_date_created_from"><?php echo $entry_date_created_from; ?></label>
 									<div class="input-group date">
-										<input type="text" name="filter_date_from" value="<?php echo $filter_date_from; ?>" data-date-format="YYYY-MM-DD" id="input_date_from" class="form-control" />
+										<input type="text" name="filter_date_created_from" value="<?php echo $filter_date_created_from; ?>" data-date-format="YYYY-MM-DD" id="input_date_created_from" class="form-control" />
 										<span class="input-group-btn">
 											<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
 										</span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label" for="input_date_to"><?php echo $entry_date_to; ?></label>
+									<label class="control-label" for="input_date_created_to"><?php echo $entry_date_created_to; ?></label>
 									<div class="input-group date">
-										<input type="text" name="filter_date_to" value="<?php echo $filter_date_to; ?>" data-date-format="YYYY-MM-DD" id="input_date_to" class="form-control" />
+										<input type="text" name="filter_date_created_to" value="<?php echo $filter_date_created_to; ?>" data-date-format="YYYY-MM-DD" id="input_date_created_to" class="form-control" />
 										<span class="input-group-btn">
 											<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
 										</span>
@@ -165,10 +167,10 @@
 												<?php } ?>
 											</td>
 											<td class="text-center">
-												<?php if ($sort == 'wo.date') { ?>
-												<a href="<?php echo $sort_date; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date; ?></a>
+												<?php if ($sort == 'wo.date_created') { ?>
+												<a href="<?php echo $sort_date_created; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_created; ?></a>
 												<?php } else { ?>
-												<a href="<?php echo $sort_date; ?>"><?php echo $column_date; ?></a>
+												<a href="<?php echo $sort_date_created; ?>"><?php echo $column_date_created; ?></a>
 												<?php } ?>
 											</td>
 											<td class="text-center">
@@ -207,10 +209,10 @@
 										<?php foreach ($orders as $order_info) { ?>
 										<tr>
 											<td class="text-center"><a href="<?php echo $order_info['order_url']; ?>" target="_blank"><?php echo $order_info['order_id']; ?></a></td>
-											<td class="text-center"><a href="<?php echo $order_info['transaction_url']; ?>" target="_blank"><?php echo $order_info['transaction_id']; ?></a></td>
+											<td class="text-center"><a href="<?php echo $order_info['transaction_url']; ?>" target="_blank"><?php echo $order_info['transaction_number']; ?></a></td>
 											<td class="text-center"><?php echo $order_info['transaction_status']; ?></td>
 											<td class="text-center"><?php echo $order_info['payment_product']; ?></td>
-											<td class="text-center"><?php echo $order_info['date']; ?></td>
+											<td class="text-center"><?php echo $order_info['date_created']; ?></td>
 											<td class="text-center"><?php echo $order_info['total']; ?></td>
 											<td class="text-center"><?php echo $order_info['amount']; ?></td>
 											<td class="text-center"><?php echo $order_info['currency_code']; ?></td>
@@ -282,7 +284,7 @@ $('.payment-worldline .orders').delegate('.button-capture', 'click', function(ev
 				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 				
 				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
-				
+			
 				$('.payment-worldline .orders').load($('.payment-worldline #form-order').attr('action') + ' #form-order');
 			}
 		},
@@ -320,7 +322,7 @@ $('.payment-worldline .orders').delegate('.button-cancel', 'click', function(eve
 				$('.payment-worldline > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 				
 				$('html, body').animate({ scrollTop: $('.payment-worldline > .container-fluid .alert-success').offset().top}, 'slow');
-			
+				
 				$('.payment-worldline .orders').load($('.payment-worldline #form-order').attr('action') + ' #form-order');
 			}
 		},
@@ -413,16 +415,16 @@ $('.payment-worldline').on('click', '#button-filter', function() {
 		url += '&filter_currency_code=' + encodeURIComponent(filter_currency_code);
 	}
 	
-	var filter_date_from = $('input[name=\'filter_date_from\']').val();
+	var filter_date_created_from = $('input[name=\'filter_date_created_from\']').val();
 	
-	if (filter_date_from) {
-		url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+	if (filter_date_created_from) {
+		url += '&filter_date_created_from=' + encodeURIComponent(filter_date_created_from);
 	}
 	
-	var filter_date_to = $('input[name=\'filter_date_to\']').val();
+	var filter_date_created_to = $('input[name=\'filter_date_created_to\']').val();
 	
-	if (filter_date_to) {
-		url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+	if (filter_date_created_to) {
+		url += '&filter_date_created_to=' + encodeURIComponent(filter_date_created_to);
 	}
 		
 	var filter_environment = $('select[name=\'filter_environment\']').val();
