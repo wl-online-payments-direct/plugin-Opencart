@@ -1,5 +1,4 @@
 # Worldline for OpenCart
-
 Worldline enables businesses of all sizes to scale their eCommerce offering. Embrace customer habits by accessing new channels, customise your payment pages to your brand, accept a wide range of payment methods and protect your business with real-time fraud tools. We’re here to make it easy for you to grow your online business!
 
 ## Use the Worldline to
@@ -16,10 +15,4 @@ This Module is Extension Installer ready.
 1. [Download](https://github.com/wl-online-payments-direct/plugin-Opencart/releases) the **compiled** Extensions from the latest releases by selecting your OpenCart version accordingly.
 2. Upload via OpenCart Admin -> Extension Installer and click "Install" for Worldline extension
 3. Go to Extensions -> Payments -> Worldline and click "Install"
-4. Click "Edit" for Worldline.
-
-### Via FTP
-1. [Download](https://github.com/wl-online-payments-direct/plugin-Opencart/releases) the **compiled** Extensions from the latest releases by selecting your OpenCart version accordingly.
-2. Via FTP upload all the contents of the UPLOAD folder from the release archive.
-3. In OpenCart admin go to Extensions -> Payments -> Worldline and click "Install"
 4. Click "Edit" for Worldline.
