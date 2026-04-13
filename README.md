@@ -14,7 +14,7 @@ Accepts payment operations (refunds, authorizations, captures, etc.) directly fr
 ## Install plugin
 The first step to use the plugin is the installation process. Before you proceed, make sure your infrastructure meets these system requirements:
 
-- Download the plugin from [GitHub](https://github.com/Dreamvention/worldline/releases) or from [OpenCart](https://github.com/Dreamvention/worldline/releases)
+- Download the plugin from [GitHub](https://github.com/wl-online-payments-direct/plugin-Opencart/releases) or from [OpenCart](https://github.com/Dreamvention/worldline/releases)
 - Active [test](https://secure.ogone.com/Ncol/Test/Backoffice/login/)/[live](https://secure.ogone.com/Ncol/Prod/Backoffice/login/) account on our platform
 - [API key/secret](https://docs.direct.worldline-solutions.com/en/integration/api-developer-guide/authentication)
 - [Webhooks](https://docs.direct.worldline-solutions.com/en/integration/api-developer-guide/webhooks)
