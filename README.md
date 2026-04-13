@@ -13,13 +13,7 @@ Help grow your business faster with the Worldline.
 This Module is Extension Installer ready.
 
 ### Quick Install via OpenCart Extension Installer (recommended)
-1. [Download](https://github.com/Dreamvention/worldline/releases) the **compiled** Extensions from the latest releases by selecting your OpenCart version accordingly.
+1. [Download](https://github.com/wl-online-payments-direct/plugin-Opencart/releases) the **compiled** Extensions from the latest releases by selecting your OpenCart version accordingly.
 2. Upload via OpenCart Admin -> Extension Installer and click "Install" for Worldline extension
 3. Go to Payments -> Worldline and click "Install"
-4. Click "Edit" for Worldline.
-
-### Via FTP
-1. [Download](https://github.com/Dreamvention/worldline/releases) the **compiled** Extensions from the latest releases by selecting your OpenCart version accordingly.
-2. Via FTP upload all the contents of the UPLOAD folder from the release archive.
-3. In OpenCart admin go to Payments -> Worldline and click "Install"
 4. Click "Edit" for Worldline.
