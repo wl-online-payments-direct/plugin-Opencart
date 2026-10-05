@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,191 @@ use UnexpectedValueException;
  */
 class AddressPersonal extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $additionalInfo;
+    public ?string $additionalInfo = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $city;
+    public ?string $city = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $countryCode;
+    public ?string $companyName = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $houseNumber;
+    public ?string $countryCode = null;
 
     /**
-     * @var PersonalName
+     * @var string|null
      */
-    private $name;
+    public ?string $houseNumber = null;
 
     /**
-     * @var string
+     * @var PersonalName|null
      */
-    private $state;
+    public ?PersonalName $name = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $street;
+    public ?string $state = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $zip;
+    public ?string $street = null;
 
-    // Methods
     /**
-     * @return string
+     * @var string|null
      */
-    public function getAdditionalInfo()
+    public ?string $zip = null;
+
+    /**
+     * @return string|null
+     */
+    public function getAdditionalInfo(): ?string
     {
         return $this->additionalInfo;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAdditionalInfo($value)
+    public function setAdditionalInfo(?string $value): void
     {
         $this->additionalInfo = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->city;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCity($value)
+    public function setCity(?string $value): void
     {
         $this->city = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setCompanyName(?string $value): void
+    {
+        $this->companyName = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value): void
     {
         $this->countryCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHouseNumber()
+    public function getHouseNumber(): ?string
     {
         return $this->houseNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHouseNumber($value)
+    public function setHouseNumber(?string $value): void
     {
         $this->houseNumber = $value;
     }
 
     /**
-     * @return PersonalName
+     * @return PersonalName|null
      */
-    public function getName()
+    public function getName(): ?PersonalName
     {
         return $this->name;
     }
+
     /**
-     * @var PersonalName
+     * @param PersonalName|null $value
      */
-    public function setName($value)
+    public function setName(?PersonalName $value): void
     {
         $this->name = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getState()
+    public function getState(): ?string
     {
         return $this->state;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setState($value)
+    public function setState(?string $value): void
     {
         $this->state = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet()
+    public function getStreet(): ?string
     {
         return $this->street;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStreet($value)
+    public function setStreet(?string $value): void
     {
         $this->street = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZip()
+    public function getZip(): ?string
     {
         return $this->zip;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setZip($value)
+    public function setZip(?string $value): void
     {
         $this->zip = $value;
     }
@@ -178,31 +203,34 @@ class AddressPersonal extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->additionalInfo !== null) {
+        if (!is_null($this->additionalInfo)) {
             $object->additionalInfo = $this->additionalInfo;
         }
-        if ($this->city !== null) {
+        if (!is_null($this->city)) {
             $object->city = $this->city;
         }
-        if ($this->countryCode !== null) {
+        if (!is_null($this->companyName)) {
+            $object->companyName = $this->companyName;
+        }
+        if (!is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if ($this->houseNumber !== null) {
+        if (!is_null($this->houseNumber)) {
             $object->houseNumber = $this->houseNumber;
         }
-        if ($this->name !== null) {
+        if (!is_null($this->name)) {
             $object->name = $this->name->toObject();
         }
-        if ($this->state !== null) {
+        if (!is_null($this->state)) {
             $object->state = $this->state;
         }
-        if ($this->street !== null) {
+        if (!is_null($this->street)) {
             $object->street = $this->street;
         }
-        if ($this->zip !== null) {
+        if (!is_null($this->zip)) {
             $object->zip = $this->zip;
         }
         return $object;
@@ -213,7 +241,7 @@ class AddressPersonal extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AddressPersonal
     {
         parent::fromObject($object);
         if (property_exists($object, 'additionalInfo')) {
@@ -221,6 +249,9 @@ class AddressPersonal extends DataObject
         }
         if (property_exists($object, 'city')) {
             $this->city = $object->city;
+        }
+        if (property_exists($object, 'companyName')) {
+            $this->companyName = $object->companyName;
         }
         if (property_exists($object, 'countryCode')) {
             $this->countryCode = $object->countryCode;

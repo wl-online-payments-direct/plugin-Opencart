@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CurrencyConversionRequest extends DataObject
 {
-    // Properties
     /**
-     * @var DccCardSource
+     * @var DccCardSource|null
      */
-    private $cardSource;
+    public ?DccCardSource $cardSource = null;
 
     /**
-     * @var Transaction
+     * @var Transaction|null
      */
-    private $transaction;
+    public ?Transaction $transaction = null;
 
-    // Methods
     /**
-     * @return DccCardSource
+     * @return DccCardSource|null
      */
-    public function getCardSource()
+    public function getCardSource(): ?DccCardSource
     {
         return $this->cardSource;
     }
+
     /**
-     * @var DccCardSource
+     * @param DccCardSource|null $value
      */
-    public function setCardSource($value)
+    public function setCardSource(?DccCardSource $value): void
     {
         $this->cardSource = $value;
     }
 
     /**
-     * @return Transaction
+     * @return Transaction|null
      */
-    public function getTransaction()
+    public function getTransaction(): ?Transaction
     {
         return $this->transaction;
     }
+
     /**
-     * @var Transaction
+     * @param Transaction|null $value
      */
-    public function setTransaction($value)
+    public function setTransaction(?Transaction $value): void
     {
         $this->transaction = $value;
     }
@@ -58,13 +56,13 @@ class CurrencyConversionRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardSource !== null) {
+        if (!is_null($this->cardSource)) {
             $object->cardSource = $this->cardSource->toObject();
         }
-        if ($this->transaction !== null) {
+        if (!is_null($this->transaction)) {
             $object->transaction = $this->transaction->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class CurrencyConversionRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CurrencyConversionRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardSource')) {

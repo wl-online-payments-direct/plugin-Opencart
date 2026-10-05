@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,124 +11,170 @@ use UnexpectedValueException;
  */
 class TokenResponse extends DataObject
 {
-    // Properties
     /**
-     * @var TokenCard
+     * @var TokenCard|null
      */
-    private $card;
+    public ?TokenCard $card = null;
 
     /**
-     * @var TokenEWallet
+     * @var CrmToken|null
      */
-    private $eWallet;
+    public ?CrmToken $crmToken = null;
 
     /**
-     * @var ExternalTokenLinked
+     * @var TokenEWallet|null
      */
-    private $externalTokenLinked;
+    public ?TokenEWallet $eWallet = null;
 
     /**
-     * @var string
+     * @var ExternalTokenLinked|null
      */
-    private $id;
+    public ?ExternalTokenLinked $externalTokenLinked = null;
 
     /**
-     * @var bool
+     * @var string|null
      */
-    private $isTemporary;
+    public ?string $id = null;
 
     /**
-     * @var int
+     * @var bool|null
      */
-    private $paymentProductId;
+    public ?bool $isTemporary = null;
 
-    // Methods
     /**
-     * @return TokenCard
+     * @var NetworkTokenLinked|null
      */
-    public function getCard()
+    public ?NetworkTokenLinked $networkTokenLinked = null;
+
+    /**
+     * @var int|null
+     */
+    public ?int $paymentProductId = null;
+
+    /**
+     * @return TokenCard|null
+     */
+    public function getCard(): ?TokenCard
     {
         return $this->card;
     }
+
     /**
-     * @var TokenCard
+     * @param TokenCard|null $value
      */
-    public function setCard($value)
+    public function setCard(?TokenCard $value): void
     {
         $this->card = $value;
     }
 
     /**
-     * @return TokenEWallet
+     * @return CrmToken|null
      */
-    public function getEWallet()
+    public function getCrmToken(): ?CrmToken
+    {
+        return $this->crmToken;
+    }
+
+    /**
+     * @param CrmToken|null $value
+     */
+    public function setCrmToken(?CrmToken $value): void
+    {
+        $this->crmToken = $value;
+    }
+
+    /**
+     * @return TokenEWallet|null
+     */
+    public function getEWallet(): ?TokenEWallet
     {
         return $this->eWallet;
     }
+
     /**
-     * @var TokenEWallet
+     * @param TokenEWallet|null $value
      */
-    public function setEWallet($value)
+    public function setEWallet(?TokenEWallet $value): void
     {
         $this->eWallet = $value;
     }
 
     /**
-     * @return ExternalTokenLinked
+     * @return ExternalTokenLinked|null
      */
-    public function getExternalTokenLinked()
+    public function getExternalTokenLinked(): ?ExternalTokenLinked
     {
         return $this->externalTokenLinked;
     }
+
     /**
-     * @var ExternalTokenLinked
+     * @param ExternalTokenLinked|null $value
      */
-    public function setExternalTokenLinked($value)
+    public function setExternalTokenLinked(?ExternalTokenLinked $value): void
     {
         $this->externalTokenLinked = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsTemporary()
+    public function getIsTemporary(): ?bool
     {
         return $this->isTemporary;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsTemporary($value)
+    public function setIsTemporary(?bool $value): void
     {
         $this->isTemporary = $value;
     }
 
     /**
-     * @return int
+     * @return NetworkTokenLinked|null
      */
-    public function getPaymentProductId()
+    public function getNetworkTokenLinked(): ?NetworkTokenLinked
+    {
+        return $this->networkTokenLinked;
+    }
+
+    /**
+     * @param NetworkTokenLinked|null $value
+     */
+    public function setNetworkTokenLinked(?NetworkTokenLinked $value): void
+    {
+        $this->networkTokenLinked = $value;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -138,25 +182,31 @@ class TokenResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->card !== null) {
+        if (!is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if ($this->eWallet !== null) {
+        if (!is_null($this->crmToken)) {
+            $object->crmToken = $this->crmToken->toObject();
+        }
+        if (!is_null($this->eWallet)) {
             $object->eWallet = $this->eWallet->toObject();
         }
-        if ($this->externalTokenLinked !== null) {
+        if (!is_null($this->externalTokenLinked)) {
             $object->externalTokenLinked = $this->externalTokenLinked->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->isTemporary !== null) {
+        if (!is_null($this->isTemporary)) {
             $object->isTemporary = $this->isTemporary;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->networkTokenLinked)) {
+            $object->networkTokenLinked = $this->networkTokenLinked->toObject();
+        }
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -167,7 +217,7 @@ class TokenResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): TokenResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'card')) {
@@ -176,6 +226,13 @@ class TokenResponse extends DataObject
             }
             $value = new TokenCard();
             $this->card = $value->fromObject($object->card);
+        }
+        if (property_exists($object, 'crmToken')) {
+            if (!is_object($object->crmToken)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->crmToken, true) . '\' is not an object');
+            }
+            $value = new CrmToken();
+            $this->crmToken = $value->fromObject($object->crmToken);
         }
         if (property_exists($object, 'eWallet')) {
             if (!is_object($object->eWallet)) {
@@ -196,6 +253,13 @@ class TokenResponse extends DataObject
         }
         if (property_exists($object, 'isTemporary')) {
             $this->isTemporary = $object->isTemporary;
+        }
+        if (property_exists($object, 'networkTokenLinked')) {
+            if (!is_object($object->networkTokenLinked)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->networkTokenLinked, true) . '\' is not an object');
+            }
+            $value = new NetworkTokenLinked();
+            $this->networkTokenLinked = $value->fromObject($object->networkTokenLinked);
         }
         if (property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;

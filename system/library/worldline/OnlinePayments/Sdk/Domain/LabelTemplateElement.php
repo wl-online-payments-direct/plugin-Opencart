@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class LabelTemplateElement extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $attributeKey;
+    public ?string $attributeKey = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $mask;
+    public ?string $mask = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAttributeKey()
+    public function getAttributeKey(): ?string
     {
         return $this->attributeKey;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAttributeKey($value)
+    public function setAttributeKey(?string $value): void
     {
         $this->attributeKey = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMask()
+    public function getMask(): ?string
     {
         return $this->mask;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMask($value)
+    public function setMask(?string $value): void
     {
         $this->mask = $value;
     }
@@ -58,13 +56,13 @@ class LabelTemplateElement extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->attributeKey !== null) {
+        if (!is_null($this->attributeKey)) {
             $object->attributeKey = $this->attributeKey;
         }
-        if ($this->mask !== null) {
+        if (!is_null($this->mask)) {
             $object->mask = $this->mask;
         }
         return $object;
@@ -75,7 +73,7 @@ class LabelTemplateElement extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): LabelTemplateElement
     {
         parent::fromObject($object);
         if (property_exists($object, 'attributeKey')) {

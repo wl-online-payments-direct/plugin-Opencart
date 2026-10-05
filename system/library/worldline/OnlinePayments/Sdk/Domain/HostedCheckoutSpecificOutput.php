@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class HostedCheckoutSpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $hostedCheckoutId;
+    public ?string $hostedCheckoutId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $variant;
+    public ?string $variant = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedCheckoutId()
+    public function getHostedCheckoutId(): ?string
     {
         return $this->hostedCheckoutId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedCheckoutId($value)
+    public function setHostedCheckoutId(?string $value): void
     {
         $this->hostedCheckoutId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVariant()
+    public function getVariant(): ?string
     {
         return $this->variant;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setVariant($value)
+    public function setVariant(?string $value): void
     {
         $this->variant = $value;
     }
@@ -58,13 +56,13 @@ class HostedCheckoutSpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->hostedCheckoutId !== null) {
+        if (!is_null($this->hostedCheckoutId)) {
             $object->hostedCheckoutId = $this->hostedCheckoutId;
         }
-        if ($this->variant !== null) {
+        if (!is_null($this->variant)) {
             $object->variant = $this->variant;
         }
         return $object;
@@ -75,7 +73,7 @@ class HostedCheckoutSpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): HostedCheckoutSpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'hostedCheckoutId')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,124 +11,128 @@ use UnexpectedValueException;
  */
 class CreateHostedCheckoutResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $RETURNMAC;
+    public ?string $RETURNMAC = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $hostedCheckoutId;
+    public ?string $hostedCheckoutId = null;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $invalidTokens;
+    public ?array $invalidTokens = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $merchantReference;
+    public ?string $merchantReference = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $partialRedirectUrl;
+    public ?string $partialRedirectUrl = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $redirectUrl;
+    public ?string $redirectUrl = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRETURNMAC()
+    public function getRETURNMAC(): ?string
     {
         return $this->RETURNMAC;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRETURNMAC($value)
+    public function setRETURNMAC(?string $value): void
     {
         $this->RETURNMAC = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedCheckoutId()
+    public function getHostedCheckoutId(): ?string
     {
         return $this->hostedCheckoutId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedCheckoutId($value)
+    public function setHostedCheckoutId(?string $value): void
     {
         $this->hostedCheckoutId = $value;
     }
 
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getInvalidTokens()
+    public function getInvalidTokens(): ?array
     {
         return $this->invalidTokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setInvalidTokens($value)
+    public function setInvalidTokens(?array $value): void
     {
         $this->invalidTokens = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMerchantReference()
+    public function getMerchantReference(): ?string
     {
         return $this->merchantReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMerchantReference($value)
+    public function setMerchantReference(?string $value): void
     {
         $this->merchantReference = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPartialRedirectUrl()
+    public function getPartialRedirectUrl(): ?string
     {
         return $this->partialRedirectUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPartialRedirectUrl($value)
+    public function setPartialRedirectUrl(?string $value): void
     {
         $this->partialRedirectUrl = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRedirectUrl()
+    public function getRedirectUrl(): ?string
     {
         return $this->redirectUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRedirectUrl($value)
+    public function setRedirectUrl(?string $value): void
     {
         $this->redirectUrl = $value;
     }
@@ -138,30 +140,30 @@ class CreateHostedCheckoutResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->RETURNMAC !== null) {
+        if (!is_null($this->RETURNMAC)) {
             $object->RETURNMAC = $this->RETURNMAC;
         }
-        if ($this->hostedCheckoutId !== null) {
+        if (!is_null($this->hostedCheckoutId)) {
             $object->hostedCheckoutId = $this->hostedCheckoutId;
         }
-        if ($this->invalidTokens !== null) {
+        if (!is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
         }
-        if ($this->merchantReference !== null) {
+        if (!is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
         }
-        if ($this->partialRedirectUrl !== null) {
+        if (!is_null($this->partialRedirectUrl)) {
             $object->partialRedirectUrl = $this->partialRedirectUrl;
         }
-        if ($this->redirectUrl !== null) {
+        if (!is_null($this->redirectUrl)) {
             $object->redirectUrl = $this->redirectUrl;
         }
         return $object;
@@ -172,7 +174,7 @@ class CreateHostedCheckoutResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreateHostedCheckoutResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'RETURNMAC')) {

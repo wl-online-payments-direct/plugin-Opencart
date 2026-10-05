@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class CardWithoutCvv extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $cardNumber;
+    public ?string $cardNumber = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $cardholderName;
+    public ?string $cardholderName = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $expiryDate;
+    public ?string $expiryDate = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCardNumber()
+    public function getCardNumber(): ?string
     {
         return $this->cardNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCardNumber($value)
+    public function setCardNumber(?string $value): void
     {
         $this->cardNumber = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCardholderName()
+    public function getCardholderName(): ?string
     {
         return $this->cardholderName;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCardholderName($value)
+    public function setCardholderName(?string $value): void
     {
         $this->cardholderName = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExpiryDate()
+    public function getExpiryDate(): ?string
     {
         return $this->expiryDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExpiryDate($value)
+    public function setExpiryDate(?string $value): void
     {
         $this->expiryDate = $value;
     }
@@ -78,16 +77,16 @@ class CardWithoutCvv extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardNumber !== null) {
+        if (!is_null($this->cardNumber)) {
             $object->cardNumber = $this->cardNumber;
         }
-        if ($this->cardholderName !== null) {
+        if (!is_null($this->cardholderName)) {
             $object->cardholderName = $this->cardholderName;
         }
-        if ($this->expiryDate !== null) {
+        if (!is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
@@ -98,7 +97,7 @@ class CardWithoutCvv extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardWithoutCvv
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardNumber')) {

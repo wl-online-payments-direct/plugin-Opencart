@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class LengthValidator extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $maxLength;
+    public ?int $maxLength = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $minLength;
+    public ?int $minLength = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxLength()
+    public function getMaxLength(): ?int
     {
         return $this->maxLength;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMaxLength($value)
+    public function setMaxLength(?int $value): void
     {
         $this->maxLength = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinLength()
+    public function getMinLength(): ?int
     {
         return $this->minLength;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMinLength($value)
+    public function setMinLength(?int $value): void
     {
         $this->minLength = $value;
     }
@@ -58,13 +56,13 @@ class LengthValidator extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->maxLength !== null) {
+        if (!is_null($this->maxLength)) {
             $object->maxLength = $this->maxLength;
         }
-        if ($this->minLength !== null) {
+        if (!is_null($this->minLength)) {
             $object->minLength = $this->minLength;
         }
         return $object;
@@ -75,7 +73,7 @@ class LengthValidator extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): LengthValidator
     {
         parent::fromObject($object);
         if (property_exists($object, 'maxLength')) {

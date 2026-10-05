@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProductFieldDataRestrictions extends DataObject
 {
-    // Properties
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $isRequired;
+    public ?bool $isRequired = null;
 
     /**
-     * @var PaymentProductFieldValidators
+     * @var PaymentProductFieldValidators|null
      */
-    private $validators;
+    public ?PaymentProductFieldValidators $validators = null;
 
-    // Methods
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsRequired()
+    public function getIsRequired(): ?bool
     {
         return $this->isRequired;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsRequired($value)
+    public function setIsRequired(?bool $value): void
     {
         $this->isRequired = $value;
     }
 
     /**
-     * @return PaymentProductFieldValidators
+     * @return PaymentProductFieldValidators|null
      */
-    public function getValidators()
+    public function getValidators(): ?PaymentProductFieldValidators
     {
         return $this->validators;
     }
+
     /**
-     * @var PaymentProductFieldValidators
+     * @param PaymentProductFieldValidators|null $value
      */
-    public function setValidators($value)
+    public function setValidators(?PaymentProductFieldValidators $value): void
     {
         $this->validators = $value;
     }
@@ -58,13 +56,13 @@ class PaymentProductFieldDataRestrictions extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->isRequired !== null) {
+        if (!is_null($this->isRequired)) {
             $object->isRequired = $this->isRequired;
         }
-        if ($this->validators !== null) {
+        if (!is_null($this->validators)) {
             $object->validators = $this->validators->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class PaymentProductFieldDataRestrictions extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFieldDataRestrictions
     {
         parent::fromObject($object);
         if (property_exists($object, 'isRequired')) {

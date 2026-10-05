@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class GetPaymentProductsResponse extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProduct[]
+     * @var PaymentProduct[]|null
      */
-    private $paymentProducts;
+    public ?array $paymentProducts = null;
 
-    // Methods
     /**
-     * @return PaymentProduct[]
+     * @return PaymentProduct[]|null
      */
-    public function getPaymentProducts()
+    public function getPaymentProducts(): ?array
     {
         return $this->paymentProducts;
     }
+
     /**
-     * @var PaymentProduct[]
+     * @param PaymentProduct[]|null $value
      */
-    public function setPaymentProducts($value)
+    public function setPaymentProducts(?array $value): void
     {
         $this->paymentProducts = $value;
     }
@@ -38,13 +35,13 @@ class GetPaymentProductsResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->paymentProducts !== null) {
+        if (!is_null($this->paymentProducts)) {
             $object->paymentProducts = [];
             foreach ($this->paymentProducts as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentProducts[] = $element->toObject();
                 }
             }
@@ -57,7 +54,7 @@ class GetPaymentProductsResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetPaymentProductsResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'paymentProducts')) {

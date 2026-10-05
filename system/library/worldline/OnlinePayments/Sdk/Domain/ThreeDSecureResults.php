@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,264 +11,275 @@ use UnexpectedValueException;
  */
 class ThreeDSecureResults extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $acsTransactionId;
+    public ?string $acsTransactionId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $appliedExemption;
+    public ?string $appliedExemption = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $authenticationStatus;
+    public ?string $authenticationStatus = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $cavv;
+    public ?string $cavv = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeIndicator;
+    public ?string $challengeIndicator = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $dsTransactionId;
+    public ?string $dsTransactionId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $eci;
+    public ?string $eci = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $exemptionEngineFlow;
+    public ?string $exemptionEngineFlow = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $flow;
+    public ?string $flow = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $liability;
+    public ?string $liability = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $schemeEci;
+    public ?string $schemeEci = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $version;
+    public ?string $version = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $xid;
+    public ?string $xid = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAcsTransactionId()
+    public function getAcsTransactionId(): ?string
     {
         return $this->acsTransactionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAcsTransactionId($value)
+    public function setAcsTransactionId(?string $value): void
     {
         $this->acsTransactionId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAppliedExemption()
+    public function getAppliedExemption(): ?string
     {
         return $this->appliedExemption;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAppliedExemption($value)
+    public function setAppliedExemption(?string $value): void
     {
         $this->appliedExemption = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthenticationStatus()
+    public function getAuthenticationStatus(): ?string
     {
         return $this->authenticationStatus;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthenticationStatus($value)
+    public function setAuthenticationStatus(?string $value): void
     {
         $this->authenticationStatus = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCavv()
+    public function getCavv(): ?string
     {
         return $this->cavv;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCavv($value)
+    public function setCavv(?string $value): void
     {
         $this->cavv = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getChallengeIndicator()
+    public function getChallengeIndicator(): ?string
     {
         return $this->challengeIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeIndicator($value)
+    public function setChallengeIndicator(?string $value): void
     {
         $this->challengeIndicator = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDsTransactionId()
+    public function getDsTransactionId(): ?string
     {
         return $this->dsTransactionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDsTransactionId($value)
+    public function setDsTransactionId(?string $value): void
     {
         $this->dsTransactionId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEci()
+    public function getEci(): ?string
     {
         return $this->eci;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEci($value)
+    public function setEci(?string $value): void
     {
         $this->eci = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExemptionEngineFlow()
+    public function getExemptionEngineFlow(): ?string
     {
         return $this->exemptionEngineFlow;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExemptionEngineFlow($value)
+    public function setExemptionEngineFlow(?string $value): void
     {
         $this->exemptionEngineFlow = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFlow()
+    public function getFlow(): ?string
     {
         return $this->flow;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setFlow($value)
+    public function setFlow(?string $value): void
     {
         $this->flow = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLiability()
+    public function getLiability(): ?string
     {
         return $this->liability;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLiability($value)
+    public function setLiability(?string $value): void
     {
         $this->liability = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSchemeEci()
+    public function getSchemeEci(): ?string
     {
         return $this->schemeEci;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSchemeEci($value)
+    public function setSchemeEci(?string $value): void
     {
         $this->schemeEci = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVersion()
+    public function getVersion(): ?string
     {
         return $this->version;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setVersion($value)
+    public function setVersion(?string $value): void
     {
         $this->version = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getXid()
+    public function getXid(): ?string
     {
         return $this->xid;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setXid($value)
+    public function setXid(?string $value): void
     {
         $this->xid = $value;
     }
@@ -278,46 +287,46 @@ class ThreeDSecureResults extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acsTransactionId !== null) {
+        if (!is_null($this->acsTransactionId)) {
             $object->acsTransactionId = $this->acsTransactionId;
         }
-        if ($this->appliedExemption !== null) {
+        if (!is_null($this->appliedExemption)) {
             $object->appliedExemption = $this->appliedExemption;
         }
-        if ($this->authenticationStatus !== null) {
+        if (!is_null($this->authenticationStatus)) {
             $object->authenticationStatus = $this->authenticationStatus;
         }
-        if ($this->cavv !== null) {
+        if (!is_null($this->cavv)) {
             $object->cavv = $this->cavv;
         }
-        if ($this->challengeIndicator !== null) {
+        if (!is_null($this->challengeIndicator)) {
             $object->challengeIndicator = $this->challengeIndicator;
         }
-        if ($this->dsTransactionId !== null) {
+        if (!is_null($this->dsTransactionId)) {
             $object->dsTransactionId = $this->dsTransactionId;
         }
-        if ($this->eci !== null) {
+        if (!is_null($this->eci)) {
             $object->eci = $this->eci;
         }
-        if ($this->exemptionEngineFlow !== null) {
+        if (!is_null($this->exemptionEngineFlow)) {
             $object->exemptionEngineFlow = $this->exemptionEngineFlow;
         }
-        if ($this->flow !== null) {
+        if (!is_null($this->flow)) {
             $object->flow = $this->flow;
         }
-        if ($this->liability !== null) {
+        if (!is_null($this->liability)) {
             $object->liability = $this->liability;
         }
-        if ($this->schemeEci !== null) {
+        if (!is_null($this->schemeEci)) {
             $object->schemeEci = $this->schemeEci;
         }
-        if ($this->version !== null) {
+        if (!is_null($this->version)) {
             $object->version = $this->version;
         }
-        if ($this->xid !== null) {
+        if (!is_null($this->xid)) {
             $object->xid = $this->xid;
         }
         return $object;
@@ -328,7 +337,7 @@ class ThreeDSecureResults extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ThreeDSecureResults
     {
         parent::fromObject($object);
         if (property_exists($object, 'acsTransactionId')) {

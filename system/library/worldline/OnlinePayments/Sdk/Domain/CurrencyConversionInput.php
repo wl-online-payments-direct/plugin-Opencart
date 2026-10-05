@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CurrencyConversionInput extends DataObject
 {
-    // Properties
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $acceptedByUser;
+    public ?bool $acceptedByUser = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $dccSessionId;
+    public ?string $dccSessionId = null;
 
-    // Methods
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAcceptedByUser()
+    public function getAcceptedByUser(): ?bool
     {
         return $this->acceptedByUser;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAcceptedByUser($value)
+    public function setAcceptedByUser(?bool $value): void
     {
         $this->acceptedByUser = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDccSessionId()
+    public function getDccSessionId(): ?string
     {
         return $this->dccSessionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDccSessionId($value)
+    public function setDccSessionId(?string $value): void
     {
         $this->dccSessionId = $value;
     }
@@ -58,13 +56,13 @@ class CurrencyConversionInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acceptedByUser !== null) {
+        if (!is_null($this->acceptedByUser)) {
             $object->acceptedByUser = $this->acceptedByUser;
         }
-        if ($this->dccSessionId !== null) {
+        if (!is_null($this->dccSessionId)) {
             $object->dccSessionId = $this->dccSessionId;
         }
         return $object;
@@ -75,7 +73,7 @@ class CurrencyConversionInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CurrencyConversionInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'acceptedByUser')) {

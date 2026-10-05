@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,144 +11,149 @@ use UnexpectedValueException;
  */
 class PaymentStatusOutput extends DataObject
 {
-    // Properties
     /**
-     * @var APIError[]
+     * @var APIError[]|null
      */
-    private $errors;
+    public ?array $errors = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $isAuthorized;
+    public ?bool $isAuthorized = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $isCancellable;
+    public ?bool $isCancellable = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $isRefundable;
+    public ?bool $isRefundable = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $statusCategory;
+    public ?string $statusCategory = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $statusCode;
+    public ?int $statusCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $statusCodeChangeDateTime;
+    public ?string $statusCodeChangeDateTime = null;
 
-    // Methods
     /**
-     * @return APIError[]
+     * @return APIError[]|null
      */
-    public function getErrors()
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
+
     /**
-     * @var APIError[]
+     * @param APIError[]|null $value
      */
-    public function setErrors($value)
+    public function setErrors(?array $value): void
     {
         $this->errors = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsAuthorized()
+    public function getIsAuthorized(): ?bool
     {
         return $this->isAuthorized;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsAuthorized($value)
+    public function setIsAuthorized(?bool $value): void
     {
         $this->isAuthorized = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsCancellable()
+    public function getIsCancellable(): ?bool
     {
         return $this->isCancellable;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsCancellable($value)
+    public function setIsCancellable(?bool $value): void
     {
         $this->isCancellable = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsRefundable()
+    public function getIsRefundable(): ?bool
     {
         return $this->isRefundable;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsRefundable($value)
+    public function setIsRefundable(?bool $value): void
     {
         $this->isRefundable = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatusCategory()
+    public function getStatusCategory(): ?string
     {
         return $this->statusCategory;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatusCategory($value)
+    public function setStatusCategory(?string $value): void
     {
         $this->statusCategory = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getStatusCode()
+    public function getStatusCode(): ?int
     {
         return $this->statusCode;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setStatusCode($value)
+    public function setStatusCode(?int $value): void
     {
         $this->statusCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatusCodeChangeDateTime()
+    public function getStatusCodeChangeDateTime(): ?string
     {
         return $this->statusCodeChangeDateTime;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatusCodeChangeDateTime($value)
+    public function setStatusCodeChangeDateTime(?string $value): void
     {
         $this->statusCodeChangeDateTime = $value;
     }
@@ -158,33 +161,33 @@ class PaymentStatusOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->errors !== null) {
+        if (!is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if ($this->isAuthorized !== null) {
+        if (!is_null($this->isAuthorized)) {
             $object->isAuthorized = $this->isAuthorized;
         }
-        if ($this->isCancellable !== null) {
+        if (!is_null($this->isCancellable)) {
             $object->isCancellable = $this->isCancellable;
         }
-        if ($this->isRefundable !== null) {
+        if (!is_null($this->isRefundable)) {
             $object->isRefundable = $this->isRefundable;
         }
-        if ($this->statusCategory !== null) {
+        if (!is_null($this->statusCategory)) {
             $object->statusCategory = $this->statusCategory;
         }
-        if ($this->statusCode !== null) {
+        if (!is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
-        if ($this->statusCodeChangeDateTime !== null) {
+        if (!is_null($this->statusCodeChangeDateTime)) {
             $object->statusCodeChangeDateTime = $this->statusCodeChangeDateTime;
         }
         return $object;
@@ -195,7 +198,7 @@ class PaymentStatusOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentStatusOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'errors')) {

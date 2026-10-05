@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class CardRecurrenceDetails extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $recurringPaymentSequenceIndicator;
+    public ?string $recurringPaymentSequenceIndicator = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRecurringPaymentSequenceIndicator()
+    public function getRecurringPaymentSequenceIndicator(): ?string
     {
         return $this->recurringPaymentSequenceIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRecurringPaymentSequenceIndicator($value)
+    public function setRecurringPaymentSequenceIndicator(?string $value): void
     {
         $this->recurringPaymentSequenceIndicator = $value;
     }
@@ -38,10 +35,10 @@ class CardRecurrenceDetails extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->recurringPaymentSequenceIndicator !== null) {
+        if (!is_null($this->recurringPaymentSequenceIndicator)) {
             $object->recurringPaymentSequenceIndicator = $this->recurringPaymentSequenceIndicator;
         }
         return $object;
@@ -52,7 +49,7 @@ class CardRecurrenceDetails extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardRecurrenceDetails
     {
         parent::fromObject($object);
         if (property_exists($object, 'recurringPaymentSequenceIndicator')) {

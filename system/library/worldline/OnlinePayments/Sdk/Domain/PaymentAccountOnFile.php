@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentAccountOnFile extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $createDate;
+    public ?string $createDate = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $numberOfCardOnFileCreationAttemptsLast24Hours;
+    public ?int $numberOfCardOnFileCreationAttemptsLast24Hours = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCreateDate()
+    public function getCreateDate(): ?string
     {
         return $this->createDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCreateDate($value)
+    public function setCreateDate(?string $value): void
     {
         $this->createDate = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNumberOfCardOnFileCreationAttemptsLast24Hours()
+    public function getNumberOfCardOnFileCreationAttemptsLast24Hours(): ?int
     {
         return $this->numberOfCardOnFileCreationAttemptsLast24Hours;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setNumberOfCardOnFileCreationAttemptsLast24Hours($value)
+    public function setNumberOfCardOnFileCreationAttemptsLast24Hours(?int $value): void
     {
         $this->numberOfCardOnFileCreationAttemptsLast24Hours = $value;
     }
@@ -58,13 +56,13 @@ class PaymentAccountOnFile extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->createDate !== null) {
+        if (!is_null($this->createDate)) {
             $object->createDate = $this->createDate;
         }
-        if ($this->numberOfCardOnFileCreationAttemptsLast24Hours !== null) {
+        if (!is_null($this->numberOfCardOnFileCreationAttemptsLast24Hours)) {
             $object->numberOfCardOnFileCreationAttemptsLast24Hours = $this->numberOfCardOnFileCreationAttemptsLast24Hours;
         }
         return $object;
@@ -75,7 +73,7 @@ class PaymentAccountOnFile extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentAccountOnFile
     {
         parent::fromObject($object);
         if (property_exists($object, 'createDate')) {

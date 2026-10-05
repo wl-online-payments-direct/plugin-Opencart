@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class PaymentProductFilterHostedTokenization extends DataObject
 {
-    // Properties
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    private $products;
+    public ?array $products = null;
 
-    // Methods
     /**
-     * @return int[]
+     * @return int[]|null
      */
-    public function getProducts()
+    public function getProducts(): ?array
     {
         return $this->products;
     }
+
     /**
-     * @var int[]
+     * @param int[]|null $value
      */
-    public function setProducts($value)
+    public function setProducts(?array $value): void
     {
         $this->products = $value;
     }
@@ -38,13 +35,13 @@ class PaymentProductFilterHostedTokenization extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->products !== null) {
+        if (!is_null($this->products)) {
             $object->products = [];
             foreach ($this->products as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->products[] = $element;
                 }
             }
@@ -57,7 +54,7 @@ class PaymentProductFilterHostedTokenization extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFilterHostedTokenization
     {
         parent::fromObject($object);
         if (property_exists($object, 'products')) {

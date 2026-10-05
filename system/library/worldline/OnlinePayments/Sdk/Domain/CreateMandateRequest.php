@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,170 @@ use UnexpectedValueException;
  */
 class CreateMandateRequest extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $alias;
+    public ?string $alias = null;
 
     /**
-     * @var MandateCustomer
+     * @var MandateCustomer|null
      */
-    private $customer;
+    public ?MandateCustomer $customer = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $customerReference;
+    public ?string $customerReference = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $language;
+    public ?string $language = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $recurrenceType;
+    public ?string $recurrenceType = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $returnUrl;
+    public ?string $returnUrl = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $signatureType;
+    public ?string $signatureType = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $uniqueMandateReference;
+    public ?string $uniqueMandateReference = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAlias()
+    public function getAlias(): ?string
     {
         return $this->alias;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAlias($value)
+    public function setAlias(?string $value): void
     {
         $this->alias = $value;
     }
 
     /**
-     * @return MandateCustomer
+     * @return MandateCustomer|null
      */
-    public function getCustomer()
+    public function getCustomer(): ?MandateCustomer
     {
         return $this->customer;
     }
+
     /**
-     * @var MandateCustomer
+     * @param MandateCustomer|null $value
      */
-    public function setCustomer($value)
+    public function setCustomer(?MandateCustomer $value): void
     {
         $this->customer = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCustomerReference()
+    public function getCustomerReference(): ?string
     {
         return $this->customerReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCustomerReference($value)
+    public function setCustomerReference(?string $value): void
     {
         $this->customerReference = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLanguage()
+    public function getLanguage(): ?string
     {
         return $this->language;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLanguage($value)
+    public function setLanguage(?string $value): void
     {
         $this->language = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRecurrenceType()
+    public function getRecurrenceType(): ?string
     {
         return $this->recurrenceType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRecurrenceType($value)
+    public function setRecurrenceType(?string $value): void
     {
         $this->recurrenceType = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReturnUrl()
+    public function getReturnUrl(): ?string
     {
         return $this->returnUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setReturnUrl($value)
+    public function setReturnUrl(?string $value): void
     {
         $this->returnUrl = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSignatureType()
+    public function getSignatureType(): ?string
     {
         return $this->signatureType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSignatureType($value)
+    public function setSignatureType(?string $value): void
     {
         $this->signatureType = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUniqueMandateReference()
+    public function getUniqueMandateReference(): ?string
     {
         return $this->uniqueMandateReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUniqueMandateReference($value)
+    public function setUniqueMandateReference(?string $value): void
     {
         $this->uniqueMandateReference = $value;
     }
@@ -178,31 +182,31 @@ class CreateMandateRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->alias !== null) {
+        if (!is_null($this->alias)) {
             $object->alias = $this->alias;
         }
-        if ($this->customer !== null) {
+        if (!is_null($this->customer)) {
             $object->customer = $this->customer->toObject();
         }
-        if ($this->customerReference !== null) {
+        if (!is_null($this->customerReference)) {
             $object->customerReference = $this->customerReference;
         }
-        if ($this->language !== null) {
+        if (!is_null($this->language)) {
             $object->language = $this->language;
         }
-        if ($this->recurrenceType !== null) {
+        if (!is_null($this->recurrenceType)) {
             $object->recurrenceType = $this->recurrenceType;
         }
-        if ($this->returnUrl !== null) {
+        if (!is_null($this->returnUrl)) {
             $object->returnUrl = $this->returnUrl;
         }
-        if ($this->signatureType !== null) {
+        if (!is_null($this->signatureType)) {
             $object->signatureType = $this->signatureType;
         }
-        if ($this->uniqueMandateReference !== null) {
+        if (!is_null($this->uniqueMandateReference)) {
             $object->uniqueMandateReference = $this->uniqueMandateReference;
         }
         return $object;
@@ -213,7 +217,7 @@ class CreateMandateRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreateMandateRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'alias')) {

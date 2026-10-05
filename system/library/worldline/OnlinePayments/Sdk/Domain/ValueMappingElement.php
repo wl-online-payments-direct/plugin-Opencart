@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class ValueMappingElement extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProductFieldDisplayElement[]
+     * @var PaymentProductFieldDisplayElement[]|null
      */
-    private $displayElements;
+    public ?array $displayElements = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $value;
+    public ?string $value = null;
 
-    // Methods
     /**
-     * @return PaymentProductFieldDisplayElement[]
+     * @return PaymentProductFieldDisplayElement[]|null
      */
-    public function getDisplayElements()
+    public function getDisplayElements(): ?array
     {
         return $this->displayElements;
     }
+
     /**
-     * @var PaymentProductFieldDisplayElement[]
+     * @param PaymentProductFieldDisplayElement[]|null $value
      */
-    public function setDisplayElements($value)
+    public function setDisplayElements(?array $value): void
     {
         $this->displayElements = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setValue($value)
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }
@@ -58,18 +56,18 @@ class ValueMappingElement extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->displayElements !== null) {
+        if (!is_null($this->displayElements)) {
             $object->displayElements = [];
             foreach ($this->displayElements as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->displayElements[] = $element->toObject();
                 }
             }
         }
-        if ($this->value !== null) {
+        if (!is_null($this->value)) {
             $object->value = $this->value;
         }
         return $object;
@@ -80,7 +78,7 @@ class ValueMappingElement extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ValueMappingElement
     {
         parent::fromObject($object);
         if (property_exists($object, 'displayElements')) {

@@ -1,6 +1,7 @@
 <?php
-
 namespace OnlinePayments\Sdk;
+
+use DateTime;
 
 /**
  * Class CallContext
@@ -10,15 +11,18 @@ namespace OnlinePayments\Sdk;
 class CallContext
 {
     /** @var string */
-    private $idempotenceKey = '';
+    private string $idempotenceKey = '';
 
     /** @var string */
-    private $idempotenceRequestTimestamp = '';
+    private string $idempotenceRequestTimestamp = '';
+
+    /** @var DateTime|null */
+    private ?DateTime $idempotenceResponseDateTime;
 
     /**
      * @return string
      */
-    public function getIdempotenceKey()
+    public function getIdempotenceKey(): string
     {
         return $this->idempotenceKey;
     }
@@ -26,7 +30,7 @@ class CallContext
     /**
      * @param string $idempotenceKey
      */
-    public function setIdempotenceKey($idempotenceKey)
+    public function setIdempotenceKey(string $idempotenceKey): void
     {
         $this->idempotenceKey = $idempotenceKey;
     }
@@ -34,7 +38,7 @@ class CallContext
     /**
      * @return string
      */
-    public function getIdempotenceRequestTimestamp()
+    public function getIdempotenceRequestTimestamp(): string
     {
         return $this->idempotenceRequestTimestamp;
     }
@@ -42,8 +46,24 @@ class CallContext
     /**
      * @param string $idempotenceRequestTimestamp
      */
-    public function setIdempotenceRequestTimestamp($idempotenceRequestTimestamp)
+    public function setIdempotenceRequestTimestamp(string $idempotenceRequestTimestamp): void
     {
         $this->idempotenceRequestTimestamp = $idempotenceRequestTimestamp;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getIdempotenceResponseDateTime(): ?DateTime
+    {
+        return $this->idempotenceResponseDateTime;
+    }
+
+    /**
+     * @param DateTime $idempotenceResponseDateTime
+     */
+    public function setIdempotenceResponseDateTime(DateTime $idempotenceResponseDateTime): void
+    {
+        $this->idempotenceResponseDateTime = $idempotenceResponseDateTime;
     }
 }

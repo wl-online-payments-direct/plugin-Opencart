@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProduct320SpecificData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $gateway;
+    public ?string $gateway = null;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $networks;
+    public ?array $networks = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGateway()
+    public function getGateway(): ?string
     {
         return $this->gateway;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setGateway($value)
+    public function setGateway(?string $value): void
     {
         $this->gateway = $value;
     }
 
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getNetworks()
+    public function getNetworks(): ?array
     {
         return $this->networks;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setNetworks($value)
+    public function setNetworks(?array $value): void
     {
         $this->networks = $value;
     }
@@ -58,16 +56,16 @@ class PaymentProduct320SpecificData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->gateway !== null) {
+        if (!is_null($this->gateway)) {
             $object->gateway = $this->gateway;
         }
-        if ($this->networks !== null) {
+        if (!is_null($this->networks)) {
             $object->networks = [];
             foreach ($this->networks as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->networks[] = $element;
                 }
             }
@@ -80,7 +78,7 @@ class PaymentProduct320SpecificData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct320SpecificData
     {
         parent::fromObject($object);
         if (property_exists($object, 'gateway')) {

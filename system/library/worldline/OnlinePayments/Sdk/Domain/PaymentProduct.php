@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,244 +11,275 @@ use UnexpectedValueException;
  */
 class PaymentProduct extends DataObject
 {
-    // Properties
     /**
-     * @var AccountOnFile[]
+     * @var AccountOnFile[]|null
      */
-    private $accountsOnFile;
+    public ?array $accountsOnFile = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $allowsRecurring;
+    public ?bool $allowsAuthentication = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $allowsTokenization;
+    public ?bool $allowsRecurring = null;
 
     /**
-     * @var PaymentProductDisplayHints
+     * @var bool|null
      */
-    private $displayHints;
+    public ?bool $allowsTokenization = null;
 
     /**
-     * @var PaymentProductDisplayHints[]
+     * @var PaymentProductDisplayHints|null
      */
-    private $displayHintsList;
+    public ?PaymentProductDisplayHints $displayHints = null;
 
     /**
-     * @var PaymentProductField[]
+     * @var PaymentProductDisplayHints[]|null
      */
-    private $fields;
+    public ?array $displayHintsList = null;
 
     /**
-     * @var int
+     * @var PaymentProductField[]|null
      */
-    private $id;
+    public ?array $fields = null;
 
     /**
-     * @var string
+     * @var int|null
      */
-    private $paymentMethod;
+    public ?int $id = null;
 
     /**
-     * @var PaymentProduct302SpecificData
+     * @var string|null
      */
-    private $paymentProduct302SpecificData;
+    public ?string $paymentMethod = null;
 
     /**
-     * @var PaymentProduct320SpecificData
+     * @var PaymentProduct302SpecificData|null
      */
-    private $paymentProduct320SpecificData;
+    public ?PaymentProduct302SpecificData $paymentProduct302SpecificData = null;
 
     /**
-     * @var string
+     * @var PaymentProduct320SpecificData|null
      */
-    private $paymentProductGroup;
+    public ?PaymentProduct320SpecificData $paymentProduct320SpecificData = null;
 
     /**
-     * @var bool
+     * @var string|null
      */
-    private $usesRedirectionTo3rdParty;
+    public ?string $paymentProductGroup = null;
 
-    // Methods
     /**
-     * @return AccountOnFile[]
+     * @var bool|null
      */
-    public function getAccountsOnFile()
+    public ?bool $usesRedirectionTo3rdParty = null;
+
+    /**
+     * @return AccountOnFile[]|null
+     */
+    public function getAccountsOnFile(): ?array
     {
         return $this->accountsOnFile;
     }
+
     /**
-     * @var AccountOnFile[]
+     * @param AccountOnFile[]|null $value
      */
-    public function setAccountsOnFile($value)
+    public function setAccountsOnFile(?array $value): void
     {
         $this->accountsOnFile = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAllowsRecurring()
+    public function getAllowsAuthentication(): ?bool
+    {
+        return $this->allowsAuthentication;
+    }
+
+    /**
+     * @param bool|null $value
+     */
+    public function setAllowsAuthentication(?bool $value): void
+    {
+        $this->allowsAuthentication = $value;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAllowsRecurring(): ?bool
     {
         return $this->allowsRecurring;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAllowsRecurring($value)
+    public function setAllowsRecurring(?bool $value): void
     {
         $this->allowsRecurring = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAllowsTokenization()
+    public function getAllowsTokenization(): ?bool
     {
         return $this->allowsTokenization;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAllowsTokenization($value)
+    public function setAllowsTokenization(?bool $value): void
     {
         $this->allowsTokenization = $value;
     }
 
     /**
-     * @return PaymentProductDisplayHints
+     * @return PaymentProductDisplayHints|null
      */
-    public function getDisplayHints()
+    public function getDisplayHints(): ?PaymentProductDisplayHints
     {
         return $this->displayHints;
     }
+
     /**
-     * @var PaymentProductDisplayHints
+     * @param PaymentProductDisplayHints|null $value
      */
-    public function setDisplayHints($value)
+    public function setDisplayHints(?PaymentProductDisplayHints $value): void
     {
         $this->displayHints = $value;
     }
 
     /**
-     * @return PaymentProductDisplayHints[]
+     * @return PaymentProductDisplayHints[]|null
      */
-    public function getDisplayHintsList()
+    public function getDisplayHintsList(): ?array
     {
         return $this->displayHintsList;
     }
+
     /**
-     * @var PaymentProductDisplayHints[]
+     * @param PaymentProductDisplayHints[]|null $value
      */
-    public function setDisplayHintsList($value)
+    public function setDisplayHintsList(?array $value): void
     {
         $this->displayHintsList = $value;
     }
 
     /**
-     * @return PaymentProductField[]
+     * @return PaymentProductField[]|null
      */
-    public function getFields()
+    public function getFields(): ?array
     {
         return $this->fields;
     }
+
     /**
-     * @var PaymentProductField[]
+     * @param PaymentProductField[]|null $value
      */
-    public function setFields($value)
+    public function setFields(?array $value): void
     {
         $this->fields = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setId($value)
+    public function setId(?int $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentMethod()
+    public function getPaymentMethod(): ?string
     {
         return $this->paymentMethod;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentMethod($value)
+    public function setPaymentMethod(?string $value): void
     {
         $this->paymentMethod = $value;
     }
 
     /**
-     * @return PaymentProduct302SpecificData
+     * @return PaymentProduct302SpecificData|null
      */
-    public function getPaymentProduct302SpecificData()
+    public function getPaymentProduct302SpecificData(): ?PaymentProduct302SpecificData
     {
         return $this->paymentProduct302SpecificData;
     }
+
     /**
-     * @var PaymentProduct302SpecificData
+     * @param PaymentProduct302SpecificData|null $value
      */
-    public function setPaymentProduct302SpecificData($value)
+    public function setPaymentProduct302SpecificData(?PaymentProduct302SpecificData $value): void
     {
         $this->paymentProduct302SpecificData = $value;
     }
 
     /**
-     * @return PaymentProduct320SpecificData
+     * @return PaymentProduct320SpecificData|null
      */
-    public function getPaymentProduct320SpecificData()
+    public function getPaymentProduct320SpecificData(): ?PaymentProduct320SpecificData
     {
         return $this->paymentProduct320SpecificData;
     }
+
     /**
-     * @var PaymentProduct320SpecificData
+     * @param PaymentProduct320SpecificData|null $value
      */
-    public function setPaymentProduct320SpecificData($value)
+    public function setPaymentProduct320SpecificData(?PaymentProduct320SpecificData $value): void
     {
         $this->paymentProduct320SpecificData = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentProductGroup()
+    public function getPaymentProductGroup(): ?string
     {
         return $this->paymentProductGroup;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentProductGroup($value)
+    public function setPaymentProductGroup(?string $value): void
     {
         $this->paymentProductGroup = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getUsesRedirectionTo3rdParty()
+    public function getUsesRedirectionTo3rdParty(): ?bool
     {
         return $this->usesRedirectionTo3rdParty;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setUsesRedirectionTo3rdParty($value)
+    public function setUsesRedirectionTo3rdParty(?bool $value): void
     {
         $this->usesRedirectionTo3rdParty = $value;
     }
@@ -258,58 +287,61 @@ class PaymentProduct extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->accountsOnFile !== null) {
+        if (!is_null($this->accountsOnFile)) {
             $object->accountsOnFile = [];
             foreach ($this->accountsOnFile as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->accountsOnFile[] = $element->toObject();
                 }
             }
         }
-        if ($this->allowsRecurring !== null) {
+        if (!is_null($this->allowsAuthentication)) {
+            $object->allowsAuthentication = $this->allowsAuthentication;
+        }
+        if (!is_null($this->allowsRecurring)) {
             $object->allowsRecurring = $this->allowsRecurring;
         }
-        if ($this->allowsTokenization !== null) {
+        if (!is_null($this->allowsTokenization)) {
             $object->allowsTokenization = $this->allowsTokenization;
         }
-        if ($this->displayHints !== null) {
+        if (!is_null($this->displayHints)) {
             $object->displayHints = $this->displayHints->toObject();
         }
-        if ($this->displayHintsList !== null) {
+        if (!is_null($this->displayHintsList)) {
             $object->displayHintsList = [];
             foreach ($this->displayHintsList as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->displayHintsList[] = $element->toObject();
                 }
             }
         }
-        if ($this->fields !== null) {
+        if (!is_null($this->fields)) {
             $object->fields = [];
             foreach ($this->fields as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->fields[] = $element->toObject();
                 }
             }
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->paymentMethod !== null) {
+        if (!is_null($this->paymentMethod)) {
             $object->paymentMethod = $this->paymentMethod;
         }
-        if ($this->paymentProduct302SpecificData !== null) {
+        if (!is_null($this->paymentProduct302SpecificData)) {
             $object->paymentProduct302SpecificData = $this->paymentProduct302SpecificData->toObject();
         }
-        if ($this->paymentProduct320SpecificData !== null) {
+        if (!is_null($this->paymentProduct320SpecificData)) {
             $object->paymentProduct320SpecificData = $this->paymentProduct320SpecificData->toObject();
         }
-        if ($this->paymentProductGroup !== null) {
+        if (!is_null($this->paymentProductGroup)) {
             $object->paymentProductGroup = $this->paymentProductGroup;
         }
-        if ($this->usesRedirectionTo3rdParty !== null) {
+        if (!is_null($this->usesRedirectionTo3rdParty)) {
             $object->usesRedirectionTo3rdParty = $this->usesRedirectionTo3rdParty;
         }
         return $object;
@@ -320,7 +352,7 @@ class PaymentProduct extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct
     {
         parent::fromObject($object);
         if (property_exists($object, 'accountsOnFile')) {
@@ -332,6 +364,9 @@ class PaymentProduct extends DataObject
                 $value = new AccountOnFile();
                 $this->accountsOnFile[] = $value->fromObject($element);
             }
+        }
+        if (property_exists($object, 'allowsAuthentication')) {
+            $this->allowsAuthentication = $object->allowsAuthentication;
         }
         if (property_exists($object, 'allowsRecurring')) {
             $this->allowsRecurring = $object->allowsRecurring;

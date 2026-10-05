@@ -1,71 +1,94 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
  * @package OnlinePayments\Sdk\Domain
+ * @deprecated An object containing the details of the related payment input.  All properties in paymentLinkOrder are deprecated. Use corresponding values as noted below: | Property | Replacement | | - | - | | merchantReference | references/merchantReference | | amount | order/amountOfMoney | | surchargeSpecificInput | order/surchargeSpecificInput |
  */
 class PaymentLinkOrderInput extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amount;
+    public ?AmountOfMoney $amount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $merchantReference;
+    public ?string $merchantReference = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @var SurchargeForPaymentLink|null
      */
-    public function getAmount()
+    public ?SurchargeForPaymentLink $surchargeSpecificInput = null;
+
+    /**
+     * @return AmountOfMoney|null
+     */
+    public function getAmount(): ?AmountOfMoney
     {
         return $this->amount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?AmountOfMoney $value): void
     {
         $this->amount = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMerchantReference()
+    public function getMerchantReference(): ?string
     {
         return $this->merchantReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMerchantReference($value)
+    public function setMerchantReference(?string $value): void
     {
         $this->merchantReference = $value;
     }
 
     /**
+     * @return SurchargeForPaymentLink|null
+     */
+    public function getSurchargeSpecificInput(): ?SurchargeForPaymentLink
+    {
+        return $this->surchargeSpecificInput;
+    }
+
+    /**
+     * @param SurchargeForPaymentLink|null $value
+     */
+    public function setSurchargeSpecificInput(?SurchargeForPaymentLink $value): void
+    {
+        $this->surchargeSpecificInput = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount->toObject();
         }
-        if ($this->merchantReference !== null) {
+        if (!is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
+        }
+        if (!is_null($this->surchargeSpecificInput)) {
+            $object->surchargeSpecificInput = $this->surchargeSpecificInput->toObject();
         }
         return $object;
     }
@@ -75,7 +98,7 @@ class PaymentLinkOrderInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentLinkOrderInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'amount')) {
@@ -87,6 +110,13 @@ class PaymentLinkOrderInput extends DataObject
         }
         if (property_exists($object, 'merchantReference')) {
             $this->merchantReference = $object->merchantReference;
+        }
+        if (property_exists($object, 'surchargeSpecificInput')) {
+            if (!is_object($object->surchargeSpecificInput)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->surchargeSpecificInput, true) . '\' is not an object');
+            }
+            $value = new SurchargeForPaymentLink();
+            $this->surchargeSpecificInput = $value->fromObject($object->surchargeSpecificInput);
         }
         return $this;
     }

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CalculateSurchargeRequest extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var CardSource
+     * @var CardSource|null
      */
-    private $cardSource;
+    public ?CardSource $cardSource = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getAmountOfMoney()
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return CardSource
+     * @return CardSource|null
      */
-    public function getCardSource()
+    public function getCardSource(): ?CardSource
     {
         return $this->cardSource;
     }
+
     /**
-     * @var CardSource
+     * @param CardSource|null $value
      */
-    public function setCardSource($value)
+    public function setCardSource(?CardSource $value): void
     {
         $this->cardSource = $value;
     }
@@ -58,13 +56,13 @@ class CalculateSurchargeRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->cardSource !== null) {
+        if (!is_null($this->cardSource)) {
             $object->cardSource = $this->cardSource->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class CalculateSurchargeRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CalculateSurchargeRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {

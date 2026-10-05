@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,173 @@ use UnexpectedValueException;
  */
 class APIError extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $category;
+    public ?string $category = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Use errorCode instead. Error code
      */
-    private $code;
+    public ?string $code = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $errorCode;
+    public ?string $errorCode = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $httpStatusCode;
+    public ?int $httpStatusCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $message;
+    public ?string $message = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $propertyName;
+    public ?string $propertyName = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $retriable;
+    public ?bool $retriable = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCategory()
+    public function getCategory(): ?string
     {
         return $this->category;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCategory($value)
+    public function setCategory(?string $value): void
     {
         $this->category = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated Use errorCode instead. Error code
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Use errorCode instead. Error code
      */
-    public function setCode($value)
+    public function setCode(?string $value): void
     {
         $this->code = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getErrorCode()
+    public function getErrorCode(): ?string
     {
         return $this->errorCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setErrorCode($value)
+    public function setErrorCode(?string $value): void
     {
         $this->errorCode = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): ?int
     {
         return $this->httpStatusCode;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setHttpStatusCode($value)
+    public function setHttpStatusCode(?int $value): void
     {
         $this->httpStatusCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMessage($value)
+    public function setMessage(?string $value): void
     {
         $this->message = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPropertyName()
+    public function getPropertyName(): ?string
     {
         return $this->propertyName;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPropertyName($value)
+    public function setPropertyName(?string $value): void
     {
         $this->propertyName = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getRetriable()
+    public function getRetriable(): ?bool
     {
         return $this->retriable;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setRetriable($value)
+    public function setRetriable(?bool $value): void
     {
         $this->retriable = $value;
     }
@@ -178,31 +185,31 @@ class APIError extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->category !== null) {
+        if (!is_null($this->category)) {
             $object->category = $this->category;
         }
-        if ($this->code !== null) {
+        if (!is_null($this->code)) {
             $object->code = $this->code;
         }
-        if ($this->errorCode !== null) {
+        if (!is_null($this->errorCode)) {
             $object->errorCode = $this->errorCode;
         }
-        if ($this->httpStatusCode !== null) {
+        if (!is_null($this->httpStatusCode)) {
             $object->httpStatusCode = $this->httpStatusCode;
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->message !== null) {
+        if (!is_null($this->message)) {
             $object->message = $this->message;
         }
-        if ($this->propertyName !== null) {
+        if (!is_null($this->propertyName)) {
             $object->propertyName = $this->propertyName;
         }
-        if ($this->retriable !== null) {
+        if (!is_null($this->retriable)) {
             $object->retriable = $this->retriable;
         }
         return $object;
@@ -213,7 +220,7 @@ class APIError extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): APIError
     {
         parent::fromObject($object);
         if (property_exists($object, 'category')) {

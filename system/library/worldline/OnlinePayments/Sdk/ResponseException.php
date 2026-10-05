@@ -1,10 +1,12 @@
 <?php
-
+/*
+ * This file was automatically generated.
+ */
 namespace OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Domain\APIError;
-use OnlinePayments\Sdk\Domain\ErrorResponse;
 use RuntimeException;
+use OnlinePayments\Sdk\Domain\APIError;
+use OnlinePayments\Sdk\Domain\DataObject;
 
 /**
  * Class ResponseException
@@ -14,29 +16,29 @@ use RuntimeException;
 class ResponseException extends RuntimeException
 {
     /** @var int */
-    private $httpStatusCode;
+    private int $httpStatusCode;
 
     /**
      * @var DataObject
      */
-    private $response;
+    private DataObject $response;
 
     /**
      * @param int $httpStatusCode
      * @param DataObject $response
-     * @param string $message
+     * @param string|null $message
      */
-    public function __construct($httpStatusCode, DataObject $response, $message = null)
+    public function __construct(int $httpStatusCode, DataObject $response, ?string $message = null)
     {
         if (is_null($message)) {
-            $message = 'The server returned an error.';
+            $message = 'the payment platform returned an error response';
         }
         parent::__construct($message);
         $this->httpStatusCode = $httpStatusCode;
         $this->response = $response;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf(
             "exception '%s' with message '%s'. in %s:%d\nHTTP status code: %s\nResponse:\n%s\nStack trace:\n%s",
@@ -45,7 +47,7 @@ class ResponseException extends RuntimeException
             $this->getFile(),
             $this->getLine(),
             $this->getHttpStatusCode(),
-            $this->getResponse()->toJson(),
+            json_encode($this->getResponse(), JSON_PRETTY_PRINT),
             $this->getTraceAsString()
         );
     }
@@ -53,7 +55,7 @@ class ResponseException extends RuntimeException
     /**
      * @return int
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): int
     {
         return $this->httpStatusCode;
     }
@@ -61,7 +63,7 @@ class ResponseException extends RuntimeException
     /**
      * @return DataObject
      */
-    public function getResponse()
+    public function getResponse(): DataObject
     {
         return $this->response;
     }
@@ -69,30 +71,30 @@ class ResponseException extends RuntimeException
     /**
      * @return string
      */
-    public function getErrorId()
+    public function getErrorId(): string
     {
-        $responseVariables = (array)$this->getResponse()->toObject();
+        $responseVariables = get_object_vars($this->getResponse());
         if (!array_key_exists('errorId', $responseVariables)) {
             return '';
         }
-        return $responseVariables['errorId'];
+        return $responseVariables['errorId'] ?? '';
     }
 
     /**
      * @return APIError[]
      */
-    public function getErrors()
+    public function getErrors(): array
     {
-        $response = $this->getResponse();
-        if (!$response instanceof ErrorResponse) {
+        $responseVariables = get_object_vars($this->getResponse());
+        if (!array_key_exists('errors', $responseVariables)) {
             return array();
         }
-        $errors = $response->getErrors();
+        $errors = $responseVariables['errors'];
         if (!is_array($errors)) {
             return array();
         }
-        foreach ($errors as $error) {
-            if (!($error instanceof APIError)) {
+        foreach ($errors as $e) {
+            if (!($e instanceof APIError)) {
                 return array();
             }
         }

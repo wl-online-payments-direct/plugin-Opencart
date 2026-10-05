@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProduct5407 extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $pairingToken;
+    public ?string $pairingToken = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $qrCode;
+    public ?string $qrCode = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPairingToken()
+    public function getPairingToken(): ?string
     {
         return $this->pairingToken;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPairingToken($value)
+    public function setPairingToken(?string $value): void
     {
         $this->pairingToken = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQrCode()
+    public function getQrCode(): ?string
     {
         return $this->qrCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setQrCode($value)
+    public function setQrCode(?string $value): void
     {
         $this->qrCode = $value;
     }
@@ -58,13 +56,13 @@ class PaymentProduct5407 extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->pairingToken !== null) {
+        if (!is_null($this->pairingToken)) {
             $object->pairingToken = $this->pairingToken;
         }
-        if ($this->qrCode !== null) {
+        if (!is_null($this->qrCode)) {
             $object->qrCode = $this->qrCode;
         }
         return $object;
@@ -75,7 +73,7 @@ class PaymentProduct5407 extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct5407
     {
         parent::fromObject($object);
         if (property_exists($object, 'pairingToken')) {

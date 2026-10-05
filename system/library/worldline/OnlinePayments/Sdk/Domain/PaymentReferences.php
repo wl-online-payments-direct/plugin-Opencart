@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,59 +11,83 @@ use UnexpectedValueException;
  */
 class PaymentReferences extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $merchantParameters;
+    public ?string $merchantParameters = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $merchantReference;
+    public ?string $merchantReference = null;
 
-    // Methods
     /**
-     * @return string
+     * @var string|null
      */
-    public function getMerchantParameters()
+    public ?string $operationGroupReference = null;
+
+    /**
+     * @return string|null
+     */
+    public function getMerchantParameters(): ?string
     {
         return $this->merchantParameters;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMerchantParameters($value)
+    public function setMerchantParameters(?string $value): void
     {
         $this->merchantParameters = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMerchantReference()
+    public function getMerchantReference(): ?string
     {
         return $this->merchantReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMerchantReference($value)
+    public function setMerchantReference(?string $value): void
     {
         $this->merchantReference = $value;
     }
 
     /**
+     * @return string|null
+     */
+    public function getOperationGroupReference(): ?string
+    {
+        return $this->operationGroupReference;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setOperationGroupReference(?string $value): void
+    {
+        $this->operationGroupReference = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->merchantParameters !== null) {
+        if (!is_null($this->merchantParameters)) {
             $object->merchantParameters = $this->merchantParameters;
         }
-        if ($this->merchantReference !== null) {
+        if (!is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
+        }
+        if (!is_null($this->operationGroupReference)) {
+            $object->operationGroupReference = $this->operationGroupReference;
         }
         return $object;
     }
@@ -75,7 +97,7 @@ class PaymentReferences extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentReferences
     {
         parent::fromObject($object);
         if (property_exists($object, 'merchantParameters')) {
@@ -83,6 +105,9 @@ class PaymentReferences extends DataObject
         }
         if (property_exists($object, 'merchantReference')) {
             $this->merchantReference = $object->merchantReference;
+        }
+        if (property_exists($object, 'operationGroupReference')) {
+            $this->operationGroupReference = $object->operationGroupReference;
         }
         return $this;
     }

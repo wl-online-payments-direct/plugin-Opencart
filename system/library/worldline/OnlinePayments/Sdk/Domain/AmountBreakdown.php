@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class AmountBreakdown extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $amount;
+    public ?int $amount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAmount()
+    public function getAmount(): ?int
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?int $value): void
     {
         $this->amount = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
@@ -58,13 +56,13 @@ class AmountBreakdown extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
@@ -75,7 +73,7 @@ class AmountBreakdown extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AmountBreakdown
     {
         parent::fromObject($object);
         if (property_exists($object, 'amount')) {

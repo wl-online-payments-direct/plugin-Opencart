@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class GetPrivacyPolicyResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $htmlContent;
+    public ?string $htmlContent = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHtmlContent()
+    public function getHtmlContent(): ?string
     {
         return $this->htmlContent;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHtmlContent($value)
+    public function setHtmlContent(?string $value): void
     {
         $this->htmlContent = $value;
     }
@@ -38,10 +35,10 @@ class GetPrivacyPolicyResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->htmlContent !== null) {
+        if (!is_null($this->htmlContent)) {
             $object->htmlContent = $this->htmlContent;
         }
         return $object;
@@ -52,7 +49,7 @@ class GetPrivacyPolicyResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetPrivacyPolicyResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'htmlContent')) {

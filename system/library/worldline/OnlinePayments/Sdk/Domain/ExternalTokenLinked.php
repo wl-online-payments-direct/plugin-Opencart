@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,68 @@ use UnexpectedValueException;
  */
 class ExternalTokenLinked extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $ComputedToken;
+    public ?string $ComputedToken = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Use the field ComputedToken instead.
      */
-    private $GTSComputedToken;
+    public ?string $GTSComputedToken = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $GeneratedToken;
+    public ?string $GeneratedToken = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getComputedToken()
+    public function getComputedToken(): ?string
     {
         return $this->ComputedToken;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setComputedToken($value)
+    public function setComputedToken(?string $value): void
     {
         $this->ComputedToken = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated Use the field ComputedToken instead.
      */
-    public function getGTSComputedToken()
+    public function getGTSComputedToken(): ?string
     {
         return $this->GTSComputedToken;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Use the field ComputedToken instead.
      */
-    public function setGTSComputedToken($value)
+    public function setGTSComputedToken(?string $value): void
     {
         $this->GTSComputedToken = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGeneratedToken()
+    public function getGeneratedToken(): ?string
     {
         return $this->GeneratedToken;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setGeneratedToken($value)
+    public function setGeneratedToken(?string $value): void
     {
         $this->GeneratedToken = $value;
     }
@@ -78,16 +80,16 @@ class ExternalTokenLinked extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->ComputedToken !== null) {
+        if (!is_null($this->ComputedToken)) {
             $object->ComputedToken = $this->ComputedToken;
         }
-        if ($this->GTSComputedToken !== null) {
+        if (!is_null($this->GTSComputedToken)) {
             $object->GTSComputedToken = $this->GTSComputedToken;
         }
-        if ($this->GeneratedToken !== null) {
+        if (!is_null($this->GeneratedToken)) {
             $object->GeneratedToken = $this->GeneratedToken;
         }
         return $object;
@@ -98,7 +100,7 @@ class ExternalTokenLinked extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ExternalTokenLinked
     {
         parent::fromObject($object);
         if (property_exists($object, 'ComputedToken')) {

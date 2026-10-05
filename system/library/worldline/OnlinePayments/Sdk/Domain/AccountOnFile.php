@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class AccountOnFile extends DataObject
 {
-    // Properties
     /**
-     * @var AccountOnFileAttribute[]
+     * @var AccountOnFileAttribute[]|null
      */
-    private $attributes;
+    public ?array $attributes = null;
 
     /**
-     * @var AccountOnFileDisplayHints
+     * @var AccountOnFileDisplayHints|null
      */
-    private $displayHints;
+    public ?AccountOnFileDisplayHints $displayHints = null;
 
     /**
-     * @var int
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $paymentProductId;
+    public ?int $paymentProductId = null;
 
-    // Methods
     /**
-     * @return AccountOnFileAttribute[]
+     * @return AccountOnFileAttribute[]|null
      */
-    public function getAttributes()
+    public function getAttributes(): ?array
     {
         return $this->attributes;
     }
+
     /**
-     * @var AccountOnFileAttribute[]
+     * @param AccountOnFileAttribute[]|null $value
      */
-    public function setAttributes($value)
+    public function setAttributes(?array $value): void
     {
         $this->attributes = $value;
     }
 
     /**
-     * @return AccountOnFileDisplayHints
+     * @return AccountOnFileDisplayHints|null
      */
-    public function getDisplayHints()
+    public function getDisplayHints(): ?AccountOnFileDisplayHints
     {
         return $this->displayHints;
     }
+
     /**
-     * @var AccountOnFileDisplayHints
+     * @param AccountOnFileDisplayHints|null $value
      */
-    public function setDisplayHints($value)
+    public function setDisplayHints(?AccountOnFileDisplayHints $value): void
     {
         $this->displayHints = $value;
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var int
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -98,24 +98,24 @@ class AccountOnFile extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->attributes !== null) {
+        if (!is_null($this->attributes)) {
             $object->attributes = [];
             foreach ($this->attributes as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->attributes[] = $element->toObject();
                 }
             }
         }
-        if ($this->displayHints !== null) {
+        if (!is_null($this->displayHints)) {
             $object->displayHints = $this->displayHints->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -126,7 +126,7 @@ class AccountOnFile extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AccountOnFile
     {
         parent::fromObject($object);
         if (property_exists($object, 'attributes')) {

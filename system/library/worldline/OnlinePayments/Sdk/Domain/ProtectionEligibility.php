@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class ProtectionEligibility extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $eligibility;
+    public ?string $eligibility = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEligibility()
+    public function getEligibility(): ?string
     {
         return $this->eligibility;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEligibility($value)
+    public function setEligibility(?string $value): void
     {
         $this->eligibility = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
@@ -58,13 +56,13 @@ class ProtectionEligibility extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->eligibility !== null) {
+        if (!is_null($this->eligibility)) {
             $object->eligibility = $this->eligibility;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
@@ -75,7 +73,7 @@ class ProtectionEligibility extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ProtectionEligibility
     {
         parent::fromObject($object);
         if (property_exists($object, 'eligibility')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CreatedPaymentOutput extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentResponse
+     * @var PaymentResponse|null
      */
-    private $payment;
+    public ?PaymentResponse $payment = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $paymentStatusCategory;
+    public ?string $paymentStatusCategory = null;
 
-    // Methods
     /**
-     * @return PaymentResponse
+     * @return PaymentResponse|null
      */
-    public function getPayment()
+    public function getPayment(): ?PaymentResponse
     {
         return $this->payment;
     }
+
     /**
-     * @var PaymentResponse
+     * @param PaymentResponse|null $value
      */
-    public function setPayment($value)
+    public function setPayment(?PaymentResponse $value): void
     {
         $this->payment = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentStatusCategory()
+    public function getPaymentStatusCategory(): ?string
     {
         return $this->paymentStatusCategory;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentStatusCategory($value)
+    public function setPaymentStatusCategory(?string $value): void
     {
         $this->paymentStatusCategory = $value;
     }
@@ -58,13 +56,13 @@ class CreatedPaymentOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->payment !== null) {
+        if (!is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
         }
-        if ($this->paymentStatusCategory !== null) {
+        if (!is_null($this->paymentStatusCategory)) {
             $object->paymentStatusCategory = $this->paymentStatusCategory;
         }
         return $object;
@@ -75,7 +73,7 @@ class CreatedPaymentOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreatedPaymentOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'payment')) {

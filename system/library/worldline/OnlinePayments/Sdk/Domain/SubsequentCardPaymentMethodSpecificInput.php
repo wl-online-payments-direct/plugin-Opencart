@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,155 @@ use UnexpectedValueException;
  */
 class SubsequentCardPaymentMethodSpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $authorizationMode;
+    public ?string $authorizationMode = null;
 
     /**
-     * @var string
+     * @var MarketPlace|null
      */
-    private $schemeReferenceData;
+    public ?MarketPlace $marketPlace = null;
 
     /**
-     * @var string
+     * @var int|null
      */
-    private $subsequentType;
+    public ?int $paymentNumber = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Deprecated
      */
-    private $token;
+    public ?string $schemeReferenceData = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $transactionChannel;
+    public ?string $subsequentType = null;
 
-    // Methods
     /**
-     * @return string
+     * @var string|null
+     * @deprecated ID of the token to use to create the payment.
      */
-    public function getAuthorizationMode()
+    public ?string $token = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $transactionChannel = null;
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorizationMode(): ?string
     {
         return $this->authorizationMode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthorizationMode($value)
+    public function setAuthorizationMode(?string $value): void
     {
         $this->authorizationMode = $value;
     }
 
     /**
-     * @return string
+     * @return MarketPlace|null
      */
-    public function getSchemeReferenceData()
+    public function getMarketPlace(): ?MarketPlace
+    {
+        return $this->marketPlace;
+    }
+
+    /**
+     * @param MarketPlace|null $value
+     */
+    public function setMarketPlace(?MarketPlace $value): void
+    {
+        $this->marketPlace = $value;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentNumber(): ?int
+    {
+        return $this->paymentNumber;
+    }
+
+    /**
+     * @param int|null $value
+     */
+    public function setPaymentNumber(?int $value): void
+    {
+        $this->paymentNumber = $value;
+    }
+
+    /**
+     * @return string|null
+     * @deprecated Deprecated
+     */
+    public function getSchemeReferenceData(): ?string
     {
         return $this->schemeReferenceData;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Deprecated
      */
-    public function setSchemeReferenceData($value)
+    public function setSchemeReferenceData(?string $value): void
     {
         $this->schemeReferenceData = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubsequentType()
+    public function getSubsequentType(): ?string
     {
         return $this->subsequentType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSubsequentType($value)
+    public function setSubsequentType(?string $value): void
     {
         $this->subsequentType = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated ID of the token to use to create the payment.
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated ID of the token to use to create the payment.
      */
-    public function setToken($value)
+    public function setToken(?string $value): void
     {
         $this->token = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTransactionChannel()
+    public function getTransactionChannel(): ?string
     {
         return $this->transactionChannel;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTransactionChannel($value)
+    public function setTransactionChannel(?string $value): void
     {
         $this->transactionChannel = $value;
     }
@@ -118,22 +167,28 @@ class SubsequentCardPaymentMethodSpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->authorizationMode !== null) {
+        if (!is_null($this->authorizationMode)) {
             $object->authorizationMode = $this->authorizationMode;
         }
-        if ($this->schemeReferenceData !== null) {
+        if (!is_null($this->marketPlace)) {
+            $object->marketPlace = $this->marketPlace->toObject();
+        }
+        if (!is_null($this->paymentNumber)) {
+            $object->paymentNumber = $this->paymentNumber;
+        }
+        if (!is_null($this->schemeReferenceData)) {
             $object->schemeReferenceData = $this->schemeReferenceData;
         }
-        if ($this->subsequentType !== null) {
+        if (!is_null($this->subsequentType)) {
             $object->subsequentType = $this->subsequentType;
         }
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token;
         }
-        if ($this->transactionChannel !== null) {
+        if (!is_null($this->transactionChannel)) {
             $object->transactionChannel = $this->transactionChannel;
         }
         return $object;
@@ -144,11 +199,21 @@ class SubsequentCardPaymentMethodSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SubsequentCardPaymentMethodSpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'authorizationMode')) {
             $this->authorizationMode = $object->authorizationMode;
+        }
+        if (property_exists($object, 'marketPlace')) {
+            if (!is_object($object->marketPlace)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->marketPlace, true) . '\' is not an object');
+            }
+            $value = new MarketPlace();
+            $this->marketPlace = $value->fromObject($object->marketPlace);
+        }
+        if (property_exists($object, 'paymentNumber')) {
+            $this->paymentNumber = $object->paymentNumber;
         }
         if (property_exists($object, 'schemeReferenceData')) {
             $this->schemeReferenceData = $object->schemeReferenceData;

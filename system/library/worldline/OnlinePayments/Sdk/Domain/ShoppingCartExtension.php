@@ -1,113 +1,53 @@
 <?php
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
  * Class ShoppingCartExtension
  *
- * @package OnlinePayments\Sdk\Domain\MetaData
+ * @package OnlinePayments\Sdk\Domain
  */
 class ShoppingCartExtension extends DataObject
 {
     /**
      * @var string|null
      */
-    private $creator = null;
+    public ?string $creator = null;
 
     /**
      * @var string|null
      */
-    private $name = null;
+    public ?string $name = null;
 
     /**
      * @var string|null
      */
-    private $version = null;
+    public ?string $version = null;
 
     /**
      * @var string|null
      */
-    private $extensionId = null;
-
-    public function __construct($creator, $name, $version, $extensionId = null)
-    {
-        $this->creator = $creator;
-        $this->name = $name;
-        $this->version = $version;
-        $this->extensionId = $extensionId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreator()
-    {
-        return $this->creator;
-    }
+    public ?string $extensionId = null;
 
     /**
      * @param string $creator
+     * @param string $name
+     * @param string $version
+     * @param string|null $extensionId
      */
-    public function setCreator($creator)
+    public function __construct(string $creator, string $name, string $version, ?string $extensionId = null)
     {
         $this->creator = $creator;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
         $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param string $version
-     */
-    public function setVersion($version)
-    {
         $this->version = $version;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtensionId()
-    {
-        return $this->extensionId;
-    }
-
-    /**
-     * @param string $extensionId
-     */
-    public function setExtensionId($extensionId)
-    {
         $this->extensionId = $extensionId;
     }
 
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
         if (!is_null($this->creator)) {
@@ -130,7 +70,7 @@ class ShoppingCartExtension extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ShoppingCartExtension
     {
         parent::fromObject($object);
         if (property_exists($object, 'creator')) {

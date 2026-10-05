@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class PaymentContext extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $countryCode;
+    public ?string $countryCode = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $isRecurring;
+    public ?bool $isRecurring = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getAmountOfMoney()
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value): void
     {
         $this->countryCode = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsRecurring()
+    public function getIsRecurring(): ?bool
     {
         return $this->isRecurring;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsRecurring($value)
+    public function setIsRecurring(?bool $value): void
     {
         $this->isRecurring = $value;
     }
@@ -78,16 +77,16 @@ class PaymentContext extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->countryCode !== null) {
+        if (!is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if ($this->isRecurring !== null) {
+        if (!is_null($this->isRecurring)) {
             $object->isRecurring = $this->isRecurring;
         }
         return $object;
@@ -98,7 +97,7 @@ class PaymentContext extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentContext
     {
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {

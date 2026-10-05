@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,224 +11,254 @@ use UnexpectedValueException;
  */
 class ThreeDSecure extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $authenticationAmount;
+    public ?int $authenticationAmount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeCanvasSize;
+    public ?string $challengeCanvasSize = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeIndicator;
+    public ?string $challengeIndicator = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $exemptionRequest;
+    public ?string $deviceChannel = null;
 
     /**
-     * @var ExternalCardholderAuthenticationData
+     * @var string|null
      */
-    private $externalCardholderAuthenticationData;
+    public ?string $exemptionRequest = null;
 
     /**
-     * @var int
+     * @var ExternalCardholderAuthenticationData|null
      */
-    private $merchantFraudRate;
+    public ?ExternalCardholderAuthenticationData $externalCardholderAuthenticationData = null;
 
     /**
-     * @var ThreeDSecureData
+     * @var int|null
      */
-    private $priorThreeDSecureData;
+    public ?int $merchantFraudRate = null;
 
     /**
-     * @var RedirectionData
+     * @var ThreeDSecureData|null
      */
-    private $redirectionData;
+    public ?ThreeDSecureData $priorThreeDSecureData = null;
 
     /**
-     * @var bool
+     * @var RedirectionData|null
      */
-    private $secureCorporatePayment;
+    public ?RedirectionData $redirectionData = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $skipAuthentication;
+    public ?bool $secureCorporatePayment = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $skipSoftDecline;
+    public ?bool $skipAuthentication = null;
 
-    // Methods
     /**
-     * @return int
+     * @var bool|null
      */
-    public function getAuthenticationAmount()
+    public ?bool $skipSoftDecline = null;
+
+    /**
+     * @return int|null
+     */
+    public function getAuthenticationAmount(): ?int
     {
         return $this->authenticationAmount;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setAuthenticationAmount($value)
+    public function setAuthenticationAmount(?int $value): void
     {
         $this->authenticationAmount = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getChallengeCanvasSize()
+    public function getChallengeCanvasSize(): ?string
     {
         return $this->challengeCanvasSize;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeCanvasSize($value)
+    public function setChallengeCanvasSize(?string $value): void
     {
         $this->challengeCanvasSize = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getChallengeIndicator()
+    public function getChallengeIndicator(): ?string
     {
         return $this->challengeIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeIndicator($value)
+    public function setChallengeIndicator(?string $value): void
     {
         $this->challengeIndicator = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExemptionRequest()
+    public function getDeviceChannel(): ?string
+    {
+        return $this->deviceChannel;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setDeviceChannel(?string $value): void
+    {
+        $this->deviceChannel = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExemptionRequest(): ?string
     {
         return $this->exemptionRequest;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExemptionRequest($value)
+    public function setExemptionRequest(?string $value): void
     {
         $this->exemptionRequest = $value;
     }
 
     /**
-     * @return ExternalCardholderAuthenticationData
+     * @return ExternalCardholderAuthenticationData|null
      */
-    public function getExternalCardholderAuthenticationData()
+    public function getExternalCardholderAuthenticationData(): ?ExternalCardholderAuthenticationData
     {
         return $this->externalCardholderAuthenticationData;
     }
+
     /**
-     * @var ExternalCardholderAuthenticationData
+     * @param ExternalCardholderAuthenticationData|null $value
      */
-    public function setExternalCardholderAuthenticationData($value)
+    public function setExternalCardholderAuthenticationData(?ExternalCardholderAuthenticationData $value): void
     {
         $this->externalCardholderAuthenticationData = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMerchantFraudRate()
+    public function getMerchantFraudRate(): ?int
     {
         return $this->merchantFraudRate;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMerchantFraudRate($value)
+    public function setMerchantFraudRate(?int $value): void
     {
         $this->merchantFraudRate = $value;
     }
 
     /**
-     * @return ThreeDSecureData
+     * @return ThreeDSecureData|null
      */
-    public function getPriorThreeDSecureData()
+    public function getPriorThreeDSecureData(): ?ThreeDSecureData
     {
         return $this->priorThreeDSecureData;
     }
+
     /**
-     * @var ThreeDSecureData
+     * @param ThreeDSecureData|null $value
      */
-    public function setPriorThreeDSecureData($value)
+    public function setPriorThreeDSecureData(?ThreeDSecureData $value): void
     {
         $this->priorThreeDSecureData = $value;
     }
 
     /**
-     * @return RedirectionData
+     * @return RedirectionData|null
      */
-    public function getRedirectionData()
+    public function getRedirectionData(): ?RedirectionData
     {
         return $this->redirectionData;
     }
+
     /**
-     * @var RedirectionData
+     * @param RedirectionData|null $value
      */
-    public function setRedirectionData($value)
+    public function setRedirectionData(?RedirectionData $value): void
     {
         $this->redirectionData = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSecureCorporatePayment()
+    public function getSecureCorporatePayment(): ?bool
     {
         return $this->secureCorporatePayment;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSecureCorporatePayment($value)
+    public function setSecureCorporatePayment(?bool $value): void
     {
         $this->secureCorporatePayment = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSkipAuthentication()
+    public function getSkipAuthentication(): ?bool
     {
         return $this->skipAuthentication;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSkipAuthentication($value)
+    public function setSkipAuthentication(?bool $value): void
     {
         $this->skipAuthentication = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSkipSoftDecline()
+    public function getSkipSoftDecline(): ?bool
     {
         return $this->skipSoftDecline;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSkipSoftDecline($value)
+    public function setSkipSoftDecline(?bool $value): void
     {
         $this->skipSoftDecline = $value;
     }
@@ -238,40 +266,43 @@ class ThreeDSecure extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->authenticationAmount !== null) {
+        if (!is_null($this->authenticationAmount)) {
             $object->authenticationAmount = $this->authenticationAmount;
         }
-        if ($this->challengeCanvasSize !== null) {
+        if (!is_null($this->challengeCanvasSize)) {
             $object->challengeCanvasSize = $this->challengeCanvasSize;
         }
-        if ($this->challengeIndicator !== null) {
+        if (!is_null($this->challengeIndicator)) {
             $object->challengeIndicator = $this->challengeIndicator;
         }
-        if ($this->exemptionRequest !== null) {
+        if (!is_null($this->deviceChannel)) {
+            $object->deviceChannel = $this->deviceChannel;
+        }
+        if (!is_null($this->exemptionRequest)) {
             $object->exemptionRequest = $this->exemptionRequest;
         }
-        if ($this->externalCardholderAuthenticationData !== null) {
+        if (!is_null($this->externalCardholderAuthenticationData)) {
             $object->externalCardholderAuthenticationData = $this->externalCardholderAuthenticationData->toObject();
         }
-        if ($this->merchantFraudRate !== null) {
+        if (!is_null($this->merchantFraudRate)) {
             $object->merchantFraudRate = $this->merchantFraudRate;
         }
-        if ($this->priorThreeDSecureData !== null) {
+        if (!is_null($this->priorThreeDSecureData)) {
             $object->priorThreeDSecureData = $this->priorThreeDSecureData->toObject();
         }
-        if ($this->redirectionData !== null) {
+        if (!is_null($this->redirectionData)) {
             $object->redirectionData = $this->redirectionData->toObject();
         }
-        if ($this->secureCorporatePayment !== null) {
+        if (!is_null($this->secureCorporatePayment)) {
             $object->secureCorporatePayment = $this->secureCorporatePayment;
         }
-        if ($this->skipAuthentication !== null) {
+        if (!is_null($this->skipAuthentication)) {
             $object->skipAuthentication = $this->skipAuthentication;
         }
-        if ($this->skipSoftDecline !== null) {
+        if (!is_null($this->skipSoftDecline)) {
             $object->skipSoftDecline = $this->skipSoftDecline;
         }
         return $object;
@@ -282,7 +313,7 @@ class ThreeDSecure extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ThreeDSecure
     {
         parent::fromObject($object);
         if (property_exists($object, 'authenticationAmount')) {
@@ -293,6 +324,9 @@ class ThreeDSecure extends DataObject
         }
         if (property_exists($object, 'challengeIndicator')) {
             $this->challengeIndicator = $object->challengeIndicator;
+        }
+        if (property_exists($object, 'deviceChannel')) {
+            $this->deviceChannel = $object->deviceChannel;
         }
         if (property_exists($object, 'exemptionRequest')) {
             $this->exemptionRequest = $object->exemptionRequest;

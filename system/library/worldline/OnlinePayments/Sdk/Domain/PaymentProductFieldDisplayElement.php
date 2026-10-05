@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class PaymentProductFieldDisplayElement extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $label;
+    public ?string $label = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $value;
+    public ?string $value = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->label;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLabel($value)
+    public function setLabel(?string $value): void
     {
         $this->label = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setValue($value)
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }
@@ -98,19 +98,19 @@ class PaymentProductFieldDisplayElement extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->label !== null) {
+        if (!is_null($this->label)) {
             $object->label = $this->label;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
-        if ($this->value !== null) {
+        if (!is_null($this->value)) {
             $object->value = $this->value;
         }
         return $object;
@@ -121,7 +121,7 @@ class PaymentProductFieldDisplayElement extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFieldDisplayElement
     {
         parent::fromObject($object);
         if (property_exists($object, 'id')) {

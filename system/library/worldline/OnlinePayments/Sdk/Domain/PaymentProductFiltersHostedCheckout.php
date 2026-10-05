@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProductFiltersHostedCheckout extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProductFilter
+     * @var PaymentProductFilter|null
      */
-    private $exclude;
+    public ?PaymentProductFilter $exclude = null;
 
     /**
-     * @var PaymentProductFilter
+     * @var PaymentProductFilter|null
      */
-    private $restrictTo;
+    public ?PaymentProductFilter $restrictTo = null;
 
-    // Methods
     /**
-     * @return PaymentProductFilter
+     * @return PaymentProductFilter|null
      */
-    public function getExclude()
+    public function getExclude(): ?PaymentProductFilter
     {
         return $this->exclude;
     }
+
     /**
-     * @var PaymentProductFilter
+     * @param PaymentProductFilter|null $value
      */
-    public function setExclude($value)
+    public function setExclude(?PaymentProductFilter $value): void
     {
         $this->exclude = $value;
     }
 
     /**
-     * @return PaymentProductFilter
+     * @return PaymentProductFilter|null
      */
-    public function getRestrictTo()
+    public function getRestrictTo(): ?PaymentProductFilter
     {
         return $this->restrictTo;
     }
+
     /**
-     * @var PaymentProductFilter
+     * @param PaymentProductFilter|null $value
      */
-    public function setRestrictTo($value)
+    public function setRestrictTo(?PaymentProductFilter $value): void
     {
         $this->restrictTo = $value;
     }
@@ -58,13 +56,13 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->exclude !== null) {
+        if (!is_null($this->exclude)) {
             $object->exclude = $this->exclude->toObject();
         }
-        if ($this->restrictTo !== null) {
+        if (!is_null($this->restrictTo)) {
             $object->restrictTo = $this->restrictTo->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class PaymentProductFiltersHostedCheckout extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFiltersHostedCheckout
     {
         parent::fromObject($object);
         if (property_exists($object, 'exclude')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class GetIINDetailsRequest extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $bin;
+    public ?string $bin = null;
 
     /**
-     * @var PaymentContext
+     * @var PaymentContext|null
      */
-    private $paymentContext;
+    public ?PaymentContext $paymentContext = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBin()
+    public function getBin(): ?string
     {
         return $this->bin;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setBin($value)
+    public function setBin(?string $value): void
     {
         $this->bin = $value;
     }
 
     /**
-     * @return PaymentContext
+     * @return PaymentContext|null
      */
-    public function getPaymentContext()
+    public function getPaymentContext(): ?PaymentContext
     {
         return $this->paymentContext;
     }
+
     /**
-     * @var PaymentContext
+     * @param PaymentContext|null $value
      */
-    public function setPaymentContext($value)
+    public function setPaymentContext(?PaymentContext $value): void
     {
         $this->paymentContext = $value;
     }
@@ -58,13 +56,13 @@ class GetIINDetailsRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->bin !== null) {
+        if (!is_null($this->bin)) {
             $object->bin = $this->bin;
         }
-        if ($this->paymentContext !== null) {
+        if (!is_null($this->paymentContext)) {
             $object->paymentContext = $this->paymentContext->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class GetIINDetailsRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetIINDetailsRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'bin')) {

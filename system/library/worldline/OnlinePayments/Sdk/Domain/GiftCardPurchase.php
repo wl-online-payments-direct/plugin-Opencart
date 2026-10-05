@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class GiftCardPurchase extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $numberOfGiftCards;
+    public ?int $numberOfGiftCards = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getAmountOfMoney()
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNumberOfGiftCards()
+    public function getNumberOfGiftCards(): ?int
     {
         return $this->numberOfGiftCards;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setNumberOfGiftCards($value)
+    public function setNumberOfGiftCards(?int $value): void
     {
         $this->numberOfGiftCards = $value;
     }
@@ -58,13 +56,13 @@ class GiftCardPurchase extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->numberOfGiftCards !== null) {
+        if (!is_null($this->numberOfGiftCards)) {
             $object->numberOfGiftCards = $this->numberOfGiftCards;
         }
         return $object;
@@ -75,7 +73,7 @@ class GiftCardPurchase extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GiftCardPurchase
     {
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {

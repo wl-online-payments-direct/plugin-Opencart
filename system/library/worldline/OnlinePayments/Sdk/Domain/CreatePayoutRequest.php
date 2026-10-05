@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,128 @@ use UnexpectedValueException;
  */
 class CreatePayoutRequest extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var CardPayoutMethodSpecificInput
+     * @var CardPayoutMethodSpecificInput|null
      */
-    private $cardPayoutMethodSpecificInput;
+    public ?CardPayoutMethodSpecificInput $cardPayoutMethodSpecificInput = null;
 
     /**
-     * @var OmnichannelPayoutSpecificInput
+     * @var string|null
      */
-    private $omnichannelPayoutSpecificInput;
+    public ?string $descriptor = null;
 
     /**
-     * @var PaymentReferences
+     * @var Feedbacks|null
      */
-    private $references;
+    public ?Feedbacks $feedbacks = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @var OmnichannelPayoutSpecificInput|null
      */
-    public function getAmountOfMoney()
+    public ?OmnichannelPayoutSpecificInput $omnichannelPayoutSpecificInput = null;
+
+    /**
+     * @var PaymentReferences|null
+     */
+    public ?PaymentReferences $references = null;
+
+    /**
+     * @return AmountOfMoney|null
+     */
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return CardPayoutMethodSpecificInput
+     * @return CardPayoutMethodSpecificInput|null
      */
-    public function getCardPayoutMethodSpecificInput()
+    public function getCardPayoutMethodSpecificInput(): ?CardPayoutMethodSpecificInput
     {
         return $this->cardPayoutMethodSpecificInput;
     }
+
     /**
-     * @var CardPayoutMethodSpecificInput
+     * @param CardPayoutMethodSpecificInput|null $value
      */
-    public function setCardPayoutMethodSpecificInput($value)
+    public function setCardPayoutMethodSpecificInput(?CardPayoutMethodSpecificInput $value): void
     {
         $this->cardPayoutMethodSpecificInput = $value;
     }
 
     /**
-     * @return OmnichannelPayoutSpecificInput
+     * @return string|null
      */
-    public function getOmnichannelPayoutSpecificInput()
+    public function getDescriptor(): ?string
+    {
+        return $this->descriptor;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setDescriptor(?string $value): void
+    {
+        $this->descriptor = $value;
+    }
+
+    /**
+     * @return Feedbacks|null
+     */
+    public function getFeedbacks(): ?Feedbacks
+    {
+        return $this->feedbacks;
+    }
+
+    /**
+     * @param Feedbacks|null $value
+     */
+    public function setFeedbacks(?Feedbacks $value): void
+    {
+        $this->feedbacks = $value;
+    }
+
+    /**
+     * @return OmnichannelPayoutSpecificInput|null
+     */
+    public function getOmnichannelPayoutSpecificInput(): ?OmnichannelPayoutSpecificInput
     {
         return $this->omnichannelPayoutSpecificInput;
     }
+
     /**
-     * @var OmnichannelPayoutSpecificInput
+     * @param OmnichannelPayoutSpecificInput|null $value
      */
-    public function setOmnichannelPayoutSpecificInput($value)
+    public function setOmnichannelPayoutSpecificInput(?OmnichannelPayoutSpecificInput $value): void
     {
         $this->omnichannelPayoutSpecificInput = $value;
     }
 
     /**
-     * @return PaymentReferences
+     * @return PaymentReferences|null
      */
-    public function getReferences()
+    public function getReferences(): ?PaymentReferences
     {
         return $this->references;
     }
+
     /**
-     * @var PaymentReferences
+     * @param PaymentReferences|null $value
      */
-    public function setReferences($value)
+    public function setReferences(?PaymentReferences $value): void
     {
         $this->references = $value;
     }
@@ -98,19 +140,25 @@ class CreatePayoutRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->cardPayoutMethodSpecificInput !== null) {
+        if (!is_null($this->cardPayoutMethodSpecificInput)) {
             $object->cardPayoutMethodSpecificInput = $this->cardPayoutMethodSpecificInput->toObject();
         }
-        if ($this->omnichannelPayoutSpecificInput !== null) {
+        if (!is_null($this->descriptor)) {
+            $object->descriptor = $this->descriptor;
+        }
+        if (!is_null($this->feedbacks)) {
+            $object->feedbacks = $this->feedbacks->toObject();
+        }
+        if (!is_null($this->omnichannelPayoutSpecificInput)) {
             $object->omnichannelPayoutSpecificInput = $this->omnichannelPayoutSpecificInput->toObject();
         }
-        if ($this->references !== null) {
+        if (!is_null($this->references)) {
             $object->references = $this->references->toObject();
         }
         return $object;
@@ -121,7 +169,7 @@ class CreatePayoutRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreatePayoutRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {
@@ -137,6 +185,16 @@ class CreatePayoutRequest extends DataObject
             }
             $value = new CardPayoutMethodSpecificInput();
             $this->cardPayoutMethodSpecificInput = $value->fromObject($object->cardPayoutMethodSpecificInput);
+        }
+        if (property_exists($object, 'descriptor')) {
+            $this->descriptor = $object->descriptor;
+        }
+        if (property_exists($object, 'feedbacks')) {
+            if (!is_object($object->feedbacks)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->feedbacks, true) . '\' is not an object');
+            }
+            $value = new Feedbacks();
+            $this->feedbacks = $value->fromObject($object->feedbacks);
         }
         if (property_exists($object, 'omnichannelPayoutSpecificInput')) {
             if (!is_object($object->omnichannelPayoutSpecificInput)) {

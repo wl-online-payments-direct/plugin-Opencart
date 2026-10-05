@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,82 +11,131 @@ use UnexpectedValueException;
  */
 class MerchantAction extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $actionType;
+    public ?string $actionType = null;
 
     /**
-     * @var RedirectData
+     * @var MobileThreeDSecureChallengeParameters|null
      */
-    private $redirectData;
+    public ?MobileThreeDSecureChallengeParameters $mobileThreeDSecureChallengeParameters = null;
 
     /**
-     * @var ShowFormData
+     * @var RedirectData|null
      */
-    private $showFormData;
+    public ?RedirectData $redirectData = null;
 
-    // Methods
     /**
-     * @return string
+     * @var ShowFormData|null
      */
-    public function getActionType()
+    public ?ShowFormData $showFormData = null;
+
+    /**
+     * @var ShowInstructionsData|null
+     */
+    public ?ShowInstructionsData $showInstructionsData = null;
+
+    /**
+     * @return string|null
+     */
+    public function getActionType(): ?string
     {
         return $this->actionType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setActionType($value)
+    public function setActionType(?string $value): void
     {
         $this->actionType = $value;
     }
 
     /**
-     * @return RedirectData
+     * @return MobileThreeDSecureChallengeParameters|null
      */
-    public function getRedirectData()
+    public function getMobileThreeDSecureChallengeParameters(): ?MobileThreeDSecureChallengeParameters
+    {
+        return $this->mobileThreeDSecureChallengeParameters;
+    }
+
+    /**
+     * @param MobileThreeDSecureChallengeParameters|null $value
+     */
+    public function setMobileThreeDSecureChallengeParameters(?MobileThreeDSecureChallengeParameters $value): void
+    {
+        $this->mobileThreeDSecureChallengeParameters = $value;
+    }
+
+    /**
+     * @return RedirectData|null
+     */
+    public function getRedirectData(): ?RedirectData
     {
         return $this->redirectData;
     }
+
     /**
-     * @var RedirectData
+     * @param RedirectData|null $value
      */
-    public function setRedirectData($value)
+    public function setRedirectData(?RedirectData $value): void
     {
         $this->redirectData = $value;
     }
 
     /**
-     * @return ShowFormData
+     * @return ShowFormData|null
      */
-    public function getShowFormData()
+    public function getShowFormData(): ?ShowFormData
     {
         return $this->showFormData;
     }
+
     /**
-     * @var ShowFormData
+     * @param ShowFormData|null $value
      */
-    public function setShowFormData($value)
+    public function setShowFormData(?ShowFormData $value): void
     {
         $this->showFormData = $value;
     }
 
     /**
+     * @return ShowInstructionsData|null
+     */
+    public function getShowInstructionsData(): ?ShowInstructionsData
+    {
+        return $this->showInstructionsData;
+    }
+
+    /**
+     * @param ShowInstructionsData|null $value
+     */
+    public function setShowInstructionsData(?ShowInstructionsData $value): void
+    {
+        $this->showInstructionsData = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->actionType !== null) {
+        if (!is_null($this->actionType)) {
             $object->actionType = $this->actionType;
         }
-        if ($this->redirectData !== null) {
+        if (!is_null($this->mobileThreeDSecureChallengeParameters)) {
+            $object->mobileThreeDSecureChallengeParameters = $this->mobileThreeDSecureChallengeParameters->toObject();
+        }
+        if (!is_null($this->redirectData)) {
             $object->redirectData = $this->redirectData->toObject();
         }
-        if ($this->showFormData !== null) {
+        if (!is_null($this->showFormData)) {
             $object->showFormData = $this->showFormData->toObject();
+        }
+        if (!is_null($this->showInstructionsData)) {
+            $object->showInstructionsData = $this->showInstructionsData->toObject();
         }
         return $object;
     }
@@ -98,11 +145,18 @@ class MerchantAction extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MerchantAction
     {
         parent::fromObject($object);
         if (property_exists($object, 'actionType')) {
             $this->actionType = $object->actionType;
+        }
+        if (property_exists($object, 'mobileThreeDSecureChallengeParameters')) {
+            if (!is_object($object->mobileThreeDSecureChallengeParameters)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->mobileThreeDSecureChallengeParameters, true) . '\' is not an object');
+            }
+            $value = new MobileThreeDSecureChallengeParameters();
+            $this->mobileThreeDSecureChallengeParameters = $value->fromObject($object->mobileThreeDSecureChallengeParameters);
         }
         if (property_exists($object, 'redirectData')) {
             if (!is_object($object->redirectData)) {
@@ -117,6 +171,13 @@ class MerchantAction extends DataObject
             }
             $value = new ShowFormData();
             $this->showFormData = $value->fromObject($object->showFormData);
+        }
+        if (property_exists($object, 'showInstructionsData')) {
+            if (!is_object($object->showInstructionsData)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->showInstructionsData, true) . '\' is not an object');
+            }
+            $value = new ShowInstructionsData();
+            $this->showInstructionsData = $value->fromObject($object->showInstructionsData);
         }
         return $this;
     }

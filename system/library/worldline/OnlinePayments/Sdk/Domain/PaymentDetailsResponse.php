@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,124 +11,128 @@ use UnexpectedValueException;
  */
 class PaymentDetailsResponse extends DataObject
 {
-    // Properties
     /**
-     * @var OperationOutput[]
+     * @var OperationOutput[]|null
      */
-    private $Operations;
+    public ?array $Operations = null;
 
     /**
-     * @var HostedCheckoutSpecificOutput
+     * @var HostedCheckoutSpecificOutput|null
      */
-    private $hostedCheckoutSpecificOutput;
+    public ?HostedCheckoutSpecificOutput $hostedCheckoutSpecificOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var PaymentOutput
+     * @var PaymentOutput|null
      */
-    private $paymentOutput;
+    public ?PaymentOutput $paymentOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
     /**
-     * @var PaymentStatusOutput
+     * @var PaymentStatusOutput|null
      */
-    private $statusOutput;
+    public ?PaymentStatusOutput $statusOutput = null;
 
-    // Methods
     /**
-     * @return OperationOutput[]
+     * @return OperationOutput[]|null
      */
-    public function getOperations()
+    public function getOperations(): ?array
     {
         return $this->Operations;
     }
+
     /**
-     * @var OperationOutput[]
+     * @param OperationOutput[]|null $value
      */
-    public function setOperations($value)
+    public function setOperations(?array $value): void
     {
         $this->Operations = $value;
     }
 
     /**
-     * @return HostedCheckoutSpecificOutput
+     * @return HostedCheckoutSpecificOutput|null
      */
-    public function getHostedCheckoutSpecificOutput()
+    public function getHostedCheckoutSpecificOutput(): ?HostedCheckoutSpecificOutput
     {
         return $this->hostedCheckoutSpecificOutput;
     }
+
     /**
-     * @var HostedCheckoutSpecificOutput
+     * @param HostedCheckoutSpecificOutput|null $value
      */
-    public function setHostedCheckoutSpecificOutput($value)
+    public function setHostedCheckoutSpecificOutput(?HostedCheckoutSpecificOutput $value): void
     {
         $this->hostedCheckoutSpecificOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return PaymentOutput
+     * @return PaymentOutput|null
      */
-    public function getPaymentOutput()
+    public function getPaymentOutput(): ?PaymentOutput
     {
         return $this->paymentOutput;
     }
+
     /**
-     * @var PaymentOutput
+     * @param PaymentOutput|null $value
      */
-    public function setPaymentOutput($value)
+    public function setPaymentOutput(?PaymentOutput $value): void
     {
         $this->paymentOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return PaymentStatusOutput
+     * @return PaymentStatusOutput|null
      */
-    public function getStatusOutput()
+    public function getStatusOutput(): ?PaymentStatusOutput
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var PaymentStatusOutput
+     * @param PaymentStatusOutput|null $value
      */
-    public function setStatusOutput($value)
+    public function setStatusOutput(?PaymentStatusOutput $value): void
     {
         $this->statusOutput = $value;
     }
@@ -138,30 +140,30 @@ class PaymentDetailsResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->Operations !== null) {
+        if (!is_null($this->Operations)) {
             $object->Operations = [];
             foreach ($this->Operations as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->Operations[] = $element->toObject();
                 }
             }
         }
-        if ($this->hostedCheckoutSpecificOutput !== null) {
+        if (!is_null($this->hostedCheckoutSpecificOutput)) {
             $object->hostedCheckoutSpecificOutput = $this->hostedCheckoutSpecificOutput->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->paymentOutput !== null) {
+        if (!is_null($this->paymentOutput)) {
             $object->paymentOutput = $this->paymentOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
@@ -172,7 +174,7 @@ class PaymentDetailsResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentDetailsResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'Operations')) {

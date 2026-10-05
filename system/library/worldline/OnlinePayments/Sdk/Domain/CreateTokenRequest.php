@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,65 @@ use UnexpectedValueException;
  */
 class CreateTokenRequest extends DataObject
 {
-    // Properties
     /**
-     * @var TokenCardSpecificInput
+     * @var TokenCardSpecificInput|null
      */
-    private $card;
+    public ?TokenCardSpecificInput $card = null;
 
     /**
-     * @var int
+     * @var string|null
      */
-    private $paymentProductId;
+    public ?string $encryptedCustomerInput = null;
 
-    // Methods
     /**
-     * @return TokenCardSpecificInput
+     * @var int|null
      */
-    public function getCard()
+    public ?int $paymentProductId = null;
+
+    /**
+     * @return TokenCardSpecificInput|null
+     */
+    public function getCard(): ?TokenCardSpecificInput
     {
         return $this->card;
     }
+
     /**
-     * @var TokenCardSpecificInput
+     * @param TokenCardSpecificInput|null $value
      */
-    public function setCard($value)
+    public function setCard(?TokenCardSpecificInput $value): void
     {
         $this->card = $value;
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getPaymentProductId()
+    public function getEncryptedCustomerInput(): ?string
+    {
+        return $this->encryptedCustomerInput;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setEncryptedCustomerInput(?string $value): void
+    {
+        $this->encryptedCustomerInput = $value;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -58,13 +77,16 @@ class CreateTokenRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->card !== null) {
+        if (!is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->encryptedCustomerInput)) {
+            $object->encryptedCustomerInput = $this->encryptedCustomerInput;
+        }
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -75,7 +97,7 @@ class CreateTokenRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreateTokenRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'card')) {
@@ -84,6 +106,9 @@ class CreateTokenRequest extends DataObject
             }
             $value = new TokenCardSpecificInput();
             $this->card = $value->fromObject($object->card);
+        }
+        if (property_exists($object, 'encryptedCustomerInput')) {
+            $this->encryptedCustomerInput = $object->encryptedCustomerInput;
         }
         if (property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;

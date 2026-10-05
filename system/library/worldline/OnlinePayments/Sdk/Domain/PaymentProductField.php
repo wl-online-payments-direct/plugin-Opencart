@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class PaymentProductField extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProductFieldDataRestrictions
+     * @var PaymentProductFieldDataRestrictions|null
      */
-    private $dataRestrictions;
+    public ?PaymentProductFieldDataRestrictions $dataRestrictions = null;
 
     /**
-     * @var PaymentProductFieldDisplayHints
+     * @var PaymentProductFieldDisplayHints|null
      */
-    private $displayHints;
+    public ?PaymentProductFieldDisplayHints $displayHints = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
-    // Methods
     /**
-     * @return PaymentProductFieldDataRestrictions
+     * @return PaymentProductFieldDataRestrictions|null
      */
-    public function getDataRestrictions()
+    public function getDataRestrictions(): ?PaymentProductFieldDataRestrictions
     {
         return $this->dataRestrictions;
     }
+
     /**
-     * @var PaymentProductFieldDataRestrictions
+     * @param PaymentProductFieldDataRestrictions|null $value
      */
-    public function setDataRestrictions($value)
+    public function setDataRestrictions(?PaymentProductFieldDataRestrictions $value): void
     {
         $this->dataRestrictions = $value;
     }
 
     /**
-     * @return PaymentProductFieldDisplayHints
+     * @return PaymentProductFieldDisplayHints|null
      */
-    public function getDisplayHints()
+    public function getDisplayHints(): ?PaymentProductFieldDisplayHints
     {
         return $this->displayHints;
     }
+
     /**
-     * @var PaymentProductFieldDisplayHints
+     * @param PaymentProductFieldDisplayHints|null $value
      */
-    public function setDisplayHints($value)
+    public function setDisplayHints(?PaymentProductFieldDisplayHints $value): void
     {
         $this->displayHints = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
@@ -98,19 +98,19 @@ class PaymentProductField extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->dataRestrictions !== null) {
+        if (!is_null($this->dataRestrictions)) {
             $object->dataRestrictions = $this->dataRestrictions->toObject();
         }
-        if ($this->displayHints !== null) {
+        if (!is_null($this->displayHints)) {
             $object->displayHints = $this->displayHints->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
@@ -121,7 +121,7 @@ class PaymentProductField extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductField
     {
         parent::fromObject($object);
         if (property_exists($object, 'dataRestrictions')) {

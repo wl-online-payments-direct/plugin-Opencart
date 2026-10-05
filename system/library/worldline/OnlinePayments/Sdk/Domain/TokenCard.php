@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class TokenCard extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $alias;
+    public ?string $alias = null;
 
     /**
-     * @var TokenCardData
+     * @var TokenCardData|null
      */
-    private $data;
+    public ?TokenCardData $data = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAlias()
+    public function getAlias(): ?string
     {
         return $this->alias;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAlias($value)
+    public function setAlias(?string $value): void
     {
         $this->alias = $value;
     }
 
     /**
-     * @return TokenCardData
+     * @return TokenCardData|null
      */
-    public function getData()
+    public function getData(): ?TokenCardData
     {
         return $this->data;
     }
+
     /**
-     * @var TokenCardData
+     * @param TokenCardData|null $value
      */
-    public function setData($value)
+    public function setData(?TokenCardData $value): void
     {
         $this->data = $value;
     }
@@ -58,13 +56,13 @@ class TokenCard extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->alias !== null) {
+        if (!is_null($this->alias)) {
             $object->alias = $this->alias;
         }
-        if ($this->data !== null) {
+        if (!is_null($this->data)) {
             $object->data = $this->data->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class TokenCard extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): TokenCard
     {
         parent::fromObject($object);
         if (property_exists($object, 'alias')) {

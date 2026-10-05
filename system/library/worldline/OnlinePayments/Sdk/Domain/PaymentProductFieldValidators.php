@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,184 +11,191 @@ use UnexpectedValueException;
  */
 class PaymentProductFieldValidators extends DataObject
 {
-    // Properties
     /**
-     * @var EmptyValidator
+     * @var EmptyValidator|null
      */
-    private $emailAddress;
+    public ?EmptyValidator $emailAddress = null;
 
     /**
-     * @var EmptyValidator
+     * @var EmptyValidator|null
      */
-    private $expirationDate;
+    public ?EmptyValidator $expirationDate = null;
 
     /**
-     * @var FixedListValidator
+     * @var FixedListValidator|null
      */
-    private $fixedList;
+    public ?FixedListValidator $fixedList = null;
 
     /**
-     * @var EmptyValidator
+     * @var EmptyValidator|null
      */
-    private $iban;
+    public ?EmptyValidator $iban = null;
 
     /**
-     * @var LengthValidator
+     * @var LengthValidator|null
      */
-    private $length;
+    public ?LengthValidator $length = null;
 
     /**
-     * @var EmptyValidator
+     * @var EmptyValidator|null
      */
-    private $luhn;
+    public ?EmptyValidator $luhn = null;
 
     /**
-     * @var RangeValidator
+     * @var RangeValidator|null
      */
-    private $range;
+    public ?RangeValidator $range = null;
 
     /**
-     * @var RegularExpressionValidator
+     * @var RegularExpressionValidator|null
      */
-    private $regularExpression;
+    public ?RegularExpressionValidator $regularExpression = null;
 
     /**
-     * @var EmptyValidator
+     * @var EmptyValidator|null
      */
-    private $termsAndConditions;
+    public ?EmptyValidator $termsAndConditions = null;
 
-    // Methods
     /**
-     * @return EmptyValidator
+     * @return EmptyValidator|null
      */
-    public function getEmailAddress()
+    public function getEmailAddress(): ?EmptyValidator
     {
         return $this->emailAddress;
     }
+
     /**
-     * @var EmptyValidator
+     * @param EmptyValidator|null $value
      */
-    public function setEmailAddress($value)
+    public function setEmailAddress(?EmptyValidator $value): void
     {
         $this->emailAddress = $value;
     }
 
     /**
-     * @return EmptyValidator
+     * @return EmptyValidator|null
      */
-    public function getExpirationDate()
+    public function getExpirationDate(): ?EmptyValidator
     {
         return $this->expirationDate;
     }
+
     /**
-     * @var EmptyValidator
+     * @param EmptyValidator|null $value
      */
-    public function setExpirationDate($value)
+    public function setExpirationDate(?EmptyValidator $value): void
     {
         $this->expirationDate = $value;
     }
 
     /**
-     * @return FixedListValidator
+     * @return FixedListValidator|null
      */
-    public function getFixedList()
+    public function getFixedList(): ?FixedListValidator
     {
         return $this->fixedList;
     }
+
     /**
-     * @var FixedListValidator
+     * @param FixedListValidator|null $value
      */
-    public function setFixedList($value)
+    public function setFixedList(?FixedListValidator $value): void
     {
         $this->fixedList = $value;
     }
 
     /**
-     * @return EmptyValidator
+     * @return EmptyValidator|null
      */
-    public function getIban()
+    public function getIban(): ?EmptyValidator
     {
         return $this->iban;
     }
+
     /**
-     * @var EmptyValidator
+     * @param EmptyValidator|null $value
      */
-    public function setIban($value)
+    public function setIban(?EmptyValidator $value): void
     {
         $this->iban = $value;
     }
 
     /**
-     * @return LengthValidator
+     * @return LengthValidator|null
      */
-    public function getLength()
+    public function getLength(): ?LengthValidator
     {
         return $this->length;
     }
+
     /**
-     * @var LengthValidator
+     * @param LengthValidator|null $value
      */
-    public function setLength($value)
+    public function setLength(?LengthValidator $value): void
     {
         $this->length = $value;
     }
 
     /**
-     * @return EmptyValidator
+     * @return EmptyValidator|null
      */
-    public function getLuhn()
+    public function getLuhn(): ?EmptyValidator
     {
         return $this->luhn;
     }
+
     /**
-     * @var EmptyValidator
+     * @param EmptyValidator|null $value
      */
-    public function setLuhn($value)
+    public function setLuhn(?EmptyValidator $value): void
     {
         $this->luhn = $value;
     }
 
     /**
-     * @return RangeValidator
+     * @return RangeValidator|null
      */
-    public function getRange()
+    public function getRange(): ?RangeValidator
     {
         return $this->range;
     }
+
     /**
-     * @var RangeValidator
+     * @param RangeValidator|null $value
      */
-    public function setRange($value)
+    public function setRange(?RangeValidator $value): void
     {
         $this->range = $value;
     }
 
     /**
-     * @return RegularExpressionValidator
+     * @return RegularExpressionValidator|null
      */
-    public function getRegularExpression()
+    public function getRegularExpression(): ?RegularExpressionValidator
     {
         return $this->regularExpression;
     }
+
     /**
-     * @var RegularExpressionValidator
+     * @param RegularExpressionValidator|null $value
      */
-    public function setRegularExpression($value)
+    public function setRegularExpression(?RegularExpressionValidator $value): void
     {
         $this->regularExpression = $value;
     }
 
     /**
-     * @return EmptyValidator
+     * @return EmptyValidator|null
      */
-    public function getTermsAndConditions()
+    public function getTermsAndConditions(): ?EmptyValidator
     {
         return $this->termsAndConditions;
     }
+
     /**
-     * @var EmptyValidator
+     * @param EmptyValidator|null $value
      */
-    public function setTermsAndConditions($value)
+    public function setTermsAndConditions(?EmptyValidator $value): void
     {
         $this->termsAndConditions = $value;
     }
@@ -198,34 +203,34 @@ class PaymentProductFieldValidators extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->emailAddress !== null) {
+        if (!is_null($this->emailAddress)) {
             $object->emailAddress = $this->emailAddress->toObject();
         }
-        if ($this->expirationDate !== null) {
+        if (!is_null($this->expirationDate)) {
             $object->expirationDate = $this->expirationDate->toObject();
         }
-        if ($this->fixedList !== null) {
+        if (!is_null($this->fixedList)) {
             $object->fixedList = $this->fixedList->toObject();
         }
-        if ($this->iban !== null) {
+        if (!is_null($this->iban)) {
             $object->iban = $this->iban->toObject();
         }
-        if ($this->length !== null) {
+        if (!is_null($this->length)) {
             $object->length = $this->length->toObject();
         }
-        if ($this->luhn !== null) {
+        if (!is_null($this->luhn)) {
             $object->luhn = $this->luhn->toObject();
         }
-        if ($this->range !== null) {
+        if (!is_null($this->range)) {
             $object->range = $this->range->toObject();
         }
-        if ($this->regularExpression !== null) {
+        if (!is_null($this->regularExpression)) {
             $object->regularExpression = $this->regularExpression->toObject();
         }
-        if ($this->termsAndConditions !== null) {
+        if (!is_null($this->termsAndConditions)) {
             $object->termsAndConditions = $this->termsAndConditions->toObject();
         }
         return $object;
@@ -236,7 +241,7 @@ class PaymentProductFieldValidators extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFieldValidators
     {
         parent::fromObject($object);
         if (property_exists($object, 'emailAddress')) {

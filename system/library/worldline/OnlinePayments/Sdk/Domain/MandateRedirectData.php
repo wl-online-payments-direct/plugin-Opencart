@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class MandateRedirectData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $RETURNMAC;
+    public ?string $RETURNMAC = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $redirectURL;
+    public ?string $redirectURL = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRETURNMAC()
+    public function getRETURNMAC(): ?string
     {
         return $this->RETURNMAC;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRETURNMAC($value)
+    public function setRETURNMAC(?string $value): void
     {
         $this->RETURNMAC = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRedirectURL()
+    public function getRedirectURL(): ?string
     {
         return $this->redirectURL;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRedirectURL($value)
+    public function setRedirectURL(?string $value): void
     {
         $this->redirectURL = $value;
     }
@@ -58,13 +56,13 @@ class MandateRedirectData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->RETURNMAC !== null) {
+        if (!is_null($this->RETURNMAC)) {
             $object->RETURNMAC = $this->RETURNMAC;
         }
-        if ($this->redirectURL !== null) {
+        if (!is_null($this->redirectURL)) {
             $object->redirectURL = $this->redirectURL;
         }
         return $object;
@@ -75,7 +73,7 @@ class MandateRedirectData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MandateRedirectData
     {
         parent::fromObject($object);
         if (property_exists($object, 'RETURNMAC')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,191 @@ use UnexpectedValueException;
  */
 class MobilePaymentMethodSpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $authorizationMode;
+    public ?string $authorizationMode = null;
 
     /**
-     * @var DecryptedPaymentData
+     * @var DecryptedPaymentData|null
      */
-    private $decryptedPaymentData;
+    public ?DecryptedPaymentData $decryptedPaymentData = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $encryptedPaymentData;
+    public ?string $encryptedPaymentData = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $ephemeralKey;
+    public ?string $ephemeralKey = null;
 
     /**
-     * @var MobilePaymentProduct320SpecificInput
+     * @var MobilePaymentProduct302SpecificInput|null
      */
-    private $paymentProduct320SpecificInput;
+    public ?MobilePaymentProduct302SpecificInput $paymentProduct302SpecificInput = null;
 
     /**
-     * @var int
+     * @var MobilePaymentProduct320SpecificInput|null
      */
-    private $paymentProductId;
+    public ?MobilePaymentProduct320SpecificInput $paymentProduct320SpecificInput = null;
 
     /**
-     * @var string
+     * @var int|null
      */
-    private $publicKeyHash;
+    public ?int $paymentProductId = null;
 
     /**
-     * @var bool
+     * @var string|null
      */
-    private $requiresApproval;
+    public ?string $publicKeyHash = null;
 
-    // Methods
     /**
-     * @return string
+     * @var bool|null
      */
-    public function getAuthorizationMode()
+    public ?bool $requiresApproval = null;
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorizationMode(): ?string
     {
         return $this->authorizationMode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthorizationMode($value)
+    public function setAuthorizationMode(?string $value): void
     {
         $this->authorizationMode = $value;
     }
 
     /**
-     * @return DecryptedPaymentData
+     * @return DecryptedPaymentData|null
      */
-    public function getDecryptedPaymentData()
+    public function getDecryptedPaymentData(): ?DecryptedPaymentData
     {
         return $this->decryptedPaymentData;
     }
+
     /**
-     * @var DecryptedPaymentData
+     * @param DecryptedPaymentData|null $value
      */
-    public function setDecryptedPaymentData($value)
+    public function setDecryptedPaymentData(?DecryptedPaymentData $value): void
     {
         $this->decryptedPaymentData = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEncryptedPaymentData()
+    public function getEncryptedPaymentData(): ?string
     {
         return $this->encryptedPaymentData;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEncryptedPaymentData($value)
+    public function setEncryptedPaymentData(?string $value): void
     {
         $this->encryptedPaymentData = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEphemeralKey()
+    public function getEphemeralKey(): ?string
     {
         return $this->ephemeralKey;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEphemeralKey($value)
+    public function setEphemeralKey(?string $value): void
     {
         $this->ephemeralKey = $value;
     }
 
     /**
-     * @return MobilePaymentProduct320SpecificInput
+     * @return MobilePaymentProduct302SpecificInput|null
      */
-    public function getPaymentProduct320SpecificInput()
+    public function getPaymentProduct302SpecificInput(): ?MobilePaymentProduct302SpecificInput
+    {
+        return $this->paymentProduct302SpecificInput;
+    }
+
+    /**
+     * @param MobilePaymentProduct302SpecificInput|null $value
+     */
+    public function setPaymentProduct302SpecificInput(?MobilePaymentProduct302SpecificInput $value): void
+    {
+        $this->paymentProduct302SpecificInput = $value;
+    }
+
+    /**
+     * @return MobilePaymentProduct320SpecificInput|null
+     */
+    public function getPaymentProduct320SpecificInput(): ?MobilePaymentProduct320SpecificInput
     {
         return $this->paymentProduct320SpecificInput;
     }
+
     /**
-     * @var MobilePaymentProduct320SpecificInput
+     * @param MobilePaymentProduct320SpecificInput|null $value
      */
-    public function setPaymentProduct320SpecificInput($value)
+    public function setPaymentProduct320SpecificInput(?MobilePaymentProduct320SpecificInput $value): void
     {
         $this->paymentProduct320SpecificInput = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPublicKeyHash()
+    public function getPublicKeyHash(): ?string
     {
         return $this->publicKeyHash;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPublicKeyHash($value)
+    public function setPublicKeyHash(?string $value): void
     {
         $this->publicKeyHash = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getRequiresApproval()
+    public function getRequiresApproval(): ?bool
     {
         return $this->requiresApproval;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setRequiresApproval($value)
+    public function setRequiresApproval(?bool $value): void
     {
         $this->requiresApproval = $value;
     }
@@ -178,31 +203,34 @@ class MobilePaymentMethodSpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->authorizationMode !== null) {
+        if (!is_null($this->authorizationMode)) {
             $object->authorizationMode = $this->authorizationMode;
         }
-        if ($this->decryptedPaymentData !== null) {
+        if (!is_null($this->decryptedPaymentData)) {
             $object->decryptedPaymentData = $this->decryptedPaymentData->toObject();
         }
-        if ($this->encryptedPaymentData !== null) {
+        if (!is_null($this->encryptedPaymentData)) {
             $object->encryptedPaymentData = $this->encryptedPaymentData;
         }
-        if ($this->ephemeralKey !== null) {
+        if (!is_null($this->ephemeralKey)) {
             $object->ephemeralKey = $this->ephemeralKey;
         }
-        if ($this->paymentProduct320SpecificInput !== null) {
+        if (!is_null($this->paymentProduct302SpecificInput)) {
+            $object->paymentProduct302SpecificInput = $this->paymentProduct302SpecificInput->toObject();
+        }
+        if (!is_null($this->paymentProduct320SpecificInput)) {
             $object->paymentProduct320SpecificInput = $this->paymentProduct320SpecificInput->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if ($this->publicKeyHash !== null) {
+        if (!is_null($this->publicKeyHash)) {
             $object->publicKeyHash = $this->publicKeyHash;
         }
-        if ($this->requiresApproval !== null) {
+        if (!is_null($this->requiresApproval)) {
             $object->requiresApproval = $this->requiresApproval;
         }
         return $object;
@@ -213,7 +241,7 @@ class MobilePaymentMethodSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MobilePaymentMethodSpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'authorizationMode')) {
@@ -231,6 +259,13 @@ class MobilePaymentMethodSpecificInput extends DataObject
         }
         if (property_exists($object, 'ephemeralKey')) {
             $this->ephemeralKey = $object->ephemeralKey;
+        }
+        if (property_exists($object, 'paymentProduct302SpecificInput')) {
+            if (!is_object($object->paymentProduct302SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct302SpecificInput, true) . '\' is not an object');
+            }
+            $value = new MobilePaymentProduct302SpecificInput();
+            $this->paymentProduct302SpecificInput = $value->fromObject($object->paymentProduct302SpecificInput);
         }
         if (property_exists($object, 'paymentProduct320SpecificInput')) {
             if (!is_object($object->paymentProduct320SpecificInput)) {

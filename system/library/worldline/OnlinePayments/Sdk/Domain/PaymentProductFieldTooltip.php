@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,47 @@ use UnexpectedValueException;
  */
 class PaymentProductFieldTooltip extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
+     * @deprecated This field is not used by any payment product Relative URL that can be used to retrieve an image for the tooltip image.
      */
-    private $image;
+    public ?string $image = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $label;
+    public ?string $label = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
+     * @deprecated This field is not used by any payment product Relative URL that can be used to retrieve an image for the tooltip image.
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated This field is not used by any payment product Relative URL that can be used to retrieve an image for the tooltip image.
      */
-    public function setImage($value)
+    public function setImage(?string $value): void
     {
         $this->image = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->label;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLabel($value)
+    public function setLabel(?string $value): void
     {
         $this->label = $value;
     }
@@ -58,13 +59,13 @@ class PaymentProductFieldTooltip extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->image !== null) {
+        if (!is_null($this->image)) {
             $object->image = $this->image;
         }
-        if ($this->label !== null) {
+        if (!is_null($this->label)) {
             $object->label = $this->label;
         }
         return $object;
@@ -75,7 +76,7 @@ class PaymentProductFieldTooltip extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFieldTooltip
     {
         parent::fromObject($object);
         if (property_exists($object, 'image')) {

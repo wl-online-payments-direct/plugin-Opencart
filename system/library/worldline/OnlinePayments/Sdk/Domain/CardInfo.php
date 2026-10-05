@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CardInfo extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $cardNumber;
+    public ?string $cardNumber = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $paymentProductId;
+    public ?int $paymentProductId = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCardNumber()
+    public function getCardNumber(): ?string
     {
         return $this->cardNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCardNumber($value)
+    public function setCardNumber(?string $value): void
     {
         $this->cardNumber = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -58,13 +56,13 @@ class CardInfo extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardNumber !== null) {
+        if (!is_null($this->cardNumber)) {
             $object->cardNumber = $this->cardNumber;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -75,7 +73,7 @@ class CardInfo extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardInfo
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardNumber')) {

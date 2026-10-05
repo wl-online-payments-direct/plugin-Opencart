@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class SepaDirectDebitPaymentMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var FraudResults
+     * @var FraudResults|null
      */
-    private $fraudResults;
+    public ?FraudResults $fraudResults = null;
 
     /**
-     * @var PaymentProduct771SpecificOutput
+     * @var PaymentProduct771SpecificOutput|null
      */
-    private $paymentProduct771SpecificOutput;
+    public ?PaymentProduct771SpecificOutput $paymentProduct771SpecificOutput = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $paymentProductId;
+    public ?int $paymentProductId = null;
 
-    // Methods
     /**
-     * @return FraudResults
+     * @return FraudResults|null
      */
-    public function getFraudResults()
+    public function getFraudResults(): ?FraudResults
     {
         return $this->fraudResults;
     }
+
     /**
-     * @var FraudResults
+     * @param FraudResults|null $value
      */
-    public function setFraudResults($value)
+    public function setFraudResults(?FraudResults $value): void
     {
         $this->fraudResults = $value;
     }
 
     /**
-     * @return PaymentProduct771SpecificOutput
+     * @return PaymentProduct771SpecificOutput|null
      */
-    public function getPaymentProduct771SpecificOutput()
+    public function getPaymentProduct771SpecificOutput(): ?PaymentProduct771SpecificOutput
     {
         return $this->paymentProduct771SpecificOutput;
     }
+
     /**
-     * @var PaymentProduct771SpecificOutput
+     * @param PaymentProduct771SpecificOutput|null $value
      */
-    public function setPaymentProduct771SpecificOutput($value)
+    public function setPaymentProduct771SpecificOutput(?PaymentProduct771SpecificOutput $value): void
     {
         $this->paymentProduct771SpecificOutput = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -78,16 +77,16 @@ class SepaDirectDebitPaymentMethodSpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->fraudResults !== null) {
+        if (!is_null($this->fraudResults)) {
             $object->fraudResults = $this->fraudResults->toObject();
         }
-        if ($this->paymentProduct771SpecificOutput !== null) {
+        if (!is_null($this->paymentProduct771SpecificOutput)) {
             $object->paymentProduct771SpecificOutput = $this->paymentProduct771SpecificOutput->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -98,7 +97,7 @@ class SepaDirectDebitPaymentMethodSpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SepaDirectDebitPaymentMethodSpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'fraudResults')) {

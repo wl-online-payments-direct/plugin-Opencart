@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class RangeValidator extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $maxValue;
+    public ?int $maxValue = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $minValue;
+    public ?int $minValue = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxValue()
+    public function getMaxValue(): ?int
     {
         return $this->maxValue;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMaxValue($value)
+    public function setMaxValue(?int $value): void
     {
         $this->maxValue = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMinValue()
+    public function getMinValue(): ?int
     {
         return $this->minValue;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMinValue($value)
+    public function setMinValue(?int $value): void
     {
         $this->minValue = $value;
     }
@@ -58,13 +56,13 @@ class RangeValidator extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->maxValue !== null) {
+        if (!is_null($this->maxValue)) {
             $object->maxValue = $this->maxValue;
         }
-        if ($this->minValue !== null) {
+        if (!is_null($this->minValue)) {
             $object->minValue = $this->minValue;
         }
         return $object;
@@ -75,7 +73,7 @@ class RangeValidator extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RangeValidator
     {
         parent::fromObject($object);
         if (property_exists($object, 'maxValue')) {

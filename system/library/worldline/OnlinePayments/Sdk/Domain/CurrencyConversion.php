@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CurrencyConversion extends DataObject
 {
-    // Properties
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $acceptedByUser;
+    public ?bool $acceptedByUser = null;
 
     /**
-     * @var DccProposal
+     * @var DccProposal|null
      */
-    private $proposal;
+    public ?DccProposal $proposal = null;
 
-    // Methods
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAcceptedByUser()
+    public function getAcceptedByUser(): ?bool
     {
         return $this->acceptedByUser;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAcceptedByUser($value)
+    public function setAcceptedByUser(?bool $value): void
     {
         $this->acceptedByUser = $value;
     }
 
     /**
-     * @return DccProposal
+     * @return DccProposal|null
      */
-    public function getProposal()
+    public function getProposal(): ?DccProposal
     {
         return $this->proposal;
     }
+
     /**
-     * @var DccProposal
+     * @param DccProposal|null $value
      */
-    public function setProposal($value)
+    public function setProposal(?DccProposal $value): void
     {
         $this->proposal = $value;
     }
@@ -58,13 +56,13 @@ class CurrencyConversion extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acceptedByUser !== null) {
+        if (!is_null($this->acceptedByUser)) {
             $object->acceptedByUser = $this->acceptedByUser;
         }
-        if ($this->proposal !== null) {
+        if (!is_null($this->proposal)) {
             $object->proposal = $this->proposal->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class CurrencyConversion extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CurrencyConversion
     {
         parent::fromObject($object);
         if (property_exists($object, 'acceptedByUser')) {

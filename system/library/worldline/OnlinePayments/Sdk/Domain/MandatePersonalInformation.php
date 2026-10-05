@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class MandatePersonalInformation extends DataObject
 {
-    // Properties
     /**
-     * @var MandatePersonalName
+     * @var MandatePersonalName|null
      */
-    private $name;
+    public ?MandatePersonalName $name = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $title;
+    public ?string $title = null;
 
-    // Methods
     /**
-     * @return MandatePersonalName
+     * @return MandatePersonalName|null
      */
-    public function getName()
+    public function getName(): ?MandatePersonalName
     {
         return $this->name;
     }
+
     /**
-     * @var MandatePersonalName
+     * @param MandatePersonalName|null $value
      */
-    public function setName($value)
+    public function setName(?MandatePersonalName $value): void
     {
         $this->name = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTitle($value)
+    public function setTitle(?string $value): void
     {
         $this->title = $value;
     }
@@ -58,13 +56,13 @@ class MandatePersonalInformation extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->name !== null) {
+        if (!is_null($this->name)) {
             $object->name = $this->name->toObject();
         }
-        if ($this->title !== null) {
+        if (!is_null($this->title)) {
             $object->title = $this->title;
         }
         return $object;
@@ -75,7 +73,7 @@ class MandatePersonalInformation extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MandatePersonalInformation
     {
         parent::fromObject($object);
         if (property_exists($object, 'name')) {

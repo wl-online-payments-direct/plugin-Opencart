@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,124 +11,128 @@ use UnexpectedValueException;
  */
 class MobilePaymentMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $authorisationCode;
+    public ?string $authorisationCode = null;
 
     /**
-     * @var CardFraudResults
+     * @var CardFraudResults|null
      */
-    private $fraudResults;
+    public ?CardFraudResults $fraudResults = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $network;
+    public ?string $network = null;
 
     /**
-     * @var MobilePaymentData
+     * @var MobilePaymentData|null
      */
-    private $paymentData;
+    public ?MobilePaymentData $paymentData = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $paymentProductId;
+    public ?int $paymentProductId = null;
 
     /**
-     * @var ThreeDSecureResults
+     * @var ThreeDSecureResults|null
      */
-    private $threeDSecureResults;
+    public ?ThreeDSecureResults $threeDSecureResults = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthorisationCode()
+    public function getAuthorisationCode(): ?string
     {
         return $this->authorisationCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthorisationCode($value)
+    public function setAuthorisationCode(?string $value): void
     {
         $this->authorisationCode = $value;
     }
 
     /**
-     * @return CardFraudResults
+     * @return CardFraudResults|null
      */
-    public function getFraudResults()
+    public function getFraudResults(): ?CardFraudResults
     {
         return $this->fraudResults;
     }
+
     /**
-     * @var CardFraudResults
+     * @param CardFraudResults|null $value
      */
-    public function setFraudResults($value)
+    public function setFraudResults(?CardFraudResults $value): void
     {
         $this->fraudResults = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNetwork()
+    public function getNetwork(): ?string
     {
         return $this->network;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setNetwork($value)
+    public function setNetwork(?string $value): void
     {
         $this->network = $value;
     }
 
     /**
-     * @return MobilePaymentData
+     * @return MobilePaymentData|null
      */
-    public function getPaymentData()
+    public function getPaymentData(): ?MobilePaymentData
     {
         return $this->paymentData;
     }
+
     /**
-     * @var MobilePaymentData
+     * @param MobilePaymentData|null $value
      */
-    public function setPaymentData($value)
+    public function setPaymentData(?MobilePaymentData $value): void
     {
         $this->paymentData = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
 
     /**
-     * @return ThreeDSecureResults
+     * @return ThreeDSecureResults|null
      */
-    public function getThreeDSecureResults()
+    public function getThreeDSecureResults(): ?ThreeDSecureResults
     {
         return $this->threeDSecureResults;
     }
+
     /**
-     * @var ThreeDSecureResults
+     * @param ThreeDSecureResults|null $value
      */
-    public function setThreeDSecureResults($value)
+    public function setThreeDSecureResults(?ThreeDSecureResults $value): void
     {
         $this->threeDSecureResults = $value;
     }
@@ -138,25 +140,25 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->authorisationCode !== null) {
+        if (!is_null($this->authorisationCode)) {
             $object->authorisationCode = $this->authorisationCode;
         }
-        if ($this->fraudResults !== null) {
+        if (!is_null($this->fraudResults)) {
             $object->fraudResults = $this->fraudResults->toObject();
         }
-        if ($this->network !== null) {
+        if (!is_null($this->network)) {
             $object->network = $this->network;
         }
-        if ($this->paymentData !== null) {
+        if (!is_null($this->paymentData)) {
             $object->paymentData = $this->paymentData->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if ($this->threeDSecureResults !== null) {
+        if (!is_null($this->threeDSecureResults)) {
             $object->threeDSecureResults = $this->threeDSecureResults->toObject();
         }
         return $object;
@@ -167,7 +169,7 @@ class MobilePaymentMethodSpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MobilePaymentMethodSpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'authorisationCode')) {
