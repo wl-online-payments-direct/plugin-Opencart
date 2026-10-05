@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class OrderTypeInformation extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $purchaseType;
+    public ?string $purchaseType = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $transactionType;
+    public ?string $transactionType = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPurchaseType()
+    public function getPurchaseType(): ?string
     {
         return $this->purchaseType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPurchaseType($value)
+    public function setPurchaseType(?string $value): void
     {
         $this->purchaseType = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTransactionType()
+    public function getTransactionType(): ?string
     {
         return $this->transactionType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTransactionType($value)
+    public function setTransactionType(?string $value): void
     {
         $this->transactionType = $value;
     }
@@ -58,13 +56,13 @@ class OrderTypeInformation extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->purchaseType !== null) {
+        if (!is_null($this->purchaseType)) {
             $object->purchaseType = $this->purchaseType;
         }
-        if ($this->transactionType !== null) {
+        if (!is_null($this->transactionType)) {
             $object->transactionType = $this->transactionType;
         }
         return $object;
@@ -75,7 +73,7 @@ class OrderTypeInformation extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): OrderTypeInformation
     {
         parent::fromObject($object);
         if (property_exists($object, 'purchaseType')) {

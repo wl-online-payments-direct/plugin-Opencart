@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class PaymentProduct130SpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProduct130SpecificThreeDSecure
+     * @var PaymentProduct130SpecificThreeDSecure|null
      */
-    private $threeDSecure;
+    public ?PaymentProduct130SpecificThreeDSecure $threeDSecure = null;
 
-    // Methods
     /**
-     * @return PaymentProduct130SpecificThreeDSecure
+     * @return PaymentProduct130SpecificThreeDSecure|null
      */
-    public function getThreeDSecure()
+    public function getThreeDSecure(): ?PaymentProduct130SpecificThreeDSecure
     {
         return $this->threeDSecure;
     }
+
     /**
-     * @var PaymentProduct130SpecificThreeDSecure
+     * @param PaymentProduct130SpecificThreeDSecure|null $value
      */
-    public function setThreeDSecure($value)
+    public function setThreeDSecure(?PaymentProduct130SpecificThreeDSecure $value): void
     {
         $this->threeDSecure = $value;
     }
@@ -38,10 +35,10 @@ class PaymentProduct130SpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->threeDSecure !== null) {
+        if (!is_null($this->threeDSecure)) {
             $object->threeDSecure = $this->threeDSecure->toObject();
         }
         return $object;
@@ -52,7 +49,7 @@ class PaymentProduct130SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct130SpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'threeDSecure')) {

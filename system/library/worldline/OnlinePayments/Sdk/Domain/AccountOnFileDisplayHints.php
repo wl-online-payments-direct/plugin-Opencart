@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class AccountOnFileDisplayHints extends DataObject
 {
-    // Properties
     /**
-     * @var LabelTemplateElement[]
+     * @var LabelTemplateElement[]|null
      */
-    private $labelTemplate;
+    public ?array $labelTemplate = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $logo;
+    public ?string $logo = null;
 
-    // Methods
     /**
-     * @return LabelTemplateElement[]
+     * @return LabelTemplateElement[]|null
      */
-    public function getLabelTemplate()
+    public function getLabelTemplate(): ?array
     {
         return $this->labelTemplate;
     }
+
     /**
-     * @var LabelTemplateElement[]
+     * @param LabelTemplateElement[]|null $value
      */
-    public function setLabelTemplate($value)
+    public function setLabelTemplate(?array $value): void
     {
         $this->labelTemplate = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLogo()
+    public function getLogo(): ?string
     {
         return $this->logo;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLogo($value)
+    public function setLogo(?string $value): void
     {
         $this->logo = $value;
     }
@@ -58,18 +56,18 @@ class AccountOnFileDisplayHints extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->labelTemplate !== null) {
+        if (!is_null($this->labelTemplate)) {
             $object->labelTemplate = [];
             foreach ($this->labelTemplate as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->labelTemplate[] = $element->toObject();
                 }
             }
         }
-        if ($this->logo !== null) {
+        if (!is_null($this->logo)) {
             $object->logo = $this->logo;
         }
         return $object;
@@ -80,7 +78,7 @@ class AccountOnFileDisplayHints extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AccountOnFileDisplayHints
     {
         parent::fromObject($object);
         if (property_exists($object, 'labelTemplate')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,89 @@ use UnexpectedValueException;
  */
 class AccountOnFileAttribute extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $key;
+    public ?string $key = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Deprecated
      */
-    private $mustWriteReason;
+    public ?string $mustWriteReason = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $value;
+    public ?string $value = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getKey()
+    public function getKey(): ?string
     {
         return $this->key;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setKey($value)
+    public function setKey(?string $value): void
     {
         $this->key = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated Deprecated
      */
-    public function getMustWriteReason()
+    public function getMustWriteReason(): ?string
     {
         return $this->mustWriteReason;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Deprecated
      */
-    public function setMustWriteReason($value)
+    public function setMustWriteReason(?string $value): void
     {
         $this->mustWriteReason = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setValue($value)
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }
@@ -98,19 +101,19 @@ class AccountOnFileAttribute extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->key !== null) {
+        if (!is_null($this->key)) {
             $object->key = $this->key;
         }
-        if ($this->mustWriteReason !== null) {
+        if (!is_null($this->mustWriteReason)) {
             $object->mustWriteReason = $this->mustWriteReason;
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->value !== null) {
+        if (!is_null($this->value)) {
             $object->value = $this->value;
         }
         return $object;
@@ -121,7 +124,7 @@ class AccountOnFileAttribute extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AccountOnFileAttribute
     {
         parent::fromObject($object);
         if (property_exists($object, 'key')) {

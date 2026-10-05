@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class RefundErrorResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $errorId;
+    public ?string $errorId = null;
 
     /**
-     * @var APIError[]
+     * @var APIError[]|null
      */
-    private $errors;
+    public ?array $errors = null;
 
     /**
-     * @var RefundResponse
+     * @var RefundResponse|null
      */
-    private $refundResult;
+    public ?RefundResponse $refundResult = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getErrorId()
+    public function getErrorId(): ?string
     {
         return $this->errorId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setErrorId($value)
+    public function setErrorId(?string $value): void
     {
         $this->errorId = $value;
     }
 
     /**
-     * @return APIError[]
+     * @return APIError[]|null
      */
-    public function getErrors()
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
+
     /**
-     * @var APIError[]
+     * @param APIError[]|null $value
      */
-    public function setErrors($value)
+    public function setErrors(?array $value): void
     {
         $this->errors = $value;
     }
 
     /**
-     * @return RefundResponse
+     * @return RefundResponse|null
      */
-    public function getRefundResult()
+    public function getRefundResult(): ?RefundResponse
     {
         return $this->refundResult;
     }
+
     /**
-     * @var RefundResponse
+     * @param RefundResponse|null $value
      */
-    public function setRefundResult($value)
+    public function setRefundResult(?RefundResponse $value): void
     {
         $this->refundResult = $value;
     }
@@ -78,21 +77,21 @@ class RefundErrorResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->errorId !== null) {
+        if (!is_null($this->errorId)) {
             $object->errorId = $this->errorId;
         }
-        if ($this->errors !== null) {
+        if (!is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if ($this->refundResult !== null) {
+        if (!is_null($this->refundResult)) {
             $object->refundResult = $this->refundResult->toObject();
         }
         return $object;
@@ -103,7 +102,7 @@ class RefundErrorResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RefundErrorResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'errorId')) {

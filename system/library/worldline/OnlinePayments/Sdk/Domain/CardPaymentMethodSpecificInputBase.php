@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,324 +11,422 @@ use UnexpectedValueException;
  */
 class CardPaymentMethodSpecificInputBase extends DataObject
 {
-    // Properties
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $allowDynamicLinking;
+    public ?bool $allowDynamicLinking = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $authorizationMode;
+    public ?string $authorizationMode = null;
 
     /**
-     * @var CurrencyConversionSpecificInput
+     * @var CurrencyConversionSpecificInput|null
      */
-    private $currencyConversionSpecificInput;
+    public ?CurrencyConversionSpecificInput $currencyConversionSpecificInput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $initialSchemeTransactionId;
+    public ?string $initialSchemeTransactionId = null;
 
     /**
-     * @var PaymentProduct130SpecificInput
+     * @var MarketPlace|null
      */
-    private $paymentProduct130SpecificInput;
+    public ?MarketPlace $marketPlace = null;
 
     /**
-     * @var PaymentProduct3208SpecificInput
+     * @var MultiplePaymentInformation|null
      */
-    private $paymentProduct3208SpecificInput;
+    public ?MultiplePaymentInformation $multiplePaymentInformation = null;
 
     /**
-     * @var PaymentProduct3209SpecificInput
+     * @var PaymentProduct130SpecificInput|null
      */
-    private $paymentProduct3209SpecificInput;
+    public ?PaymentProduct130SpecificInput $paymentProduct130SpecificInput = null;
 
     /**
-     * @var PaymentProduct5100SpecificInput
+     * @var PaymentProduct3012SpecificInput|null
      */
-    private $paymentProduct5100SpecificInput;
+    public ?PaymentProduct3012SpecificInput $paymentProduct3012SpecificInput = null;
 
     /**
-     * @var int
+     * @var PaymentProduct3013SpecificInput|null
      */
-    private $paymentProductId;
+    public ?PaymentProduct3013SpecificInput $paymentProduct3013SpecificInput = null;
 
     /**
-     * @var CardRecurrenceDetails
+     * @var PaymentProduct3208SpecificInput|null
      */
-    private $recurring;
+    public ?PaymentProduct3208SpecificInput $paymentProduct3208SpecificInput = null;
 
     /**
-     * @var ThreeDSecureBase
+     * @var PaymentProduct3209SpecificInput|null
      */
-    private $threeDSecure;
+    public ?PaymentProduct3209SpecificInput $paymentProduct3209SpecificInput = null;
 
     /**
-     * @var string
+     * @var PaymentProduct5100SpecificInput|null
      */
-    private $token;
+    public ?PaymentProduct5100SpecificInput $paymentProduct5100SpecificInput = null;
 
     /**
-     * @var bool
+     * @var int|null
      */
-    private $tokenize;
+    public ?int $paymentProductId = null;
 
     /**
-     * @var string
+     * @var CardRecurrenceDetails|null
      */
-    private $transactionChannel;
+    public ?CardRecurrenceDetails $recurring = null;
 
     /**
-     * @var string
+     * @var ThreeDSecureBase|null
      */
-    private $unscheduledCardOnFileRequestor;
+    public ?ThreeDSecureBase $threeDSecure = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $unscheduledCardOnFileSequenceIndicator;
+    public ?string $token = null;
 
-    // Methods
     /**
-     * @return bool
+     * @var bool|null
      */
-    public function getAllowDynamicLinking()
+    public ?bool $tokenize = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $transactionChannel = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $unscheduledCardOnFileRequestor = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $unscheduledCardOnFileSequenceIndicator = null;
+
+    /**
+     * @return bool|null
+     */
+    public function getAllowDynamicLinking(): ?bool
     {
         return $this->allowDynamicLinking;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAllowDynamicLinking($value)
+    public function setAllowDynamicLinking(?bool $value): void
     {
         $this->allowDynamicLinking = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthorizationMode()
+    public function getAuthorizationMode(): ?string
     {
         return $this->authorizationMode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthorizationMode($value)
+    public function setAuthorizationMode(?string $value): void
     {
         $this->authorizationMode = $value;
     }
 
     /**
-     * @return CurrencyConversionSpecificInput
+     * @return CurrencyConversionSpecificInput|null
      */
-    public function getCurrencyConversionSpecificInput()
+    public function getCurrencyConversionSpecificInput(): ?CurrencyConversionSpecificInput
     {
         return $this->currencyConversionSpecificInput;
     }
+
     /**
-     * @var CurrencyConversionSpecificInput
+     * @param CurrencyConversionSpecificInput|null $value
      */
-    public function setCurrencyConversionSpecificInput($value)
+    public function setCurrencyConversionSpecificInput(?CurrencyConversionSpecificInput $value): void
     {
         $this->currencyConversionSpecificInput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getInitialSchemeTransactionId()
+    public function getInitialSchemeTransactionId(): ?string
     {
         return $this->initialSchemeTransactionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setInitialSchemeTransactionId($value)
+    public function setInitialSchemeTransactionId(?string $value): void
     {
         $this->initialSchemeTransactionId = $value;
     }
 
     /**
-     * @return PaymentProduct130SpecificInput
+     * @return MarketPlace|null
      */
-    public function getPaymentProduct130SpecificInput()
+    public function getMarketPlace(): ?MarketPlace
+    {
+        return $this->marketPlace;
+    }
+
+    /**
+     * @param MarketPlace|null $value
+     */
+    public function setMarketPlace(?MarketPlace $value): void
+    {
+        $this->marketPlace = $value;
+    }
+
+    /**
+     * @return MultiplePaymentInformation|null
+     */
+    public function getMultiplePaymentInformation(): ?MultiplePaymentInformation
+    {
+        return $this->multiplePaymentInformation;
+    }
+
+    /**
+     * @param MultiplePaymentInformation|null $value
+     */
+    public function setMultiplePaymentInformation(?MultiplePaymentInformation $value): void
+    {
+        $this->multiplePaymentInformation = $value;
+    }
+
+    /**
+     * @return PaymentProduct130SpecificInput|null
+     */
+    public function getPaymentProduct130SpecificInput(): ?PaymentProduct130SpecificInput
     {
         return $this->paymentProduct130SpecificInput;
     }
+
     /**
-     * @var PaymentProduct130SpecificInput
+     * @param PaymentProduct130SpecificInput|null $value
      */
-    public function setPaymentProduct130SpecificInput($value)
+    public function setPaymentProduct130SpecificInput(?PaymentProduct130SpecificInput $value): void
     {
         $this->paymentProduct130SpecificInput = $value;
     }
 
     /**
-     * @return PaymentProduct3208SpecificInput
+     * @return PaymentProduct3012SpecificInput|null
      */
-    public function getPaymentProduct3208SpecificInput()
+    public function getPaymentProduct3012SpecificInput(): ?PaymentProduct3012SpecificInput
+    {
+        return $this->paymentProduct3012SpecificInput;
+    }
+
+    /**
+     * @param PaymentProduct3012SpecificInput|null $value
+     */
+    public function setPaymentProduct3012SpecificInput(?PaymentProduct3012SpecificInput $value): void
+    {
+        $this->paymentProduct3012SpecificInput = $value;
+    }
+
+    /**
+     * @return PaymentProduct3013SpecificInput|null
+     */
+    public function getPaymentProduct3013SpecificInput(): ?PaymentProduct3013SpecificInput
+    {
+        return $this->paymentProduct3013SpecificInput;
+    }
+
+    /**
+     * @param PaymentProduct3013SpecificInput|null $value
+     */
+    public function setPaymentProduct3013SpecificInput(?PaymentProduct3013SpecificInput $value): void
+    {
+        $this->paymentProduct3013SpecificInput = $value;
+    }
+
+    /**
+     * @return PaymentProduct3208SpecificInput|null
+     */
+    public function getPaymentProduct3208SpecificInput(): ?PaymentProduct3208SpecificInput
     {
         return $this->paymentProduct3208SpecificInput;
     }
+
     /**
-     * @var PaymentProduct3208SpecificInput
+     * @param PaymentProduct3208SpecificInput|null $value
      */
-    public function setPaymentProduct3208SpecificInput($value)
+    public function setPaymentProduct3208SpecificInput(?PaymentProduct3208SpecificInput $value): void
     {
         $this->paymentProduct3208SpecificInput = $value;
     }
 
     /**
-     * @return PaymentProduct3209SpecificInput
+     * @return PaymentProduct3209SpecificInput|null
      */
-    public function getPaymentProduct3209SpecificInput()
+    public function getPaymentProduct3209SpecificInput(): ?PaymentProduct3209SpecificInput
     {
         return $this->paymentProduct3209SpecificInput;
     }
+
     /**
-     * @var PaymentProduct3209SpecificInput
+     * @param PaymentProduct3209SpecificInput|null $value
      */
-    public function setPaymentProduct3209SpecificInput($value)
+    public function setPaymentProduct3209SpecificInput(?PaymentProduct3209SpecificInput $value): void
     {
         $this->paymentProduct3209SpecificInput = $value;
     }
 
     /**
-     * @return PaymentProduct5100SpecificInput
+     * @return PaymentProduct5100SpecificInput|null
      */
-    public function getPaymentProduct5100SpecificInput()
+    public function getPaymentProduct5100SpecificInput(): ?PaymentProduct5100SpecificInput
     {
         return $this->paymentProduct5100SpecificInput;
     }
+
     /**
-     * @var PaymentProduct5100SpecificInput
+     * @param PaymentProduct5100SpecificInput|null $value
      */
-    public function setPaymentProduct5100SpecificInput($value)
+    public function setPaymentProduct5100SpecificInput(?PaymentProduct5100SpecificInput $value): void
     {
         $this->paymentProduct5100SpecificInput = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
 
     /**
-     * @return CardRecurrenceDetails
+     * @return CardRecurrenceDetails|null
      */
-    public function getRecurring()
+    public function getRecurring(): ?CardRecurrenceDetails
     {
         return $this->recurring;
     }
+
     /**
-     * @var CardRecurrenceDetails
+     * @param CardRecurrenceDetails|null $value
      */
-    public function setRecurring($value)
+    public function setRecurring(?CardRecurrenceDetails $value): void
     {
         $this->recurring = $value;
     }
 
     /**
-     * @return ThreeDSecureBase
+     * @return ThreeDSecureBase|null
      */
-    public function getThreeDSecure()
+    public function getThreeDSecure(): ?ThreeDSecureBase
     {
         return $this->threeDSecure;
     }
+
     /**
-     * @var ThreeDSecureBase
+     * @param ThreeDSecureBase|null $value
      */
-    public function setThreeDSecure($value)
+    public function setThreeDSecure(?ThreeDSecureBase $value): void
     {
         $this->threeDSecure = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setToken($value)
+    public function setToken(?string $value): void
     {
         $this->token = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getTokenize()
+    public function getTokenize(): ?bool
     {
         return $this->tokenize;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setTokenize($value)
+    public function setTokenize(?bool $value): void
     {
         $this->tokenize = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTransactionChannel()
+    public function getTransactionChannel(): ?string
     {
         return $this->transactionChannel;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTransactionChannel($value)
+    public function setTransactionChannel(?string $value): void
     {
         $this->transactionChannel = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUnscheduledCardOnFileRequestor()
+    public function getUnscheduledCardOnFileRequestor(): ?string
     {
         return $this->unscheduledCardOnFileRequestor;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUnscheduledCardOnFileRequestor($value)
+    public function setUnscheduledCardOnFileRequestor(?string $value): void
     {
         $this->unscheduledCardOnFileRequestor = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUnscheduledCardOnFileSequenceIndicator()
+    public function getUnscheduledCardOnFileSequenceIndicator(): ?string
     {
         return $this->unscheduledCardOnFileSequenceIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUnscheduledCardOnFileSequenceIndicator($value)
+    public function setUnscheduledCardOnFileSequenceIndicator(?string $value): void
     {
         $this->unscheduledCardOnFileSequenceIndicator = $value;
     }
@@ -338,55 +434,67 @@ class CardPaymentMethodSpecificInputBase extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->allowDynamicLinking !== null) {
+        if (!is_null($this->allowDynamicLinking)) {
             $object->allowDynamicLinking = $this->allowDynamicLinking;
         }
-        if ($this->authorizationMode !== null) {
+        if (!is_null($this->authorizationMode)) {
             $object->authorizationMode = $this->authorizationMode;
         }
-        if ($this->currencyConversionSpecificInput !== null) {
+        if (!is_null($this->currencyConversionSpecificInput)) {
             $object->currencyConversionSpecificInput = $this->currencyConversionSpecificInput->toObject();
         }
-        if ($this->initialSchemeTransactionId !== null) {
+        if (!is_null($this->initialSchemeTransactionId)) {
             $object->initialSchemeTransactionId = $this->initialSchemeTransactionId;
         }
-        if ($this->paymentProduct130SpecificInput !== null) {
+        if (!is_null($this->marketPlace)) {
+            $object->marketPlace = $this->marketPlace->toObject();
+        }
+        if (!is_null($this->multiplePaymentInformation)) {
+            $object->multiplePaymentInformation = $this->multiplePaymentInformation->toObject();
+        }
+        if (!is_null($this->paymentProduct130SpecificInput)) {
             $object->paymentProduct130SpecificInput = $this->paymentProduct130SpecificInput->toObject();
         }
-        if ($this->paymentProduct3208SpecificInput !== null) {
+        if (!is_null($this->paymentProduct3012SpecificInput)) {
+            $object->paymentProduct3012SpecificInput = $this->paymentProduct3012SpecificInput->toObject();
+        }
+        if (!is_null($this->paymentProduct3013SpecificInput)) {
+            $object->paymentProduct3013SpecificInput = $this->paymentProduct3013SpecificInput->toObject();
+        }
+        if (!is_null($this->paymentProduct3208SpecificInput)) {
             $object->paymentProduct3208SpecificInput = $this->paymentProduct3208SpecificInput->toObject();
         }
-        if ($this->paymentProduct3209SpecificInput !== null) {
+        if (!is_null($this->paymentProduct3209SpecificInput)) {
             $object->paymentProduct3209SpecificInput = $this->paymentProduct3209SpecificInput->toObject();
         }
-        if ($this->paymentProduct5100SpecificInput !== null) {
+        if (!is_null($this->paymentProduct5100SpecificInput)) {
             $object->paymentProduct5100SpecificInput = $this->paymentProduct5100SpecificInput->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if ($this->recurring !== null) {
+        if (!is_null($this->recurring)) {
             $object->recurring = $this->recurring->toObject();
         }
-        if ($this->threeDSecure !== null) {
+        if (!is_null($this->threeDSecure)) {
             $object->threeDSecure = $this->threeDSecure->toObject();
         }
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token;
         }
-        if ($this->tokenize !== null) {
+        if (!is_null($this->tokenize)) {
             $object->tokenize = $this->tokenize;
         }
-        if ($this->transactionChannel !== null) {
+        if (!is_null($this->transactionChannel)) {
             $object->transactionChannel = $this->transactionChannel;
         }
-        if ($this->unscheduledCardOnFileRequestor !== null) {
+        if (!is_null($this->unscheduledCardOnFileRequestor)) {
             $object->unscheduledCardOnFileRequestor = $this->unscheduledCardOnFileRequestor;
         }
-        if ($this->unscheduledCardOnFileSequenceIndicator !== null) {
+        if (!is_null($this->unscheduledCardOnFileSequenceIndicator)) {
             $object->unscheduledCardOnFileSequenceIndicator = $this->unscheduledCardOnFileSequenceIndicator;
         }
         return $object;
@@ -397,7 +505,7 @@ class CardPaymentMethodSpecificInputBase extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardPaymentMethodSpecificInputBase
     {
         parent::fromObject($object);
         if (property_exists($object, 'allowDynamicLinking')) {
@@ -416,12 +524,40 @@ class CardPaymentMethodSpecificInputBase extends DataObject
         if (property_exists($object, 'initialSchemeTransactionId')) {
             $this->initialSchemeTransactionId = $object->initialSchemeTransactionId;
         }
+        if (property_exists($object, 'marketPlace')) {
+            if (!is_object($object->marketPlace)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->marketPlace, true) . '\' is not an object');
+            }
+            $value = new MarketPlace();
+            $this->marketPlace = $value->fromObject($object->marketPlace);
+        }
+        if (property_exists($object, 'multiplePaymentInformation')) {
+            if (!is_object($object->multiplePaymentInformation)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->multiplePaymentInformation, true) . '\' is not an object');
+            }
+            $value = new MultiplePaymentInformation();
+            $this->multiplePaymentInformation = $value->fromObject($object->multiplePaymentInformation);
+        }
         if (property_exists($object, 'paymentProduct130SpecificInput')) {
             if (!is_object($object->paymentProduct130SpecificInput)) {
                 throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct130SpecificInput, true) . '\' is not an object');
             }
             $value = new PaymentProduct130SpecificInput();
             $this->paymentProduct130SpecificInput = $value->fromObject($object->paymentProduct130SpecificInput);
+        }
+        if (property_exists($object, 'paymentProduct3012SpecificInput')) {
+            if (!is_object($object->paymentProduct3012SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct3012SpecificInput, true) . '\' is not an object');
+            }
+            $value = new PaymentProduct3012SpecificInput();
+            $this->paymentProduct3012SpecificInput = $value->fromObject($object->paymentProduct3012SpecificInput);
+        }
+        if (property_exists($object, 'paymentProduct3013SpecificInput')) {
+            if (!is_object($object->paymentProduct3013SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct3013SpecificInput, true) . '\' is not an object');
+            }
+            $value = new PaymentProduct3013SpecificInput();
+            $this->paymentProduct3013SpecificInput = $value->fromObject($object->paymentProduct3013SpecificInput);
         }
         if (property_exists($object, 'paymentProduct3208SpecificInput')) {
             if (!is_object($object->paymentProduct3208SpecificInput)) {

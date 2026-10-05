@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,324 +11,422 @@ use UnexpectedValueException;
  */
 class CardPaymentMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var AcquirerInformation
+     * @var AcquirerInformation|null
      */
-    private $acquirerInformation;
+    public ?AcquirerInformation $acquirerInformation = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $authenticatedAmount;
+    public ?int $authenticatedAmount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $authorisationCode;
+    public ?string $authorisationCode = null;
 
     /**
-     * @var CardEssentials
+     * @var CardEssentials|null
      */
-    private $card;
+    public ?CardEssentials $card = null;
 
     /**
-     * @var CurrencyConversion
+     * @var ClickToPay|null
      */
-    private $currencyConversion;
+    public ?ClickToPay $clickToPay = null;
 
     /**
-     * @var ExternalTokenLinked
+     * @var string|null
      */
-    private $externalTokenLinked;
+    public ?string $cobrandSelectionIndicator = null;
 
     /**
-     * @var CardFraudResults
+     * @var CurrencyConversion|null
      */
-    private $fraudResults;
+    public ?CurrencyConversion $currencyConversion = null;
 
     /**
-     * @var string
+     * @var ExternalTokenLinked|null
      */
-    private $initialSchemeTransactionId;
+    public ?ExternalTokenLinked $externalTokenLinked = null;
 
     /**
-     * @var string
+     * @var CardFraudResults|null
      */
-    private $paymentAccountReference;
+    public ?CardFraudResults $fraudResults = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $paymentOption;
+    public ?string $initialSchemeTransactionId = null;
 
     /**
-     * @var PaymentProduct3208SpecificOutput
+     * @var NetworkTokenEssentials|null
      */
-    private $paymentProduct3208SpecificOutput;
+    public ?NetworkTokenEssentials $networkTokenData = null;
 
     /**
-     * @var PaymentProduct3209SpecificOutput
+     * @var string|null
      */
-    private $paymentProduct3209SpecificOutput;
+    public ?string $paymentAccountReference = null;
 
     /**
-     * @var int
+     * @var string|null
      */
-    private $paymentProductId;
+    public ?string $paymentOption = null;
 
     /**
-     * @var string
+     * @var PaymentProduct3208SpecificOutput|null
      */
-    private $schemeReferenceData;
+    public ?PaymentProduct3208SpecificOutput $paymentProduct3208SpecificOutput = null;
 
     /**
-     * @var ThreeDSecureResults
+     * @var PaymentProduct3209SpecificOutput|null
      */
-    private $threeDSecureResults;
+    public ?PaymentProduct3209SpecificOutput $paymentProduct3209SpecificOutput = null;
 
     /**
-     * @var string
+     * @var int|null
      */
-    private $token;
+    public ?int $paymentProductId = null;
 
-    // Methods
     /**
-     * @return AcquirerInformation
+     * @var ReattemptInstructions|null
      */
-    public function getAcquirerInformation()
+    public ?ReattemptInstructions $reattemptInstructions = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $schemeReferenceData = null;
+
+    /**
+     * @var ThreeDSecureResults|null
+     */
+    public ?ThreeDSecureResults $threeDSecureResults = null;
+
+    /**
+     * @var string|null
+     */
+    public ?string $token = null;
+
+    /**
+     * @return AcquirerInformation|null
+     */
+    public function getAcquirerInformation(): ?AcquirerInformation
     {
         return $this->acquirerInformation;
     }
+
     /**
-     * @var AcquirerInformation
+     * @param AcquirerInformation|null $value
      */
-    public function setAcquirerInformation($value)
+    public function setAcquirerInformation(?AcquirerInformation $value): void
     {
         $this->acquirerInformation = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAuthenticatedAmount()
+    public function getAuthenticatedAmount(): ?int
     {
         return $this->authenticatedAmount;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setAuthenticatedAmount($value)
+    public function setAuthenticatedAmount(?int $value): void
     {
         $this->authenticatedAmount = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthorisationCode()
+    public function getAuthorisationCode(): ?string
     {
         return $this->authorisationCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAuthorisationCode($value)
+    public function setAuthorisationCode(?string $value): void
     {
         $this->authorisationCode = $value;
     }
 
     /**
-     * @return CardEssentials
+     * @return CardEssentials|null
      */
-    public function getCard()
+    public function getCard(): ?CardEssentials
     {
         return $this->card;
     }
+
     /**
-     * @var CardEssentials
+     * @param CardEssentials|null $value
      */
-    public function setCard($value)
+    public function setCard(?CardEssentials $value): void
     {
         $this->card = $value;
     }
 
     /**
-     * @return CurrencyConversion
+     * @return ClickToPay|null
      */
-    public function getCurrencyConversion()
+    public function getClickToPay(): ?ClickToPay
+    {
+        return $this->clickToPay;
+    }
+
+    /**
+     * @param ClickToPay|null $value
+     */
+    public function setClickToPay(?ClickToPay $value): void
+    {
+        $this->clickToPay = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCobrandSelectionIndicator(): ?string
+    {
+        return $this->cobrandSelectionIndicator;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setCobrandSelectionIndicator(?string $value): void
+    {
+        $this->cobrandSelectionIndicator = $value;
+    }
+
+    /**
+     * @return CurrencyConversion|null
+     */
+    public function getCurrencyConversion(): ?CurrencyConversion
     {
         return $this->currencyConversion;
     }
+
     /**
-     * @var CurrencyConversion
+     * @param CurrencyConversion|null $value
      */
-    public function setCurrencyConversion($value)
+    public function setCurrencyConversion(?CurrencyConversion $value): void
     {
         $this->currencyConversion = $value;
     }
 
     /**
-     * @return ExternalTokenLinked
+     * @return ExternalTokenLinked|null
      */
-    public function getExternalTokenLinked()
+    public function getExternalTokenLinked(): ?ExternalTokenLinked
     {
         return $this->externalTokenLinked;
     }
+
     /**
-     * @var ExternalTokenLinked
+     * @param ExternalTokenLinked|null $value
      */
-    public function setExternalTokenLinked($value)
+    public function setExternalTokenLinked(?ExternalTokenLinked $value): void
     {
         $this->externalTokenLinked = $value;
     }
 
     /**
-     * @return CardFraudResults
+     * @return CardFraudResults|null
      */
-    public function getFraudResults()
+    public function getFraudResults(): ?CardFraudResults
     {
         return $this->fraudResults;
     }
+
     /**
-     * @var CardFraudResults
+     * @param CardFraudResults|null $value
      */
-    public function setFraudResults($value)
+    public function setFraudResults(?CardFraudResults $value): void
     {
         $this->fraudResults = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getInitialSchemeTransactionId()
+    public function getInitialSchemeTransactionId(): ?string
     {
         return $this->initialSchemeTransactionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setInitialSchemeTransactionId($value)
+    public function setInitialSchemeTransactionId(?string $value): void
     {
         $this->initialSchemeTransactionId = $value;
     }
 
     /**
-     * @return string
+     * @return NetworkTokenEssentials|null
      */
-    public function getPaymentAccountReference()
+    public function getNetworkTokenData(): ?NetworkTokenEssentials
+    {
+        return $this->networkTokenData;
+    }
+
+    /**
+     * @param NetworkTokenEssentials|null $value
+     */
+    public function setNetworkTokenData(?NetworkTokenEssentials $value): void
+    {
+        $this->networkTokenData = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaymentAccountReference(): ?string
     {
         return $this->paymentAccountReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentAccountReference($value)
+    public function setPaymentAccountReference(?string $value): void
     {
         $this->paymentAccountReference = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentOption()
+    public function getPaymentOption(): ?string
     {
         return $this->paymentOption;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentOption($value)
+    public function setPaymentOption(?string $value): void
     {
         $this->paymentOption = $value;
     }
 
     /**
-     * @return PaymentProduct3208SpecificOutput
+     * @return PaymentProduct3208SpecificOutput|null
      */
-    public function getPaymentProduct3208SpecificOutput()
+    public function getPaymentProduct3208SpecificOutput(): ?PaymentProduct3208SpecificOutput
     {
         return $this->paymentProduct3208SpecificOutput;
     }
+
     /**
-     * @var PaymentProduct3208SpecificOutput
+     * @param PaymentProduct3208SpecificOutput|null $value
      */
-    public function setPaymentProduct3208SpecificOutput($value)
+    public function setPaymentProduct3208SpecificOutput(?PaymentProduct3208SpecificOutput $value): void
     {
         $this->paymentProduct3208SpecificOutput = $value;
     }
 
     /**
-     * @return PaymentProduct3209SpecificOutput
+     * @return PaymentProduct3209SpecificOutput|null
      */
-    public function getPaymentProduct3209SpecificOutput()
+    public function getPaymentProduct3209SpecificOutput(): ?PaymentProduct3209SpecificOutput
     {
         return $this->paymentProduct3209SpecificOutput;
     }
+
     /**
-     * @var PaymentProduct3209SpecificOutput
+     * @param PaymentProduct3209SpecificOutput|null $value
      */
-    public function setPaymentProduct3209SpecificOutput($value)
+    public function setPaymentProduct3209SpecificOutput(?PaymentProduct3209SpecificOutput $value): void
     {
         $this->paymentProduct3209SpecificOutput = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
 
     /**
-     * @return string
+     * @return ReattemptInstructions|null
      */
-    public function getSchemeReferenceData()
+    public function getReattemptInstructions(): ?ReattemptInstructions
+    {
+        return $this->reattemptInstructions;
+    }
+
+    /**
+     * @param ReattemptInstructions|null $value
+     */
+    public function setReattemptInstructions(?ReattemptInstructions $value): void
+    {
+        $this->reattemptInstructions = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSchemeReferenceData(): ?string
     {
         return $this->schemeReferenceData;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSchemeReferenceData($value)
+    public function setSchemeReferenceData(?string $value): void
     {
         $this->schemeReferenceData = $value;
     }
 
     /**
-     * @return ThreeDSecureResults
+     * @return ThreeDSecureResults|null
      */
-    public function getThreeDSecureResults()
+    public function getThreeDSecureResults(): ?ThreeDSecureResults
     {
         return $this->threeDSecureResults;
     }
+
     /**
-     * @var ThreeDSecureResults
+     * @param ThreeDSecureResults|null $value
      */
-    public function setThreeDSecureResults($value)
+    public function setThreeDSecureResults(?ThreeDSecureResults $value): void
     {
         $this->threeDSecureResults = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setToken($value)
+    public function setToken(?string $value): void
     {
         $this->token = $value;
     }
@@ -338,55 +434,67 @@ class CardPaymentMethodSpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acquirerInformation !== null) {
+        if (!is_null($this->acquirerInformation)) {
             $object->acquirerInformation = $this->acquirerInformation->toObject();
         }
-        if ($this->authenticatedAmount !== null) {
+        if (!is_null($this->authenticatedAmount)) {
             $object->authenticatedAmount = $this->authenticatedAmount;
         }
-        if ($this->authorisationCode !== null) {
+        if (!is_null($this->authorisationCode)) {
             $object->authorisationCode = $this->authorisationCode;
         }
-        if ($this->card !== null) {
+        if (!is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if ($this->currencyConversion !== null) {
+        if (!is_null($this->clickToPay)) {
+            $object->clickToPay = $this->clickToPay->toObject();
+        }
+        if (!is_null($this->cobrandSelectionIndicator)) {
+            $object->cobrandSelectionIndicator = $this->cobrandSelectionIndicator;
+        }
+        if (!is_null($this->currencyConversion)) {
             $object->currencyConversion = $this->currencyConversion->toObject();
         }
-        if ($this->externalTokenLinked !== null) {
+        if (!is_null($this->externalTokenLinked)) {
             $object->externalTokenLinked = $this->externalTokenLinked->toObject();
         }
-        if ($this->fraudResults !== null) {
+        if (!is_null($this->fraudResults)) {
             $object->fraudResults = $this->fraudResults->toObject();
         }
-        if ($this->initialSchemeTransactionId !== null) {
+        if (!is_null($this->initialSchemeTransactionId)) {
             $object->initialSchemeTransactionId = $this->initialSchemeTransactionId;
         }
-        if ($this->paymentAccountReference !== null) {
+        if (!is_null($this->networkTokenData)) {
+            $object->networkTokenData = $this->networkTokenData->toObject();
+        }
+        if (!is_null($this->paymentAccountReference)) {
             $object->paymentAccountReference = $this->paymentAccountReference;
         }
-        if ($this->paymentOption !== null) {
+        if (!is_null($this->paymentOption)) {
             $object->paymentOption = $this->paymentOption;
         }
-        if ($this->paymentProduct3208SpecificOutput !== null) {
+        if (!is_null($this->paymentProduct3208SpecificOutput)) {
             $object->paymentProduct3208SpecificOutput = $this->paymentProduct3208SpecificOutput->toObject();
         }
-        if ($this->paymentProduct3209SpecificOutput !== null) {
+        if (!is_null($this->paymentProduct3209SpecificOutput)) {
             $object->paymentProduct3209SpecificOutput = $this->paymentProduct3209SpecificOutput->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if ($this->schemeReferenceData !== null) {
+        if (!is_null($this->reattemptInstructions)) {
+            $object->reattemptInstructions = $this->reattemptInstructions->toObject();
+        }
+        if (!is_null($this->schemeReferenceData)) {
             $object->schemeReferenceData = $this->schemeReferenceData;
         }
-        if ($this->threeDSecureResults !== null) {
+        if (!is_null($this->threeDSecureResults)) {
             $object->threeDSecureResults = $this->threeDSecureResults->toObject();
         }
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token;
         }
         return $object;
@@ -397,7 +505,7 @@ class CardPaymentMethodSpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardPaymentMethodSpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'acquirerInformation')) {
@@ -419,6 +527,16 @@ class CardPaymentMethodSpecificOutput extends DataObject
             }
             $value = new CardEssentials();
             $this->card = $value->fromObject($object->card);
+        }
+        if (property_exists($object, 'clickToPay')) {
+            if (!is_object($object->clickToPay)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->clickToPay, true) . '\' is not an object');
+            }
+            $value = new ClickToPay();
+            $this->clickToPay = $value->fromObject($object->clickToPay);
+        }
+        if (property_exists($object, 'cobrandSelectionIndicator')) {
+            $this->cobrandSelectionIndicator = $object->cobrandSelectionIndicator;
         }
         if (property_exists($object, 'currencyConversion')) {
             if (!is_object($object->currencyConversion)) {
@@ -444,6 +562,13 @@ class CardPaymentMethodSpecificOutput extends DataObject
         if (property_exists($object, 'initialSchemeTransactionId')) {
             $this->initialSchemeTransactionId = $object->initialSchemeTransactionId;
         }
+        if (property_exists($object, 'networkTokenData')) {
+            if (!is_object($object->networkTokenData)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->networkTokenData, true) . '\' is not an object');
+            }
+            $value = new NetworkTokenEssentials();
+            $this->networkTokenData = $value->fromObject($object->networkTokenData);
+        }
         if (property_exists($object, 'paymentAccountReference')) {
             $this->paymentAccountReference = $object->paymentAccountReference;
         }
@@ -466,6 +591,13 @@ class CardPaymentMethodSpecificOutput extends DataObject
         }
         if (property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;
+        }
+        if (property_exists($object, 'reattemptInstructions')) {
+            if (!is_object($object->reattemptInstructions)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->reattemptInstructions, true) . '\' is not an object');
+            }
+            $value = new ReattemptInstructions();
+            $this->reattemptInstructions = $value->fromObject($object->reattemptInstructions);
         }
         if (property_exists($object, 'schemeReferenceData')) {
             $this->schemeReferenceData = $object->schemeReferenceData;

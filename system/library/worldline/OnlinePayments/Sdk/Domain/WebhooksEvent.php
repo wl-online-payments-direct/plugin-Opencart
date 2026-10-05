@@ -1,143 +1,77 @@
 <?php
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
- * class WebhooksEvent
- *
- * @package OnlinePayments\Sdk\Domain\Webhooks
+ * @package OnlinePayments\Sdk\Webhooks
  */
 class WebhooksEvent extends DataObject
 {
-    // Properties
     /**
-     * @var string|null
+     * @var string
      */
-    private $apiVersion = null;
+    public $apiVersion = null;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $id = null;
+    public $created = null;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $created = null;
+    public $id = null;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $merchantId = null;
+    public $merchantId = null;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $type = null;
+    public $type = null;
 
     /**
-     * @var PaymentResponse|null
+     * @var PaymentLinkResponse
      */
-    private $payment = null;
+    public $paymentLink = null;
 
     /**
-     * @var PayoutResponse|null
+     * @var PaymentResponse
      */
-    private $payout = null;
+    public $payment = null;
 
     /**
-     * @var RefundResponse|null
+     * @var PayoutResponse
      */
-    private $refund = null;
+    public $payout = null;
 
     /**
-     * @var TokenResponse|null
+     * @var RefundResponse
      */
-    private $token = null;
-
-    // Methods
+    public $refund = null;
 
     /**
-     * @return string
+     * @var TokenResponse
      */
-    public function getApiVersion()
+    public $token = null;
+
+    /**
+     * @return PaymentLinkResponse
+     */
+    public function getPaymentLink()
     {
-        return $this->apiVersion;
+        return $this->paymentLink;
     }
 
     /**
-     * @param string $apiVersion
+     * @param PaymentLinkResponse $paymentLink
      */
-    public function setApiVersion($apiVersion)
+    public function setPaymentLink($paymentLink)
     {
-        $this->apiVersion = $apiVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * @param string $created
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMerchantId()
-    {
-        return $this->merchantId;
-    }
-
-    /**
-     * @param string $merchantId
-     */
-    public function setMerchantId($merchantId)
-    {
-        $this->merchantId = $merchantId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
+        $this->paymentLink = $paymentLink;
     }
 
     /**
@@ -207,23 +141,26 @@ class WebhooksEvent extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
         if (!is_null($this->apiVersion)) {
             $object->apiVersion = $this->apiVersion;
         }
-        if (!is_null($this->id)) {
-            $object->id = $this->id;
-        }
         if (!is_null($this->created)) {
             $object->created = $this->created;
+        }
+        if (!is_null($this->id)) {
+            $object->id = $this->id;
         }
         if (!is_null($this->merchantId)) {
             $object->merchantId = $this->merchantId;
         }
         if (!is_null($this->type)) {
             $object->type = $this->type;
+        }
+        if (!is_null($this->paymentLink)) {
+            $object->paymentLink = $this->paymentLink->toObject();
         }
         if (!is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
@@ -245,23 +182,30 @@ class WebhooksEvent extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): DataObject
     {
         parent::fromObject($object);
         if (property_exists($object, 'apiVersion')) {
             $this->apiVersion = $object->apiVersion;
         }
-        if (property_exists($object, 'id')) {
-            $this->id = $object->id;
-        }
         if (property_exists($object, 'created')) {
             $this->created = $object->created;
+        }
+        if (property_exists($object, 'id')) {
+            $this->id = $object->id;
         }
         if (property_exists($object, 'merchantId')) {
             $this->merchantId = $object->merchantId;
         }
         if (property_exists($object, 'type')) {
             $this->type = $object->type;
+        }
+        if (property_exists($object, 'paymentLink')) {
+            if (!is_object($object->paymentLink)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentLink, true) . '\' is not an object');
+            }
+            $value = new PaymentLinkResponse();
+            $this->paymentLink = $value->fromObject($object->paymentLink);
         }
         if (property_exists($object, 'payment')) {
             if (!is_object($object->payment)) {

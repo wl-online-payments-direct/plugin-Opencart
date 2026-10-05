@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,128 +11,155 @@ use UnexpectedValueException;
  */
 class GPayThreeDSecure extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeCanvasSize;
+    public ?string $challengeCanvasSize = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeIndicator;
+    public ?string $challengeIndicator = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $exemptionRequest;
+    public ?string $exemptionRequest = null;
 
     /**
-     * @var RedirectionData
+     * @var RedirectionData|null
      */
-    private $redirectionData;
+    public ?RedirectionData $redirectionData = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $skipAuthentication;
+    public ?bool $skipAuthentication = null;
 
-    // Methods
     /**
-     * @return string
+     * @var bool|null
      */
-    public function getChallengeCanvasSize()
+    public ?bool $skipSoftDecline = null;
+
+    /**
+     * @return string|null
+     */
+    public function getChallengeCanvasSize(): ?string
     {
         return $this->challengeCanvasSize;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeCanvasSize($value)
+    public function setChallengeCanvasSize(?string $value): void
     {
         $this->challengeCanvasSize = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getChallengeIndicator()
+    public function getChallengeIndicator(): ?string
     {
         return $this->challengeIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeIndicator($value)
+    public function setChallengeIndicator(?string $value): void
     {
         $this->challengeIndicator = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExemptionRequest()
+    public function getExemptionRequest(): ?string
     {
         return $this->exemptionRequest;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExemptionRequest($value)
+    public function setExemptionRequest(?string $value): void
     {
         $this->exemptionRequest = $value;
     }
 
     /**
-     * @return RedirectionData
+     * @return RedirectionData|null
      */
-    public function getRedirectionData()
+    public function getRedirectionData(): ?RedirectionData
     {
         return $this->redirectionData;
     }
+
     /**
-     * @var RedirectionData
+     * @param RedirectionData|null $value
      */
-    public function setRedirectionData($value)
+    public function setRedirectionData(?RedirectionData $value): void
     {
         $this->redirectionData = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSkipAuthentication()
+    public function getSkipAuthentication(): ?bool
     {
         return $this->skipAuthentication;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSkipAuthentication($value)
+    public function setSkipAuthentication(?bool $value): void
     {
         $this->skipAuthentication = $value;
     }
 
     /**
+     * @return bool|null
+     */
+    public function getSkipSoftDecline(): ?bool
+    {
+        return $this->skipSoftDecline;
+    }
+
+    /**
+     * @param bool|null $value
+     */
+    public function setSkipSoftDecline(?bool $value): void
+    {
+        $this->skipSoftDecline = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->challengeCanvasSize !== null) {
+        if (!is_null($this->challengeCanvasSize)) {
             $object->challengeCanvasSize = $this->challengeCanvasSize;
         }
-        if ($this->challengeIndicator !== null) {
+        if (!is_null($this->challengeIndicator)) {
             $object->challengeIndicator = $this->challengeIndicator;
         }
-        if ($this->exemptionRequest !== null) {
+        if (!is_null($this->exemptionRequest)) {
             $object->exemptionRequest = $this->exemptionRequest;
         }
-        if ($this->redirectionData !== null) {
+        if (!is_null($this->redirectionData)) {
             $object->redirectionData = $this->redirectionData->toObject();
         }
-        if ($this->skipAuthentication !== null) {
+        if (!is_null($this->skipAuthentication)) {
             $object->skipAuthentication = $this->skipAuthentication;
+        }
+        if (!is_null($this->skipSoftDecline)) {
+            $object->skipSoftDecline = $this->skipSoftDecline;
         }
         return $object;
     }
@@ -144,7 +169,7 @@ class GPayThreeDSecure extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GPayThreeDSecure
     {
         parent::fromObject($object);
         if (property_exists($object, 'challengeCanvasSize')) {
@@ -165,6 +190,9 @@ class GPayThreeDSecure extends DataObject
         }
         if (property_exists($object, 'skipAuthentication')) {
             $this->skipAuthentication = $object->skipAuthentication;
+        }
+        if (property_exists($object, 'skipSoftDecline')) {
+            $this->skipSoftDecline = $object->skipSoftDecline;
         }
         return $this;
     }

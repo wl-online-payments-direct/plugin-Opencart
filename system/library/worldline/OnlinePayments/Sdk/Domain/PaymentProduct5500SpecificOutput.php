@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,86 @@ use UnexpectedValueException;
  */
 class PaymentProduct5500SpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $paymentEndDate;
+    public ?string $entityId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $paymentReference;
+    public ?string $paymentEndDate = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $paymentStartDate;
+    public ?string $paymentReference = null;
 
-    // Methods
     /**
-     * @return string
+     * @var string|null
      */
-    public function getPaymentEndDate()
+    public ?string $paymentStartDate = null;
+
+    /**
+     * @return string|null
+     */
+    public function getEntityId(): ?string
+    {
+        return $this->entityId;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setEntityId(?string $value): void
+    {
+        $this->entityId = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaymentEndDate(): ?string
     {
         return $this->paymentEndDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentEndDate($value)
+    public function setPaymentEndDate(?string $value): void
     {
         $this->paymentEndDate = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentReference()
+    public function getPaymentReference(): ?string
     {
         return $this->paymentReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentReference($value)
+    public function setPaymentReference(?string $value): void
     {
         $this->paymentReference = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentStartDate()
+    public function getPaymentStartDate(): ?string
     {
         return $this->paymentStartDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPaymentStartDate($value)
+    public function setPaymentStartDate(?string $value): void
     {
         $this->paymentStartDate = $value;
     }
@@ -78,16 +98,19 @@ class PaymentProduct5500SpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->paymentEndDate !== null) {
+        if (!is_null($this->entityId)) {
+            $object->entityId = $this->entityId;
+        }
+        if (!is_null($this->paymentEndDate)) {
             $object->paymentEndDate = $this->paymentEndDate;
         }
-        if ($this->paymentReference !== null) {
+        if (!is_null($this->paymentReference)) {
             $object->paymentReference = $this->paymentReference;
         }
-        if ($this->paymentStartDate !== null) {
+        if (!is_null($this->paymentStartDate)) {
             $object->paymentStartDate = $this->paymentStartDate;
         }
         return $object;
@@ -98,9 +121,12 @@ class PaymentProduct5500SpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct5500SpecificOutput
     {
         parent::fromObject($object);
+        if (property_exists($object, 'entityId')) {
+            $this->entityId = $object->entityId;
+        }
         if (property_exists($object, 'paymentEndDate')) {
             $this->paymentEndDate = $object->paymentEndDate;
         }

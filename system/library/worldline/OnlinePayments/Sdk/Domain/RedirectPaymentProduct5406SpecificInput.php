@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class RedirectPaymentProduct5406SpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var CustomerBankAccount
+     * @var CustomerBankAccount|null
      */
-    private $customerBankAccount;
+    public ?CustomerBankAccount $customerBankAccount = null;
 
-    // Methods
     /**
-     * @return CustomerBankAccount
+     * @return CustomerBankAccount|null
      */
-    public function getCustomerBankAccount()
+    public function getCustomerBankAccount(): ?CustomerBankAccount
     {
         return $this->customerBankAccount;
     }
+
     /**
-     * @var CustomerBankAccount
+     * @param CustomerBankAccount|null $value
      */
-    public function setCustomerBankAccount($value)
+    public function setCustomerBankAccount(?CustomerBankAccount $value): void
     {
         $this->customerBankAccount = $value;
     }
@@ -38,10 +35,10 @@ class RedirectPaymentProduct5406SpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->customerBankAccount !== null) {
+        if (!is_null($this->customerBankAccount)) {
             $object->customerBankAccount = $this->customerBankAccount->toObject();
         }
         return $object;
@@ -52,7 +49,7 @@ class RedirectPaymentProduct5406SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RedirectPaymentProduct5406SpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'customerBankAccount')) {

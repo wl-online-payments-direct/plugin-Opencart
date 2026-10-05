@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,47 @@ use UnexpectedValueException;
  */
 class TokenEWallet extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
-    private $alias;
+    public ?string $alias = null;
 
     /**
-     * @var CustomerToken
+     * @var CustomerToken|null
      */
-    private $customer;
+    public ?CustomerToken $customer = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
-    public function getAlias()
+    public function getAlias(): ?string
     {
         return $this->alias;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
-    public function setAlias($value)
+    public function setAlias(?string $value): void
     {
         $this->alias = $value;
     }
 
     /**
-     * @return CustomerToken
+     * @return CustomerToken|null
      */
-    public function getCustomer()
+    public function getCustomer(): ?CustomerToken
     {
         return $this->customer;
     }
+
     /**
-     * @var CustomerToken
+     * @param CustomerToken|null $value
      */
-    public function setCustomer($value)
+    public function setCustomer(?CustomerToken $value): void
     {
         $this->customer = $value;
     }
@@ -58,13 +59,13 @@ class TokenEWallet extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->alias !== null) {
+        if (!is_null($this->alias)) {
             $object->alias = $this->alias;
         }
-        if ($this->customer !== null) {
+        if (!is_null($this->customer)) {
             $object->customer = $this->customer->toObject();
         }
         return $object;
@@ -75,7 +76,7 @@ class TokenEWallet extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): TokenEWallet
     {
         parent::fromObject($object);
         if (property_exists($object, 'alias')) {

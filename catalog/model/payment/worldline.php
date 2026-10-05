@@ -156,6 +156,10 @@ class Worldline extends \Opencart\System\Engine\Model {
 		$this->db->query($sql);
 	}
 	
+	public function deleteWorldlineCustomerToken(int $customer_id, string $payment_type, string $token): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "worldline_customer_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
+	}
+	
 	public function setWorldlineCustomerMainToken(int $customer_id, string $payment_type, string $token): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '0' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldline_customer_token` SET `main_token_status` = '1' WHERE `customer_id` = '" . (int)$customer_id . "' AND `payment_type` = '" . $this->db->escape($payment_type) . "' AND `token` = '" . $this->db->escape($token) . "'");
@@ -326,7 +330,7 @@ class Worldline extends \Opencart\System\Engine\Model {
 			$implode[] = "`date_captured` = DATE('" . $this->db->escape($data['date_captured']) . "')";
 		}
 				
-		$implode[] = "`date` = COALESCE(`date`, NOW())";
+		$implode[] = "`date_created` = COALESCE(`date_created`, NOW())";
 		
 		if ($implode) {
 			$sql .= implode(", ", $implode);

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class PayoutErrorResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $errorId;
+    public ?string $errorId = null;
 
     /**
-     * @var APIError[]
+     * @var APIError[]|null
      */
-    private $errors;
+    public ?array $errors = null;
 
     /**
-     * @var PayoutResult
+     * @var PayoutResult|null
      */
-    private $payoutResult;
+    public ?PayoutResult $payoutResult = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getErrorId()
+    public function getErrorId(): ?string
     {
         return $this->errorId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setErrorId($value)
+    public function setErrorId(?string $value): void
     {
         $this->errorId = $value;
     }
 
     /**
-     * @return APIError[]
+     * @return APIError[]|null
      */
-    public function getErrors()
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
+
     /**
-     * @var APIError[]
+     * @param APIError[]|null $value
      */
-    public function setErrors($value)
+    public function setErrors(?array $value): void
     {
         $this->errors = $value;
     }
 
     /**
-     * @return PayoutResult
+     * @return PayoutResult|null
      */
-    public function getPayoutResult()
+    public function getPayoutResult(): ?PayoutResult
     {
         return $this->payoutResult;
     }
+
     /**
-     * @var PayoutResult
+     * @param PayoutResult|null $value
      */
-    public function setPayoutResult($value)
+    public function setPayoutResult(?PayoutResult $value): void
     {
         $this->payoutResult = $value;
     }
@@ -78,21 +77,21 @@ class PayoutErrorResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->errorId !== null) {
+        if (!is_null($this->errorId)) {
             $object->errorId = $this->errorId;
         }
-        if ($this->errors !== null) {
+        if (!is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if ($this->payoutResult !== null) {
+        if (!is_null($this->payoutResult)) {
             $object->payoutResult = $this->payoutResult->toObject();
         }
         return $object;
@@ -103,7 +102,7 @@ class PayoutErrorResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PayoutErrorResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'errorId')) {

@@ -55,12 +55,8 @@ var initWorldlineSDK = function() {
 					
 					if ($(this).attr('token')) {
 						tokenizer.useToken($(this).attr('token'));
-						
-						$('#worldline-hosted-tokenization-form .checkbox-save').addClass('d-none');
 					} else {
 						tokenizer.useToken();
-						
-						$('#worldline-hosted-tokenization-form .checkbox-save').removeClass('d-none');
 					}
 				});
 				
@@ -115,11 +111,9 @@ var initWorldlineSDK = function() {
 							
 							$('#worldline-hosted-tokenization-form').append(html);
 							
-							var card_token_save = ($('#worldline-hosted-tokenization-form #worldline-card-token-save:checked').length ? $('#worldline-hosted-tokenization-form #worldline-card-token-save:checked').val() : 0);
-							
 							$.ajax({
 								type: 'post',
-								url: 'index.php?route=extension/worldline/payment/worldline{{ separator }}confirm&hostedTokenizationId=' + result.hostedTokenizationId + '&cardTokenSave=' + card_token_save,
+								url: 'index.php?route=extension/worldline/payment/worldline{{ separator }}confirm&hostedTokenizationId=' + result.hostedTokenizationId,
 								data: $('#worldline-hosted-tokenization-form input[type="hidden"]'),
 								dataType: 'json',
 								beforeSend: function() {

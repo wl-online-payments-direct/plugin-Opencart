@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProductFilter extends DataObject
 {
-    // Properties
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $groups;
+    public ?array $groups = null;
 
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    private $products;
+    public ?array $products = null;
 
-    // Methods
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getGroups()
+    public function getGroups(): ?array
     {
         return $this->groups;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setGroups($value)
+    public function setGroups(?array $value): void
     {
         $this->groups = $value;
     }
 
     /**
-     * @return int[]
+     * @return int[]|null
      */
-    public function getProducts()
+    public function getProducts(): ?array
     {
         return $this->products;
     }
+
     /**
-     * @var int[]
+     * @param int[]|null $value
      */
-    public function setProducts($value)
+    public function setProducts(?array $value): void
     {
         $this->products = $value;
     }
@@ -58,21 +56,21 @@ class PaymentProductFilter extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->groups !== null) {
+        if (!is_null($this->groups)) {
             $object->groups = [];
             foreach ($this->groups as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->groups[] = $element;
                 }
             }
         }
-        if ($this->products !== null) {
+        if (!is_null($this->products)) {
             $object->products = [];
             foreach ($this->products as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->products[] = $element;
                 }
             }
@@ -85,7 +83,7 @@ class PaymentProductFilter extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductFilter
     {
         parent::fromObject($object);
         if (property_exists($object, 'groups')) {

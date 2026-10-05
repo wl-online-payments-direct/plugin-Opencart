@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,65 @@ use UnexpectedValueException;
  */
 class CustomerAccountAuthentication extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $method;
+    public ?string $data = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $utcTimestamp;
+    public ?string $method = null;
 
-    // Methods
     /**
-     * @return string
+     * @var string|null
      */
-    public function getMethod()
+    public ?string $utcTimestamp = null;
+
+    /**
+     * @return string|null
+     */
+    public function getData(): ?string
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setData(?string $value): void
+    {
+        $this->data = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMethod(): ?string
     {
         return $this->method;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMethod($value)
+    public function setMethod(?string $value): void
     {
         $this->method = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUtcTimestamp()
+    public function getUtcTimestamp(): ?string
     {
         return $this->utcTimestamp;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUtcTimestamp($value)
+    public function setUtcTimestamp(?string $value): void
     {
         $this->utcTimestamp = $value;
     }
@@ -58,13 +77,16 @@ class CustomerAccountAuthentication extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->method !== null) {
+        if (!is_null($this->data)) {
+            $object->data = $this->data;
+        }
+        if (!is_null($this->method)) {
             $object->method = $this->method;
         }
-        if ($this->utcTimestamp !== null) {
+        if (!is_null($this->utcTimestamp)) {
             $object->utcTimestamp = $this->utcTimestamp;
         }
         return $object;
@@ -75,9 +97,12 @@ class CustomerAccountAuthentication extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CustomerAccountAuthentication
     {
         parent::fromObject($object);
+        if (property_exists($object, 'data')) {
+            $this->data = $object->data;
+        }
         if (property_exists($object, 'method')) {
             $this->method = $object->method;
         }

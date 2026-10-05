@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,212 @@ use UnexpectedValueException;
  */
 class CreatePaymentRequest extends DataObject
 {
-    // Properties
     /**
-     * @var CardPaymentMethodSpecificInput
+     * @var CardPaymentMethodSpecificInput|null
      */
-    private $cardPaymentMethodSpecificInput;
+    public ?CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $encryptedCustomerInput;
+    public ?string $encryptedCustomerInput = null;
 
     /**
-     * @var FraudFields
+     * @var Feedbacks|null
      */
-    private $fraudFields;
+    public ?Feedbacks $feedbacks = null;
 
     /**
-     * @var string
+     * @var FraudFields|null
      */
-    private $hostedTokenizationId;
+    public ?FraudFields $fraudFields = null;
 
     /**
-     * @var MobilePaymentMethodSpecificInput
+     * @var string|null
      */
-    private $mobilePaymentMethodSpecificInput;
+    public ?string $hostedFieldsSessionId = null;
 
     /**
-     * @var Order
+     * @var string|null
      */
-    private $order;
+    public ?string $hostedTokenizationId = null;
 
     /**
-     * @var RedirectPaymentMethodSpecificInput
+     * @var MobilePaymentMethodSpecificInput|null
      */
-    private $redirectPaymentMethodSpecificInput;
+    public ?MobilePaymentMethodSpecificInput $mobilePaymentMethodSpecificInput = null;
 
     /**
-     * @var SepaDirectDebitPaymentMethodSpecificInput
+     * @var Order|null
      */
-    private $sepaDirectDebitPaymentMethodSpecificInput;
+    public ?Order $order = null;
 
-    // Methods
     /**
-     * @return CardPaymentMethodSpecificInput
+     * @var RedirectPaymentMethodSpecificInput|null
      */
-    public function getCardPaymentMethodSpecificInput()
+    public ?RedirectPaymentMethodSpecificInput $redirectPaymentMethodSpecificInput = null;
+
+    /**
+     * @var SepaDirectDebitPaymentMethodSpecificInput|null
+     */
+    public ?SepaDirectDebitPaymentMethodSpecificInput $sepaDirectDebitPaymentMethodSpecificInput = null;
+
+    /**
+     * @return CardPaymentMethodSpecificInput|null
+     */
+    public function getCardPaymentMethodSpecificInput(): ?CardPaymentMethodSpecificInput
     {
         return $this->cardPaymentMethodSpecificInput;
     }
+
     /**
-     * @var CardPaymentMethodSpecificInput
+     * @param CardPaymentMethodSpecificInput|null $value
      */
-    public function setCardPaymentMethodSpecificInput($value)
+    public function setCardPaymentMethodSpecificInput(?CardPaymentMethodSpecificInput $value): void
     {
         $this->cardPaymentMethodSpecificInput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEncryptedCustomerInput()
+    public function getEncryptedCustomerInput(): ?string
     {
         return $this->encryptedCustomerInput;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEncryptedCustomerInput($value)
+    public function setEncryptedCustomerInput(?string $value): void
     {
         $this->encryptedCustomerInput = $value;
     }
 
     /**
-     * @return FraudFields
+     * @return Feedbacks|null
      */
-    public function getFraudFields()
+    public function getFeedbacks(): ?Feedbacks
+    {
+        return $this->feedbacks;
+    }
+
+    /**
+     * @param Feedbacks|null $value
+     */
+    public function setFeedbacks(?Feedbacks $value): void
+    {
+        $this->feedbacks = $value;
+    }
+
+    /**
+     * @return FraudFields|null
+     */
+    public function getFraudFields(): ?FraudFields
     {
         return $this->fraudFields;
     }
+
     /**
-     * @var FraudFields
+     * @param FraudFields|null $value
      */
-    public function setFraudFields($value)
+    public function setFraudFields(?FraudFields $value): void
     {
         $this->fraudFields = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedTokenizationId()
+    public function getHostedFieldsSessionId(): ?string
+    {
+        return $this->hostedFieldsSessionId;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setHostedFieldsSessionId(?string $value): void
+    {
+        $this->hostedFieldsSessionId = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHostedTokenizationId(): ?string
     {
         return $this->hostedTokenizationId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedTokenizationId($value)
+    public function setHostedTokenizationId(?string $value): void
     {
         $this->hostedTokenizationId = $value;
     }
 
     /**
-     * @return MobilePaymentMethodSpecificInput
+     * @return MobilePaymentMethodSpecificInput|null
      */
-    public function getMobilePaymentMethodSpecificInput()
+    public function getMobilePaymentMethodSpecificInput(): ?MobilePaymentMethodSpecificInput
     {
         return $this->mobilePaymentMethodSpecificInput;
     }
+
     /**
-     * @var MobilePaymentMethodSpecificInput
+     * @param MobilePaymentMethodSpecificInput|null $value
      */
-    public function setMobilePaymentMethodSpecificInput($value)
+    public function setMobilePaymentMethodSpecificInput(?MobilePaymentMethodSpecificInput $value): void
     {
         $this->mobilePaymentMethodSpecificInput = $value;
     }
 
     /**
-     * @return Order
+     * @return Order|null
      */
-    public function getOrder()
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
+
     /**
-     * @var Order
+     * @param Order|null $value
      */
-    public function setOrder($value)
+    public function setOrder(?Order $value): void
     {
         $this->order = $value;
     }
 
     /**
-     * @return RedirectPaymentMethodSpecificInput
+     * @return RedirectPaymentMethodSpecificInput|null
      */
-    public function getRedirectPaymentMethodSpecificInput()
+    public function getRedirectPaymentMethodSpecificInput(): ?RedirectPaymentMethodSpecificInput
     {
         return $this->redirectPaymentMethodSpecificInput;
     }
+
     /**
-     * @var RedirectPaymentMethodSpecificInput
+     * @param RedirectPaymentMethodSpecificInput|null $value
      */
-    public function setRedirectPaymentMethodSpecificInput($value)
+    public function setRedirectPaymentMethodSpecificInput(?RedirectPaymentMethodSpecificInput $value): void
     {
         $this->redirectPaymentMethodSpecificInput = $value;
     }
 
     /**
-     * @return SepaDirectDebitPaymentMethodSpecificInput
+     * @return SepaDirectDebitPaymentMethodSpecificInput|null
      */
-    public function getSepaDirectDebitPaymentMethodSpecificInput()
+    public function getSepaDirectDebitPaymentMethodSpecificInput(): ?SepaDirectDebitPaymentMethodSpecificInput
     {
         return $this->sepaDirectDebitPaymentMethodSpecificInput;
     }
+
     /**
-     * @var SepaDirectDebitPaymentMethodSpecificInput
+     * @param SepaDirectDebitPaymentMethodSpecificInput|null $value
      */
-    public function setSepaDirectDebitPaymentMethodSpecificInput($value)
+    public function setSepaDirectDebitPaymentMethodSpecificInput(?SepaDirectDebitPaymentMethodSpecificInput $value): void
     {
         $this->sepaDirectDebitPaymentMethodSpecificInput = $value;
     }
@@ -178,31 +224,37 @@ class CreatePaymentRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardPaymentMethodSpecificInput !== null) {
+        if (!is_null($this->cardPaymentMethodSpecificInput)) {
             $object->cardPaymentMethodSpecificInput = $this->cardPaymentMethodSpecificInput->toObject();
         }
-        if ($this->encryptedCustomerInput !== null) {
+        if (!is_null($this->encryptedCustomerInput)) {
             $object->encryptedCustomerInput = $this->encryptedCustomerInput;
         }
-        if ($this->fraudFields !== null) {
+        if (!is_null($this->feedbacks)) {
+            $object->feedbacks = $this->feedbacks->toObject();
+        }
+        if (!is_null($this->fraudFields)) {
             $object->fraudFields = $this->fraudFields->toObject();
         }
-        if ($this->hostedTokenizationId !== null) {
+        if (!is_null($this->hostedFieldsSessionId)) {
+            $object->hostedFieldsSessionId = $this->hostedFieldsSessionId;
+        }
+        if (!is_null($this->hostedTokenizationId)) {
             $object->hostedTokenizationId = $this->hostedTokenizationId;
         }
-        if ($this->mobilePaymentMethodSpecificInput !== null) {
+        if (!is_null($this->mobilePaymentMethodSpecificInput)) {
             $object->mobilePaymentMethodSpecificInput = $this->mobilePaymentMethodSpecificInput->toObject();
         }
-        if ($this->order !== null) {
+        if (!is_null($this->order)) {
             $object->order = $this->order->toObject();
         }
-        if ($this->redirectPaymentMethodSpecificInput !== null) {
+        if (!is_null($this->redirectPaymentMethodSpecificInput)) {
             $object->redirectPaymentMethodSpecificInput = $this->redirectPaymentMethodSpecificInput->toObject();
         }
-        if ($this->sepaDirectDebitPaymentMethodSpecificInput !== null) {
+        if (!is_null($this->sepaDirectDebitPaymentMethodSpecificInput)) {
             $object->sepaDirectDebitPaymentMethodSpecificInput = $this->sepaDirectDebitPaymentMethodSpecificInput->toObject();
         }
         return $object;
@@ -213,7 +265,7 @@ class CreatePaymentRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreatePaymentRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardPaymentMethodSpecificInput')) {
@@ -226,12 +278,22 @@ class CreatePaymentRequest extends DataObject
         if (property_exists($object, 'encryptedCustomerInput')) {
             $this->encryptedCustomerInput = $object->encryptedCustomerInput;
         }
+        if (property_exists($object, 'feedbacks')) {
+            if (!is_object($object->feedbacks)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->feedbacks, true) . '\' is not an object');
+            }
+            $value = new Feedbacks();
+            $this->feedbacks = $value->fromObject($object->feedbacks);
+        }
         if (property_exists($object, 'fraudFields')) {
             if (!is_object($object->fraudFields)) {
                 throw new UnexpectedValueException('value \'' . print_r($object->fraudFields, true) . '\' is not an object');
             }
             $value = new FraudFields();
             $this->fraudFields = $value->fromObject($object->fraudFields);
+        }
+        if (property_exists($object, 'hostedFieldsSessionId')) {
+            $this->hostedFieldsSessionId = $object->hostedFieldsSessionId;
         }
         if (property_exists($object, 'hostedTokenizationId')) {
             $this->hostedTokenizationId = $object->hostedTokenizationId;

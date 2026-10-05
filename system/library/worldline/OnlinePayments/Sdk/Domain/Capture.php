@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class Capture extends DataObject
 {
-    // Properties
     /**
-     * @var CaptureOutput
+     * @var CaptureOutput|null
      */
-    private $captureOutput;
+    public ?CaptureOutput $captureOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
     /**
-     * @var CaptureStatusOutput
+     * @var CaptureStatusOutput|null
      */
-    private $statusOutput;
+    public ?CaptureStatusOutput $statusOutput = null;
 
-    // Methods
     /**
-     * @return CaptureOutput
+     * @return CaptureOutput|null
      */
-    public function getCaptureOutput()
+    public function getCaptureOutput(): ?CaptureOutput
     {
         return $this->captureOutput;
     }
+
     /**
-     * @var CaptureOutput
+     * @param CaptureOutput|null $value
      */
-    public function setCaptureOutput($value)
+    public function setCaptureOutput(?CaptureOutput $value): void
     {
         $this->captureOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return CaptureStatusOutput
+     * @return CaptureStatusOutput|null
      */
-    public function getStatusOutput()
+    public function getStatusOutput(): ?CaptureStatusOutput
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var CaptureStatusOutput
+     * @param CaptureStatusOutput|null $value
      */
-    public function setStatusOutput($value)
+    public function setStatusOutput(?CaptureStatusOutput $value): void
     {
         $this->statusOutput = $value;
     }
@@ -98,19 +98,19 @@ class Capture extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->captureOutput !== null) {
+        if (!is_null($this->captureOutput)) {
             $object->captureOutput = $this->captureOutput->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
@@ -121,7 +121,7 @@ class Capture extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): Capture
     {
         parent::fromObject($object);
         if (property_exists($object, 'captureOutput')) {

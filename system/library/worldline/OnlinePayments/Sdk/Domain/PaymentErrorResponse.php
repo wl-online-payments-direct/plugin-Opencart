@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class PaymentErrorResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $errorId;
+    public ?string $errorId = null;
 
     /**
-     * @var APIError[]
+     * @var APIError[]|null
      */
-    private $errors;
+    public ?array $errors = null;
 
     /**
-     * @var CreatePaymentResponse
+     * @var CreatePaymentResponse|null
      */
-    private $paymentResult;
+    public ?CreatePaymentResponse $paymentResult = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getErrorId()
+    public function getErrorId(): ?string
     {
         return $this->errorId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setErrorId($value)
+    public function setErrorId(?string $value): void
     {
         $this->errorId = $value;
     }
 
     /**
-     * @return APIError[]
+     * @return APIError[]|null
      */
-    public function getErrors()
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
+
     /**
-     * @var APIError[]
+     * @param APIError[]|null $value
      */
-    public function setErrors($value)
+    public function setErrors(?array $value): void
     {
         $this->errors = $value;
     }
 
     /**
-     * @return CreatePaymentResponse
+     * @return CreatePaymentResponse|null
      */
-    public function getPaymentResult()
+    public function getPaymentResult(): ?CreatePaymentResponse
     {
         return $this->paymentResult;
     }
+
     /**
-     * @var CreatePaymentResponse
+     * @param CreatePaymentResponse|null $value
      */
-    public function setPaymentResult($value)
+    public function setPaymentResult(?CreatePaymentResponse $value): void
     {
         $this->paymentResult = $value;
     }
@@ -78,21 +77,21 @@ class PaymentErrorResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->errorId !== null) {
+        if (!is_null($this->errorId)) {
             $object->errorId = $this->errorId;
         }
-        if ($this->errors !== null) {
+        if (!is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if ($this->paymentResult !== null) {
+        if (!is_null($this->paymentResult)) {
             $object->paymentResult = $this->paymentResult->toObject();
         }
         return $object;
@@ -103,7 +102,7 @@ class PaymentErrorResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentErrorResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'errorId')) {

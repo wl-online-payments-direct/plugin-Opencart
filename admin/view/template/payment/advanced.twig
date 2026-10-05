@@ -67,17 +67,17 @@
 							</div>
 						</div>
 						<div class="row mb-3">
-							<label class="col-sm-2 col-form-label" for="input-forced-tokenization">{{ entry_forced_tokenization }}</label>
+							<label class="col-sm-2 col-form-label" for="input-card-saving">{{ entry_card_saving }}</label>
 							<div class="col-sm-10">
 								<div class="input-group">
-									<select name="payment_worldline_setting[advanced][forced_tokenization]" id="input-forced-tokenization" class="form-select">
-										{% if setting['advanced']['forced_tokenization'] %}
-										<option value="1" selected="selected">{{ text_enabled }}</option>
-										<option value="0">{{ text_disabled }}</option>
-										{% else %}
-										<option value="1">{{ text_enabled }}</option>
-										<option value="0" selected="selected">{{ text_disabled }}</option>
-										{% endif %}
+									<select name="payment_worldline_setting[advanced][card_saving]" id="input-card-saving" class="form-select">
+									{% for card_saving in setting['card_saving'] %}
+									{% if card_saving['code'] == setting['advanced']['card_saving'] %}
+									<option value="{{ card_saving['code'] }}" selected="selected">{{ attribute(_context, card_saving['name']) }}</option>
+									{% else %}
+									<option value="{{ card_saving['code'] }}">{{ attribute(_context, card_saving['name']) }}</option>
+									{% endif %}
+									{% endfor %}
 									</select>
 								</div>
 							</div>

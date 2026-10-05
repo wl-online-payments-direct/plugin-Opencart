@@ -91,6 +91,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_worldline_setting'));
 						
+		require_once DIR_EXTENSION . 'worldline/system/library/worldline/CardSaving.php';
+		
+		// Resolved once for the whole request. Guest checkout collapses every mode to
+		// disabled: a token has no customer account to belong to, so neither flow may
+		// create one or offer the ones already stored.
+		$card_saving = \WorldlineCardSaving::getEffectiveMode($setting, $this->customer->isLogged());
+		
 		$extension = $setting['extension'];
 		$environment = $setting['account']['environment'];
 		$merchant_id = $setting['account']['merchant_id'][$environment];
@@ -129,14 +136,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-		$connection = new \OnlinePayments\Sdk\DefaultConnection();
 
 		$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 		$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 		$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-		$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+		$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+		$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
         $client = new \OnlinePayments\Sdk\Client($communicator);
 		       		
@@ -371,7 +378,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 		$tokens = [];
 		
-		if ($this->customer->isLogged()) {
+		if ($card_saving != \WorldlineCardSaving::DISABLED) {
 			$worldline_customer_tokens = $this->model_extension_worldline_payment_worldline->getWorldlineCustomerTokens($this->customer->getId());
 			
 			foreach ($worldline_customer_tokens as $worldline_customer_token) {
@@ -463,13 +470,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				
 		if (!empty($this->request->get['hostedTokenizationId'])) {
 			$hosted_tokenization_id = $this->request->get['hostedTokenizationId'];
-			$card_token_save = $this->request->get['cardTokenSave'];
 			
-			if ($card_token_save || $setting['advanced']['forced_tokenization']) {
-				$tokenize = 1;
-			} else {
-				$tokenize = 0;
-			}
+			// No tokenize flag here. The hosted tokenization session has already tokenized
+			// the card, and sending tokenize alongside a hostedTokenizationId leaves the
+			// payment CREATED and unauthorized - verified against the preprod account: the
+			// same checkout captures without it and stalls with it. The token comes back
+			// either way, so forced mode needs nothing extra here; askConsumerConsent on
+			// the session is what separates forced from enabled.
+			$tokenize = ($card_saving == \WorldlineCardSaving::DISABLED ? 0 : 1);
 						
 			$create_payment_request = new \OnlinePayments\Sdk\Domain\CreatePaymentRequest();
 			$create_payment_request->setHostedTokenizationId($hosted_tokenization_id);
@@ -529,13 +537,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		}	
 								
 		if (empty($this->request->get['hostedTokenizationId'])) {
-			$tokenize = 1;
-			
-			if ($setting['advanced']['forced_tokenization']) {
-				$card_payment_method_specific_input->setTokenize(true);
-			} else {
-				$card_payment_method_specific_input->setTokenize(false);
-			}
+			$tokenize = ($card_saving == \WorldlineCardSaving::DISABLED ? 0 : 1);
 			
 			$redirect_payment_product_900_specific_input = new \OnlinePayments\Sdk\Domain\RedirectPaymentProduct900SpecificInput();
 			
@@ -558,17 +560,44 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				$redirect_payment_method_specific_input->setRequiresApproval(true);
 			}
 							
-			if ($setting['advanced']['forced_tokenization']) {
-				$redirect_payment_method_specific_input->setTokenize(true);
-			} else {
-				$redirect_payment_method_specific_input->setTokenize(false);
-			}
+			// Redirect products carry no consent prompt of their own, so anything short of
+			// forced means no token.
+			$redirect_payment_method_specific_input->setTokenize($card_saving == \WorldlineCardSaving::FORCED);
 				
-			$mobile_payment_method_specific_input = new \OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput();
+			// Hosted checkout ima svoju varijantu ovog tipa; u SDK 8 vise nisu zamenljive.
+			$mobile_payment_method_specific_input = new \OnlinePayments\Sdk\Domain\MobilePaymentMethodHostedCheckoutSpecificInput();
 			$mobile_payment_method_specific_input->setAuthorizationMode($authorization_mode);
 			
 			$card_payment_method_specific_input_for_hosted_checkout = new \OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout();
 			$card_payment_method_specific_input_for_hosted_checkout->setGroupCards((bool)$setting['hosted_checkout']['group_cards']);
+			
+			// createAlways saves without asking; noTokenization hides the "remember my card"
+			// checkbox outright. Sending nothing leaves the checkout page to ask, which is
+			// exactly what "enabled" means.
+			if ($card_saving == \WorldlineCardSaving::FORCED) {
+				$card_payment_method_specific_input_for_hosted_checkout->setTokenizationMode('createAlways');
+			}
+			
+			if ($card_saving == \WorldlineCardSaving::DISABLED) {
+				$card_payment_method_specific_input_for_hosted_checkout->setTokenizationMode('noTokenization');
+			}
+			
+			// SDK 8 razdvaja tipove: CreateHostedCheckoutRequest trazi
+			// CardPaymentMethodSpecificInputBase, a ne punu CardPaymentMethodSpecificInput
+			// koju koristi CreatePaymentRequest. Base nema returnUrl ni skipAuthentication -
+			// returnUrl za hosted checkout vec nosi hostedCheckoutSpecificInput ispod, a
+			// skipAuthentication je na threeDSecure objektu. Isto vazi i za ThreeDSecureBase,
+			// koji nema redirectionData jer preusmeravanjem upravlja sama checkout stranica.
+			$three_d_secure_base = new \OnlinePayments\Sdk\Domain\ThreeDSecureBase();
+			$three_d_secure_base->setChallengeIndicator($setting['advanced']['tds_challenge_indicator']);
+			$three_d_secure_base->setExemptionRequest($setting['advanced']['tds_exemption_request']);
+			$three_d_secure_base->setSkipAuthentication(!$setting['advanced']['tds_status']);
+			
+			$card_payment_method_specific_input_base = new \OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputBase();
+			$card_payment_method_specific_input_base->setAuthorizationMode($authorization_mode);
+			$card_payment_method_specific_input_base->setTransactionChannel('ECOMMERCE');
+			$card_payment_method_specific_input_base->setPaymentProduct130SpecificInput($payment_product_130_specific_input);
+			$card_payment_method_specific_input_base->setThreeDSecure($three_d_secure_base);
 			
 			$hosted_checkout_specific_input = new \OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput();
 			$hosted_checkout_specific_input->setLocale($language_code_1 . '_' . strtoupper($language_code_2));
@@ -585,7 +614,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 			$create_hosted_checkout_request = new \OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest();
 			$create_hosted_checkout_request->setOrder($order);
-			$create_hosted_checkout_request->setCardPaymentMethodSpecificInput($card_payment_method_specific_input);
+			$create_hosted_checkout_request->setCardPaymentMethodSpecificInput($card_payment_method_specific_input_base);
 			$create_hosted_checkout_request->setRedirectPaymentMethodSpecificInput($redirect_payment_method_specific_input);
 			$create_hosted_checkout_request->setMobilePaymentMethodSpecificInput($mobile_payment_method_specific_input);
 			$create_hosted_checkout_request->setHostedCheckoutSpecificInput($hosted_checkout_specific_input);
@@ -663,11 +692,11 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
 
-			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+			$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+			$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 			$client = new \OnlinePayments\Sdk\Client($communicator);
 			
@@ -798,13 +827,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 						if (!$token) $tokenize = 0;
 						if (!$tokenize) $token = '';
 																		
-						if (!$worldline_order_info['transaction_status']) {
+						if ($payment_product_id && !$worldline_order_info['transaction_status']) {
 							$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
 							$payment_product_params->setCurrencyCode($currency_code);
 							$payment_product_params->setCountryCode($worldline_order_info['country_code']);							
 					
 							try {
-								$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
+								$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct((int)$payment_product_id, $payment_product_params);
 							} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
 								$errors = $exception->getResponse()->getErrors();
 							
@@ -848,8 +877,8 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							
 						$this->model_extension_worldline_payment_worldline->editWorldlineOrder($worldline_order_data);
 							
-						if ($this->customer->isLogged() && $token) {
-							$customer_id = $this->customer->getId();
+						if (!empty($order_info['customer_id']) && $token) {
+							$customer_id = $order_info['customer_id'];
 							
 							$worldline_customer_token_info = $this->model_extension_worldline_payment_worldline->getWorldlineCustomerToken($customer_id, $payment_type, $token);
 							
@@ -1062,11 +1091,11 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 					require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-					$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 					$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
 
-					$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+					$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+					$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 					$client = new \OnlinePayments\Sdk\Client($communicator);
 			
@@ -1162,13 +1191,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							if (!$token) $tokenize = 0;
 							if (!$tokenize) $token = '';
 							
-							if (!$worldline_order_info['transaction_status']) {
+							if ($payment_product_id && !$worldline_order_info['transaction_status']) {
 								$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
 								$payment_product_params->setCurrencyCode($currency_code);
 								$payment_product_params->setCountryCode($worldline_order_info['country_code']);							
 						
 								try {
-									$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
+									$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct((int)$payment_product_id, $payment_product_params);
 								} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
 									$errors = $exception->getResponse()->getErrors();
 								
@@ -1303,11 +1332,11 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					return false;
 				}
 				
-				$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 				$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
 
-				$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+				$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+				$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 				$client = new \OnlinePayments\Sdk\Client($communicator);
 						
@@ -1408,13 +1437,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							if (!$token) $tokenize = 0;
 							if (!$tokenize) $token = '';
 							
-							if (!$worldline_order_info['transaction_status']) {
+							if ($payment_product_id && !$worldline_order_info['transaction_status']) {
 								$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
 								$payment_product_params->setCurrencyCode($currency_code);
 								$payment_product_params->setCountryCode($worldline_order_info['country_code']);							
 						
 								try {
-									$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
+									$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct((int)$payment_product_id, $payment_product_params);
 								} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
 									$errors = $exception->getResponse()->getErrors();
 								
@@ -1517,11 +1546,11 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 					require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-					$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 					$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, 'OnlinePayments');	
 
-					$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+					$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+					$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 					$client = new \OnlinePayments\Sdk\Client($communicator);
 
@@ -1617,13 +1646,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 								if (!$token) $tokenize = 0;
 								if (!$tokenize) $token = '';
 							
-								if (!$waiting_worldline_order['transaction_status']) {
+								if ($payment_product_id && !$waiting_worldline_order['transaction_status']) {
 									$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
 									$payment_product_params->setCurrencyCode($currency_code);
 									$payment_product_params->setCountryCode($waiting_worldline_order['country_code']);							
 						
 									try {
-										$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($payment_product_id, $payment_product_params);
+										$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct((int)$payment_product_id, $payment_product_params);
 									} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
 										$errors = $exception->getResponse()->getErrors();
 								

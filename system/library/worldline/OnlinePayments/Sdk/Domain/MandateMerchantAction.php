@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class MandateMerchantAction extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $actionType;
+    public ?string $actionType = null;
 
     /**
-     * @var MandateRedirectData
+     * @var MandateRedirectData|null
      */
-    private $redirectData;
+    public ?MandateRedirectData $redirectData = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getActionType()
+    public function getActionType(): ?string
     {
         return $this->actionType;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setActionType($value)
+    public function setActionType(?string $value): void
     {
         $this->actionType = $value;
     }
 
     /**
-     * @return MandateRedirectData
+     * @return MandateRedirectData|null
      */
-    public function getRedirectData()
+    public function getRedirectData(): ?MandateRedirectData
     {
         return $this->redirectData;
     }
+
     /**
-     * @var MandateRedirectData
+     * @param MandateRedirectData|null $value
      */
-    public function setRedirectData($value)
+    public function setRedirectData(?MandateRedirectData $value): void
     {
         $this->redirectData = $value;
     }
@@ -58,13 +56,13 @@ class MandateMerchantAction extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->actionType !== null) {
+        if (!is_null($this->actionType)) {
             $object->actionType = $this->actionType;
         }
-        if ($this->redirectData !== null) {
+        if (!is_null($this->redirectData)) {
             $object->redirectData = $this->redirectData->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class MandateMerchantAction extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MandateMerchantAction
     {
         parent::fromObject($object);
         if (property_exists($object, 'actionType')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class SepaDirectDebitPaymentMethodSpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var SepaDirectDebitPaymentProduct771SpecificInput
+     * @var SepaDirectDebitPaymentProduct771SpecificInput|null
      */
-    private $paymentProduct771SpecificInput;
+    public ?SepaDirectDebitPaymentProduct771SpecificInput $paymentProduct771SpecificInput = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $paymentProductId;
+    public ?int $paymentProductId = null;
 
-    // Methods
     /**
-     * @return SepaDirectDebitPaymentProduct771SpecificInput
+     * @return SepaDirectDebitPaymentProduct771SpecificInput|null
      */
-    public function getPaymentProduct771SpecificInput()
+    public function getPaymentProduct771SpecificInput(): ?SepaDirectDebitPaymentProduct771SpecificInput
     {
         return $this->paymentProduct771SpecificInput;
     }
+
     /**
-     * @var SepaDirectDebitPaymentProduct771SpecificInput
+     * @param SepaDirectDebitPaymentProduct771SpecificInput|null $value
      */
-    public function setPaymentProduct771SpecificInput($value)
+    public function setPaymentProduct771SpecificInput(?SepaDirectDebitPaymentProduct771SpecificInput $value): void
     {
         $this->paymentProduct771SpecificInput = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId(): ?int
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value): void
     {
         $this->paymentProductId = $value;
     }
@@ -58,13 +56,13 @@ class SepaDirectDebitPaymentMethodSpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->paymentProduct771SpecificInput !== null) {
+        if (!is_null($this->paymentProduct771SpecificInput)) {
             $object->paymentProduct771SpecificInput = $this->paymentProduct771SpecificInput->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
@@ -75,7 +73,7 @@ class SepaDirectDebitPaymentMethodSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SepaDirectDebitPaymentMethodSpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'paymentProduct771SpecificInput')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class MobilePaymentData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $dpan;
+    public ?string $dpan = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $expiryDate;
+    public ?string $expiryDate = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDpan()
+    public function getDpan(): ?string
     {
         return $this->dpan;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDpan($value)
+    public function setDpan(?string $value): void
     {
         $this->dpan = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExpiryDate()
+    public function getExpiryDate(): ?string
     {
         return $this->expiryDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExpiryDate($value)
+    public function setExpiryDate(?string $value): void
     {
         $this->expiryDate = $value;
     }
@@ -58,13 +56,13 @@ class MobilePaymentData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->dpan !== null) {
+        if (!is_null($this->dpan)) {
             $object->dpan = $this->dpan;
         }
-        if ($this->expiryDate !== null) {
+        if (!is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
@@ -75,7 +73,7 @@ class MobilePaymentData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MobilePaymentData
     {
         parent::fromObject($object);
         if (property_exists($object, 'dpan')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class CompletePaymentResponse extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentCreationOutput
+     * @var PaymentCreationOutput|null
      */
-    private $creationOutput;
+    public ?PaymentCreationOutput $creationOutput = null;
 
     /**
-     * @var MerchantAction
+     * @var MerchantAction|null
      */
-    private $merchantAction;
+    public ?MerchantAction $merchantAction = null;
 
     /**
-     * @var PaymentResponse
+     * @var PaymentResponse|null
      */
-    private $payment;
+    public ?PaymentResponse $payment = null;
 
-    // Methods
     /**
-     * @return PaymentCreationOutput
+     * @return PaymentCreationOutput|null
      */
-    public function getCreationOutput()
+    public function getCreationOutput(): ?PaymentCreationOutput
     {
         return $this->creationOutput;
     }
+
     /**
-     * @var PaymentCreationOutput
+     * @param PaymentCreationOutput|null $value
      */
-    public function setCreationOutput($value)
+    public function setCreationOutput(?PaymentCreationOutput $value): void
     {
         $this->creationOutput = $value;
     }
 
     /**
-     * @return MerchantAction
+     * @return MerchantAction|null
      */
-    public function getMerchantAction()
+    public function getMerchantAction(): ?MerchantAction
     {
         return $this->merchantAction;
     }
+
     /**
-     * @var MerchantAction
+     * @param MerchantAction|null $value
      */
-    public function setMerchantAction($value)
+    public function setMerchantAction(?MerchantAction $value): void
     {
         $this->merchantAction = $value;
     }
 
     /**
-     * @return PaymentResponse
+     * @return PaymentResponse|null
      */
-    public function getPayment()
+    public function getPayment(): ?PaymentResponse
     {
         return $this->payment;
     }
+
     /**
-     * @var PaymentResponse
+     * @param PaymentResponse|null $value
      */
-    public function setPayment($value)
+    public function setPayment(?PaymentResponse $value): void
     {
         $this->payment = $value;
     }
@@ -78,16 +77,16 @@ class CompletePaymentResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->creationOutput !== null) {
+        if (!is_null($this->creationOutput)) {
             $object->creationOutput = $this->creationOutput->toObject();
         }
-        if ($this->merchantAction !== null) {
+        if (!is_null($this->merchantAction)) {
             $object->merchantAction = $this->merchantAction->toObject();
         }
-        if ($this->payment !== null) {
+        if (!is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
         }
         return $object;
@@ -98,7 +97,7 @@ class CompletePaymentResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CompletePaymentResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'creationOutput')) {

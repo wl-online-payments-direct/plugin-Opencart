@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class RefundRedirectMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $totalAmountPaid;
+    public ?int $totalAmountPaid = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $totalAmountRefunded;
+    public ?int $totalAmountRefunded = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTotalAmountPaid()
+    public function getTotalAmountPaid(): ?int
     {
         return $this->totalAmountPaid;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setTotalAmountPaid($value)
+    public function setTotalAmountPaid(?int $value): void
     {
         $this->totalAmountPaid = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTotalAmountRefunded()
+    public function getTotalAmountRefunded(): ?int
     {
         return $this->totalAmountRefunded;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setTotalAmountRefunded($value)
+    public function setTotalAmountRefunded(?int $value): void
     {
         $this->totalAmountRefunded = $value;
     }
@@ -58,13 +56,13 @@ class RefundRedirectMethodSpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->totalAmountPaid !== null) {
+        if (!is_null($this->totalAmountPaid)) {
             $object->totalAmountPaid = $this->totalAmountPaid;
         }
-        if ($this->totalAmountRefunded !== null) {
+        if (!is_null($this->totalAmountRefunded)) {
             $object->totalAmountRefunded = $this->totalAmountRefunded;
         }
         return $object;
@@ -75,7 +73,7 @@ class RefundRedirectMethodSpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RefundRedirectMethodSpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'totalAmountPaid')) {

@@ -1,11 +1,10 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Merchant\Products;
 
-use OnlinePayments\Sdk\RequestObject;
+use OnlinePayments\Sdk\Communication\RequestObject;
 
 /**
  * Query parameters for Get payment products
@@ -14,135 +13,139 @@ use OnlinePayments\Sdk\RequestObject;
  */
 class GetPaymentProductsParams extends RequestObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    protected $countryCode;
+    public ?string $countryCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $currencyCode;
+    public ?string $currencyCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $locale;
+    public ?string $locale = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $amount;
+    public ?int $amount = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    protected $isRecurring;
+    public ?bool $isRecurring = null;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    protected $hide;
-
-    // Methods
+    public ?array $hide = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value): void
     {
         $this->countryCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): ?string
     {
         return $this->currencyCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCurrencyCode($value)
+    public function setCurrencyCode(?string $value): void
     {
         $this->currencyCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLocale($value)
+    public function setLocale(?string $value): void
     {
         $this->locale = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAmount()
+    public function getAmount(): ?int
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?int $value): void
     {
         $this->amount = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsRecurring()
+    public function getIsRecurring(): ?bool
     {
         return $this->isRecurring;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setIsRecurring($value)
+    public function setIsRecurring(?bool $value): void
     {
         $this->isRecurring = $value;
     }
 
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getHide()
+    public function getHide(): ?array
     {
         return $this->hide;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setHide($value)
+    public function setHide(?array $value): void
     {
         $this->hide = $value;
     }
+
     /**
-     * @var string
+     * @param string[]|null $value
      */
-    public function addHide($value)
+    public function addHide(array $value): void
     {
         if (is_null($this->hide)) {
-            $this->hide = array();
+            $this->hide = [];
         }
         $this->hide[] = $value;
     }
@@ -150,29 +153,29 @@ class GetPaymentProductsParams extends RequestObject
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
-        $array = array();
-        if ($this->countryCode !== null) {
-            $array["countryCode"] = $this->countryCode;
+        $array = [];
+        if ($this->countryCode != null) {
+            $array['countryCode'] = $this->countryCode;
         }
-        if ($this->currencyCode !== null) {
-            $array["currencyCode"] = $this->currencyCode;
+        if ($this->currencyCode != null) {
+            $array['currencyCode'] = $this->currencyCode;
         }
-        if ($this->locale !== null) {
-            $array["locale"] = $this->locale;
+        if ($this->locale != null) {
+            $array['locale'] = $this->locale;
         }
-        if ($this->amount !== null) {
-            $array["amount"] = $this->amount;
+        if ($this->amount != null) {
+            $array['amount'] = $this->amount;
         }
-        if ($this->isRecurring !== null) {
-            $array["isRecurring"] = $this->isRecurring ? 'true' : 'false';
+        if ($this->isRecurring != null) {
+            $array['isRecurring'] = $this->isRecurring ? 'true' : 'false';
         }
-        if ($this->hide !== null) {
-            $array["hide"] = [];
+        if ($this->hide != null) {
+            $array['hide'] = [];
             foreach ($this->hide as $element) {
-                if ($element !== null) {
-                    $array["hide"][] = $element;
+                if ($element != null) {
+                    $array['hide'][] = $element;
                 }
             }
         }

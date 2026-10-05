@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class RegularExpressionValidator extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $regularExpression;
+    public ?string $regularExpression = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRegularExpression()
+    public function getRegularExpression(): ?string
     {
         return $this->regularExpression;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRegularExpression($value)
+    public function setRegularExpression(?string $value): void
     {
         $this->regularExpression = $value;
     }
@@ -38,10 +35,10 @@ class RegularExpressionValidator extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->regularExpression !== null) {
+        if (!is_null($this->regularExpression)) {
             $object->regularExpression = $this->regularExpression;
         }
         return $object;
@@ -52,7 +49,7 @@ class RegularExpressionValidator extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RegularExpressionValidator
     {
         parent::fromObject($object);
         if (property_exists($object, 'regularExpression')) {

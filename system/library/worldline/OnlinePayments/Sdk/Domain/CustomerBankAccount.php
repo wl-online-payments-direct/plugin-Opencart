@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class CustomerBankAccount extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $accountHolderName;
+    public ?string $accountHolderName = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $bic;
+    public ?string $bic = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $iban;
+    public ?string $iban = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAccountHolderName()
+    public function getAccountHolderName(): ?string
     {
         return $this->accountHolderName;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAccountHolderName($value)
+    public function setAccountHolderName(?string $value): void
     {
         $this->accountHolderName = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBic()
+    public function getBic(): ?string
     {
         return $this->bic;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setBic($value)
+    public function setBic(?string $value): void
     {
         $this->bic = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIban()
+    public function getIban(): ?string
     {
         return $this->iban;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setIban($value)
+    public function setIban(?string $value): void
     {
         $this->iban = $value;
     }
@@ -78,16 +77,16 @@ class CustomerBankAccount extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->accountHolderName !== null) {
+        if (!is_null($this->accountHolderName)) {
             $object->accountHolderName = $this->accountHolderName;
         }
-        if ($this->bic !== null) {
+        if (!is_null($this->bic)) {
             $object->bic = $this->bic;
         }
-        if ($this->iban !== null) {
+        if (!is_null($this->iban)) {
             $object->iban = $this->iban;
         }
         return $object;
@@ -98,7 +97,7 @@ class CustomerBankAccount extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CustomerBankAccount
     {
         parent::fromObject($object);
         if (property_exists($object, 'accountHolderName')) {

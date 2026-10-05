@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class AcquirerInformation extends DataObject
 {
-    // Properties
     /**
-     * @var AcquirerSelectionInformation
+     * @var AcquirerSelectionInformation|null
      */
-    private $acquirerSelectionInformation;
+    public ?AcquirerSelectionInformation $acquirerSelectionInformation = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $name;
+    public ?string $name = null;
 
-    // Methods
     /**
-     * @return AcquirerSelectionInformation
+     * @return AcquirerSelectionInformation|null
      */
-    public function getAcquirerSelectionInformation()
+    public function getAcquirerSelectionInformation(): ?AcquirerSelectionInformation
     {
         return $this->acquirerSelectionInformation;
     }
+
     /**
-     * @var AcquirerSelectionInformation
+     * @param AcquirerSelectionInformation|null $value
      */
-    public function setAcquirerSelectionInformation($value)
+    public function setAcquirerSelectionInformation(?AcquirerSelectionInformation $value): void
     {
         $this->acquirerSelectionInformation = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setName($value)
+    public function setName(?string $value): void
     {
         $this->name = $value;
     }
@@ -58,13 +56,13 @@ class AcquirerInformation extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acquirerSelectionInformation !== null) {
+        if (!is_null($this->acquirerSelectionInformation)) {
             $object->acquirerSelectionInformation = $this->acquirerSelectionInformation->toObject();
         }
-        if ($this->name !== null) {
+        if (!is_null($this->name)) {
             $object->name = $this->name;
         }
         return $object;
@@ -75,7 +73,7 @@ class AcquirerInformation extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AcquirerInformation
     {
         parent::fromObject($object);
         if (property_exists($object, 'acquirerSelectionInformation')) {

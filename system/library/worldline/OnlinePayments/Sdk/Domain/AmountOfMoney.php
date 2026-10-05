@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class AmountOfMoney extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $amount;
+    public ?int $amount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $currencyCode;
+    public ?string $currencyCode = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAmount()
+    public function getAmount(): ?int
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?int $value): void
     {
         $this->amount = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): ?string
     {
         return $this->currencyCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCurrencyCode($value)
+    public function setCurrencyCode(?string $value): void
     {
         $this->currencyCode = $value;
     }
@@ -58,13 +56,13 @@ class AmountOfMoney extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if ($this->currencyCode !== null) {
+        if (!is_null($this->currencyCode)) {
             $object->currencyCode = $this->currencyCode;
         }
         return $object;
@@ -75,7 +73,7 @@ class AmountOfMoney extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AmountOfMoney
     {
         parent::fromObject($object);
         if (property_exists($object, 'amount')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,164 +11,191 @@ use UnexpectedValueException;
  */
 class ThreeDSecureBase extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var int|null
      */
-    private $challengeCanvasSize;
+    public ?int $authenticationAmount = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $challengeIndicator;
+    public ?string $challengeCanvasSize = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $exemptionRequest;
+    public ?string $challengeIndicator = null;
 
     /**
-     * @var int
+     * @var string|null
      */
-    private $merchantFraudRate;
+    public ?string $exemptionRequest = null;
 
     /**
-     * @var ThreeDSecureData
+     * @var int|null
      */
-    private $priorThreeDSecureData;
+    public ?int $merchantFraudRate = null;
 
     /**
-     * @var bool
+     * @var ThreeDSecureData|null
      */
-    private $secureCorporatePayment;
+    public ?ThreeDSecureData $priorThreeDSecureData = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $skipAuthentication;
+    public ?bool $secureCorporatePayment = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $skipSoftDecline;
+    public ?bool $skipAuthentication = null;
 
-    // Methods
     /**
-     * @return string
+     * @var bool|null
      */
-    public function getChallengeCanvasSize()
+    public ?bool $skipSoftDecline = null;
+
+    /**
+     * @return int|null
+     */
+    public function getAuthenticationAmount(): ?int
+    {
+        return $this->authenticationAmount;
+    }
+
+    /**
+     * @param int|null $value
+     */
+    public function setAuthenticationAmount(?int $value): void
+    {
+        $this->authenticationAmount = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getChallengeCanvasSize(): ?string
     {
         return $this->challengeCanvasSize;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeCanvasSize($value)
+    public function setChallengeCanvasSize(?string $value): void
     {
         $this->challengeCanvasSize = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getChallengeIndicator()
+    public function getChallengeIndicator(): ?string
     {
         return $this->challengeIndicator;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setChallengeIndicator($value)
+    public function setChallengeIndicator(?string $value): void
     {
         $this->challengeIndicator = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExemptionRequest()
+    public function getExemptionRequest(): ?string
     {
         return $this->exemptionRequest;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExemptionRequest($value)
+    public function setExemptionRequest(?string $value): void
     {
         $this->exemptionRequest = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMerchantFraudRate()
+    public function getMerchantFraudRate(): ?int
     {
         return $this->merchantFraudRate;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setMerchantFraudRate($value)
+    public function setMerchantFraudRate(?int $value): void
     {
         $this->merchantFraudRate = $value;
     }
 
     /**
-     * @return ThreeDSecureData
+     * @return ThreeDSecureData|null
      */
-    public function getPriorThreeDSecureData()
+    public function getPriorThreeDSecureData(): ?ThreeDSecureData
     {
         return $this->priorThreeDSecureData;
     }
+
     /**
-     * @var ThreeDSecureData
+     * @param ThreeDSecureData|null $value
      */
-    public function setPriorThreeDSecureData($value)
+    public function setPriorThreeDSecureData(?ThreeDSecureData $value): void
     {
         $this->priorThreeDSecureData = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSecureCorporatePayment()
+    public function getSecureCorporatePayment(): ?bool
     {
         return $this->secureCorporatePayment;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSecureCorporatePayment($value)
+    public function setSecureCorporatePayment(?bool $value): void
     {
         $this->secureCorporatePayment = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSkipAuthentication()
+    public function getSkipAuthentication(): ?bool
     {
         return $this->skipAuthentication;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSkipAuthentication($value)
+    public function setSkipAuthentication(?bool $value): void
     {
         $this->skipAuthentication = $value;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getSkipSoftDecline()
+    public function getSkipSoftDecline(): ?bool
     {
         return $this->skipSoftDecline;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setSkipSoftDecline($value)
+    public function setSkipSoftDecline(?bool $value): void
     {
         $this->skipSoftDecline = $value;
     }
@@ -178,31 +203,34 @@ class ThreeDSecureBase extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->challengeCanvasSize !== null) {
+        if (!is_null($this->authenticationAmount)) {
+            $object->authenticationAmount = $this->authenticationAmount;
+        }
+        if (!is_null($this->challengeCanvasSize)) {
             $object->challengeCanvasSize = $this->challengeCanvasSize;
         }
-        if ($this->challengeIndicator !== null) {
+        if (!is_null($this->challengeIndicator)) {
             $object->challengeIndicator = $this->challengeIndicator;
         }
-        if ($this->exemptionRequest !== null) {
+        if (!is_null($this->exemptionRequest)) {
             $object->exemptionRequest = $this->exemptionRequest;
         }
-        if ($this->merchantFraudRate !== null) {
+        if (!is_null($this->merchantFraudRate)) {
             $object->merchantFraudRate = $this->merchantFraudRate;
         }
-        if ($this->priorThreeDSecureData !== null) {
+        if (!is_null($this->priorThreeDSecureData)) {
             $object->priorThreeDSecureData = $this->priorThreeDSecureData->toObject();
         }
-        if ($this->secureCorporatePayment !== null) {
+        if (!is_null($this->secureCorporatePayment)) {
             $object->secureCorporatePayment = $this->secureCorporatePayment;
         }
-        if ($this->skipAuthentication !== null) {
+        if (!is_null($this->skipAuthentication)) {
             $object->skipAuthentication = $this->skipAuthentication;
         }
-        if ($this->skipSoftDecline !== null) {
+        if (!is_null($this->skipSoftDecline)) {
             $object->skipSoftDecline = $this->skipSoftDecline;
         }
         return $object;
@@ -213,9 +241,12 @@ class ThreeDSecureBase extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ThreeDSecureBase
     {
         parent::fromObject($object);
+        if (property_exists($object, 'authenticationAmount')) {
+            $this->authenticationAmount = $object->authenticationAmount;
+        }
         if (property_exists($object, 'challengeCanvasSize')) {
             $this->challengeCanvasSize = $object->challengeCanvasSize;
         }

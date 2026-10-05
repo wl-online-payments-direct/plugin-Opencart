@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class PaymentProduct771SpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $mandateReference;
+    public ?string $mandateReference = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMandateReference()
+    public function getMandateReference(): ?string
     {
         return $this->mandateReference;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMandateReference($value)
+    public function setMandateReference(?string $value): void
     {
         $this->mandateReference = $value;
     }
@@ -38,10 +35,10 @@ class PaymentProduct771SpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->mandateReference !== null) {
+        if (!is_null($this->mandateReference)) {
             $object->mandateReference = $this->mandateReference;
         }
         return $object;
@@ -52,7 +49,7 @@ class PaymentProduct771SpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct771SpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'mandateReference')) {

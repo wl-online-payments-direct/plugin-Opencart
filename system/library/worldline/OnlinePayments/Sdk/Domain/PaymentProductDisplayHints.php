@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class PaymentProductDisplayHints extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $displayOrder;
+    public ?int $displayOrder = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $label;
+    public ?string $label = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $logo;
+    public ?string $logo = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getDisplayOrder()
+    public function getDisplayOrder(): ?int
     {
         return $this->displayOrder;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setDisplayOrder($value)
+    public function setDisplayOrder(?int $value): void
     {
         $this->displayOrder = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->label;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLabel($value)
+    public function setLabel(?string $value): void
     {
         $this->label = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLogo()
+    public function getLogo(): ?string
     {
         return $this->logo;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLogo($value)
+    public function setLogo(?string $value): void
     {
         $this->logo = $value;
     }
@@ -78,16 +77,16 @@ class PaymentProductDisplayHints extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->displayOrder !== null) {
+        if (!is_null($this->displayOrder)) {
             $object->displayOrder = $this->displayOrder;
         }
-        if ($this->label !== null) {
+        if (!is_null($this->label)) {
             $object->label = $this->label;
         }
-        if ($this->logo !== null) {
+        if (!is_null($this->logo)) {
             $object->logo = $this->logo;
         }
         return $object;
@@ -98,7 +97,7 @@ class PaymentProductDisplayHints extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProductDisplayHints
     {
         parent::fromObject($object);
         if (property_exists($object, 'displayOrder')) {

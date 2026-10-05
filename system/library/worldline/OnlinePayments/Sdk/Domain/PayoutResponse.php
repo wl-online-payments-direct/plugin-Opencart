@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class PayoutResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var PayoutOutput
+     * @var PayoutOutput|null
      */
-    private $payoutOutput;
+    public ?PayoutOutput $payoutOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
     /**
-     * @var PayoutStatusOutput
+     * @var PayoutStatusOutput|null
      */
-    private $statusOutput;
+    public ?PayoutStatusOutput $statusOutput = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return PayoutOutput
+     * @return PayoutOutput|null
      */
-    public function getPayoutOutput()
+    public function getPayoutOutput(): ?PayoutOutput
     {
         return $this->payoutOutput;
     }
+
     /**
-     * @var PayoutOutput
+     * @param PayoutOutput|null $value
      */
-    public function setPayoutOutput($value)
+    public function setPayoutOutput(?PayoutOutput $value): void
     {
         $this->payoutOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return PayoutStatusOutput
+     * @return PayoutStatusOutput|null
      */
-    public function getStatusOutput()
+    public function getStatusOutput(): ?PayoutStatusOutput
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var PayoutStatusOutput
+     * @param PayoutStatusOutput|null $value
      */
-    public function setStatusOutput($value)
+    public function setStatusOutput(?PayoutStatusOutput $value): void
     {
         $this->statusOutput = $value;
     }
@@ -98,19 +98,19 @@ class PayoutResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->payoutOutput !== null) {
+        if (!is_null($this->payoutOutput)) {
             $object->payoutOutput = $this->payoutOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
@@ -121,7 +121,7 @@ class PayoutResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PayoutResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'id')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class GetMandateResponse extends DataObject
 {
-    // Properties
     /**
-     * @var MandateResponse
+     * @var MandateResponse|null
      */
-    private $mandate;
+    public ?MandateResponse $mandate = null;
 
-    // Methods
     /**
-     * @return MandateResponse
+     * @return MandateResponse|null
      */
-    public function getMandate()
+    public function getMandate(): ?MandateResponse
     {
         return $this->mandate;
     }
+
     /**
-     * @var MandateResponse
+     * @param MandateResponse|null $value
      */
-    public function setMandate($value)
+    public function setMandate(?MandateResponse $value): void
     {
         $this->mandate = $value;
     }
@@ -38,10 +35,10 @@ class GetMandateResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->mandate !== null) {
+        if (!is_null($this->mandate)) {
             $object->mandate = $this->mandate->toObject();
         }
         return $object;
@@ -52,7 +49,7 @@ class GetMandateResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetMandateResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'mandate')) {

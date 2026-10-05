@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class RedirectPaymentProduct900SpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $captureTrigger;
+    public ?string $captureTrigger = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCaptureTrigger()
+    public function getCaptureTrigger(): ?string
     {
         return $this->captureTrigger;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCaptureTrigger($value)
+    public function setCaptureTrigger(?string $value): void
     {
         $this->captureTrigger = $value;
     }
@@ -38,10 +35,10 @@ class RedirectPaymentProduct900SpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->captureTrigger !== null) {
+        if (!is_null($this->captureTrigger)) {
             $object->captureTrigger = $this->captureTrigger;
         }
         return $object;
@@ -52,7 +49,7 @@ class RedirectPaymentProduct900SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RedirectPaymentProduct900SpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'captureTrigger')) {

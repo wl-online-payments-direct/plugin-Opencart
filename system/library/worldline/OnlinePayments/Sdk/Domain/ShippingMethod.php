@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class ShippingMethod extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $details;
+    public ?string $details = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $name;
+    public ?string $name = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $speed;
+    public ?int $speed = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDetails()
+    public function getDetails(): ?string
     {
         return $this->details;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDetails($value)
+    public function setDetails(?string $value): void
     {
         $this->details = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setName($value)
+    public function setName(?string $value): void
     {
         $this->name = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getSpeed()
+    public function getSpeed(): ?int
     {
         return $this->speed;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setSpeed($value)
+    public function setSpeed(?int $value): void
     {
         $this->speed = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
@@ -98,19 +98,19 @@ class ShippingMethod extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->details !== null) {
+        if (!is_null($this->details)) {
             $object->details = $this->details;
         }
-        if ($this->name !== null) {
+        if (!is_null($this->name)) {
             $object->name = $this->name;
         }
-        if ($this->speed !== null) {
+        if (!is_null($this->speed)) {
             $object->speed = $this->speed;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
@@ -121,7 +121,7 @@ class ShippingMethod extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ShippingMethod
     {
         parent::fromObject($object);
         if (property_exists($object, 'details')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,107 @@ use UnexpectedValueException;
  */
 class DecryptedPaymentData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $cardholderName;
+    public ?string $cardholderName = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $cryptogram;
+    public ?string $cryptogram = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $dpan;
+    public ?string $dpan = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $eci;
+    public ?int $eci = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $expiryDate;
+    public ?string $expiryDate = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCardholderName()
+    public function getCardholderName(): ?string
     {
         return $this->cardholderName;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCardholderName($value)
+    public function setCardholderName(?string $value): void
     {
         $this->cardholderName = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCryptogram()
+    public function getCryptogram(): ?string
     {
         return $this->cryptogram;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCryptogram($value)
+    public function setCryptogram(?string $value): void
     {
         $this->cryptogram = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDpan()
+    public function getDpan(): ?string
     {
         return $this->dpan;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDpan($value)
+    public function setDpan(?string $value): void
     {
         $this->dpan = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getEci()
+    public function getEci(): ?int
     {
         return $this->eci;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setEci($value)
+    public function setEci(?int $value): void
     {
         $this->eci = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExpiryDate()
+    public function getExpiryDate(): ?string
     {
         return $this->expiryDate;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExpiryDate($value)
+    public function setExpiryDate(?string $value): void
     {
         $this->expiryDate = $value;
     }
@@ -118,22 +119,22 @@ class DecryptedPaymentData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardholderName !== null) {
+        if (!is_null($this->cardholderName)) {
             $object->cardholderName = $this->cardholderName;
         }
-        if ($this->cryptogram !== null) {
+        if (!is_null($this->cryptogram)) {
             $object->cryptogram = $this->cryptogram;
         }
-        if ($this->dpan !== null) {
+        if (!is_null($this->dpan)) {
             $object->dpan = $this->dpan;
         }
-        if ($this->eci !== null) {
+        if (!is_null($this->eci)) {
             $object->eci = $this->eci;
         }
-        if ($this->expiryDate !== null) {
+        if (!is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
@@ -144,7 +145,7 @@ class DecryptedPaymentData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): DecryptedPaymentData
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardholderName')) {

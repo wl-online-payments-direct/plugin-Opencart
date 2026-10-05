@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class CaptureStatusOutput extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $statusCode;
+    public ?int $statusCode = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getStatusCode()
+    public function getStatusCode(): ?int
     {
         return $this->statusCode;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setStatusCode($value)
+    public function setStatusCode(?int $value): void
     {
         $this->statusCode = $value;
     }
@@ -38,10 +35,10 @@ class CaptureStatusOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->statusCode !== null) {
+        if (!is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
         return $object;
@@ -52,7 +49,7 @@ class CaptureStatusOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CaptureStatusOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'statusCode')) {

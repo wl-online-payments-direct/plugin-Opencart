@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PaymentProduct5404 extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $appSwitchLink;
+    public ?string $appSwitchLink = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $qrCodeUrl;
+    public ?string $qrCodeUrl = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAppSwitchLink()
+    public function getAppSwitchLink(): ?string
     {
         return $this->appSwitchLink;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAppSwitchLink($value)
+    public function setAppSwitchLink(?string $value): void
     {
         $this->appSwitchLink = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQrCodeUrl()
+    public function getQrCodeUrl(): ?string
     {
         return $this->qrCodeUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setQrCodeUrl($value)
+    public function setQrCodeUrl(?string $value): void
     {
         $this->qrCodeUrl = $value;
     }
@@ -58,13 +56,13 @@ class PaymentProduct5404 extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->appSwitchLink !== null) {
+        if (!is_null($this->appSwitchLink)) {
             $object->appSwitchLink = $this->appSwitchLink;
         }
-        if ($this->qrCodeUrl !== null) {
+        if (!is_null($this->qrCodeUrl)) {
             $object->qrCodeUrl = $this->qrCodeUrl;
         }
         return $object;
@@ -75,7 +73,7 @@ class PaymentProduct5404 extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct5404
     {
         parent::fromObject($object);
         if (property_exists($object, 'appSwitchLink')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CompletePaymentRequest extends DataObject
 {
-    // Properties
     /**
-     * @var CompletePaymentCardPaymentMethodSpecificInput
+     * @var CompletePaymentCardPaymentMethodSpecificInput|null
      */
-    private $cardPaymentMethodSpecificInput;
+    public ?CompletePaymentCardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput = null;
 
     /**
-     * @var Order
+     * @var Order|null
      */
-    private $order;
+    public ?Order $order = null;
 
-    // Methods
     /**
-     * @return CompletePaymentCardPaymentMethodSpecificInput
+     * @return CompletePaymentCardPaymentMethodSpecificInput|null
      */
-    public function getCardPaymentMethodSpecificInput()
+    public function getCardPaymentMethodSpecificInput(): ?CompletePaymentCardPaymentMethodSpecificInput
     {
         return $this->cardPaymentMethodSpecificInput;
     }
+
     /**
-     * @var CompletePaymentCardPaymentMethodSpecificInput
+     * @param CompletePaymentCardPaymentMethodSpecificInput|null $value
      */
-    public function setCardPaymentMethodSpecificInput($value)
+    public function setCardPaymentMethodSpecificInput(?CompletePaymentCardPaymentMethodSpecificInput $value): void
     {
         $this->cardPaymentMethodSpecificInput = $value;
     }
 
     /**
-     * @return Order
+     * @return Order|null
      */
-    public function getOrder()
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
+
     /**
-     * @var Order
+     * @param Order|null $value
      */
-    public function setOrder($value)
+    public function setOrder(?Order $value): void
     {
         $this->order = $value;
     }
@@ -58,13 +56,13 @@ class CompletePaymentRequest extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->cardPaymentMethodSpecificInput !== null) {
+        if (!is_null($this->cardPaymentMethodSpecificInput)) {
             $object->cardPaymentMethodSpecificInput = $this->cardPaymentMethodSpecificInput->toObject();
         }
-        if ($this->order !== null) {
+        if (!is_null($this->order)) {
             $object->order = $this->order->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class CompletePaymentRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CompletePaymentRequest
     {
         parent::fromObject($object);
         if (property_exists($object, 'cardPaymentMethodSpecificInput')) {

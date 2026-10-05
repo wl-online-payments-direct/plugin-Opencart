@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,107 @@ use UnexpectedValueException;
  */
 class SessionResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $assetUrl;
+    public ?string $assetUrl = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $clientApiUrl;
+    public ?string $clientApiUrl = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $clientSessionId;
+    public ?string $clientSessionId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $customerId;
+    public ?string $customerId = null;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $invalidTokens;
+    public ?array $invalidTokens = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAssetUrl()
+    public function getAssetUrl(): ?string
     {
         return $this->assetUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAssetUrl($value)
+    public function setAssetUrl(?string $value): void
     {
         $this->assetUrl = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getClientApiUrl()
+    public function getClientApiUrl(): ?string
     {
         return $this->clientApiUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setClientApiUrl($value)
+    public function setClientApiUrl(?string $value): void
     {
         $this->clientApiUrl = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getClientSessionId()
+    public function getClientSessionId(): ?string
     {
         return $this->clientSessionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setClientSessionId($value)
+    public function setClientSessionId(?string $value): void
     {
         $this->clientSessionId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCustomerId()
+    public function getCustomerId(): ?string
     {
         return $this->customerId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCustomerId($value)
+    public function setCustomerId(?string $value): void
     {
         $this->customerId = $value;
     }
 
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getInvalidTokens()
+    public function getInvalidTokens(): ?array
     {
         return $this->invalidTokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setInvalidTokens($value)
+    public function setInvalidTokens(?array $value): void
     {
         $this->invalidTokens = $value;
     }
@@ -118,25 +119,25 @@ class SessionResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->assetUrl !== null) {
+        if (!is_null($this->assetUrl)) {
             $object->assetUrl = $this->assetUrl;
         }
-        if ($this->clientApiUrl !== null) {
+        if (!is_null($this->clientApiUrl)) {
             $object->clientApiUrl = $this->clientApiUrl;
         }
-        if ($this->clientSessionId !== null) {
+        if (!is_null($this->clientSessionId)) {
             $object->clientSessionId = $this->clientSessionId;
         }
-        if ($this->customerId !== null) {
+        if (!is_null($this->customerId)) {
             $object->customerId = $this->customerId;
         }
-        if ($this->invalidTokens !== null) {
+        if (!is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
@@ -149,7 +150,7 @@ class SessionResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SessionResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'assetUrl')) {

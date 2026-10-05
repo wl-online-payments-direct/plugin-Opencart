@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class ThreeDSecureData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $acsTransactionId;
+    public ?string $acsTransactionId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $method;
+    public ?string $method = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $utcTimestamp;
+    public ?string $utcTimestamp = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAcsTransactionId()
+    public function getAcsTransactionId(): ?string
     {
         return $this->acsTransactionId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAcsTransactionId($value)
+    public function setAcsTransactionId(?string $value): void
     {
         $this->acsTransactionId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMethod()
+    public function getMethod(): ?string
     {
         return $this->method;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMethod($value)
+    public function setMethod(?string $value): void
     {
         $this->method = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUtcTimestamp()
+    public function getUtcTimestamp(): ?string
     {
         return $this->utcTimestamp;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUtcTimestamp($value)
+    public function setUtcTimestamp(?string $value): void
     {
         $this->utcTimestamp = $value;
     }
@@ -78,16 +77,16 @@ class ThreeDSecureData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acsTransactionId !== null) {
+        if (!is_null($this->acsTransactionId)) {
             $object->acsTransactionId = $this->acsTransactionId;
         }
-        if ($this->method !== null) {
+        if (!is_null($this->method)) {
             $object->method = $this->method;
         }
-        if ($this->utcTimestamp !== null) {
+        if (!is_null($this->utcTimestamp)) {
             $object->utcTimestamp = $this->utcTimestamp;
         }
         return $object;
@@ -98,7 +97,7 @@ class ThreeDSecureData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): ThreeDSecureData
     {
         parent::fromObject($object);
         if (property_exists($object, 'acsTransactionId')) {

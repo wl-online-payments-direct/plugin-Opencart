@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class GetHostedTokenizationResponse extends DataObject
 {
-    // Properties
     /**
-     * @var TokenResponse
+     * @var TokenResponse|null
      */
-    private $token;
+    public ?TokenResponse $token = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $tokenStatus;
+    public ?string $tokenStatus = null;
 
-    // Methods
     /**
-     * @return TokenResponse
+     * @return TokenResponse|null
      */
-    public function getToken()
+    public function getToken(): ?TokenResponse
     {
         return $this->token;
     }
+
     /**
-     * @var TokenResponse
+     * @param TokenResponse|null $value
      */
-    public function setToken($value)
+    public function setToken(?TokenResponse $value): void
     {
         $this->token = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTokenStatus()
+    public function getTokenStatus(): ?string
     {
         return $this->tokenStatus;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTokenStatus($value)
+    public function setTokenStatus(?string $value): void
     {
         $this->tokenStatus = $value;
     }
@@ -58,13 +56,13 @@ class GetHostedTokenizationResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token->toObject();
         }
-        if ($this->tokenStatus !== null) {
+        if (!is_null($this->tokenStatus)) {
             $object->tokenStatus = $this->tokenStatus;
         }
         return $object;
@@ -75,7 +73,7 @@ class GetHostedTokenizationResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetHostedTokenizationResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'token')) {

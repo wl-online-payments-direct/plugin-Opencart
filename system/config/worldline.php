@@ -1,9 +1,9 @@
-<?php 
+<?php
 $_['worldline_setting'] = [
 	'extension' => [
 		'extension_id' => 'WLOP-opencart',
 		'name' => 'Direct Opencart Plugin',
-		'version' => '2.0.0',
+		'version' => '2.0.1',
 		'creator' => 'Dreamvention',
 		'integrator' => 'OnlinePayments'
 	],
@@ -26,6 +26,7 @@ $_['worldline_setting'] = [
 		'authorization_mode' => 'sale',
 		'capture_installation' => 'manually',
 		'forced_tokenization' => true,
+		'card_saving' => '',
 		'surcharging_status' => false,
 		'tds_status' => true,
 		'tds_challenge_indicator' => 'challenge-required',
@@ -157,6 +158,20 @@ $_['worldline_setting'] = [
 			'days' => 8
 		]
 	],
+	'card_saving' => [
+		'forced' => [
+			'code' => 'forced',
+			'name' => 'text_card_saving_forced'
+		],
+		'enabled' => [
+			'code' => 'enabled',
+			'name' => 'text_card_saving_enabled'
+		],
+		'disabled' => [
+			'code' => 'disabled',
+			'name' => 'text_card_saving_disabled'
+		]
+	],
 	'tds_challenge_indicator' => [
 		'no-preference' => [
 			'code' => 'no-preference',
@@ -209,7 +224,7 @@ $_['worldline_setting'] = [
 		'service_fulfilment' => [
 			'code' => 'serviceFulfilment',
 			'name' => 'text_capture_trigger_service_fulfilment'
-		],		
+		],
 		'other' => [
 			'code' => 'other',
 			'name' => 'text_capture_trigger_other'

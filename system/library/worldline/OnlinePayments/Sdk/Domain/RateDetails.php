@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,107 @@ use UnexpectedValueException;
  */
 class RateDetails extends DataObject
 {
-    // Properties
     /**
-     * @var float
+     * @var float|null
      */
-    private $exchangeRate;
+    public ?float $exchangeRate = null;
 
     /**
-     * @var float
+     * @var float|null
      */
-    private $invertedExchangeRate;
+    public ?float $invertedExchangeRate = null;
 
     /**
-     * @var float
+     * @var float|null
      */
-    private $markUpRate;
+    public ?float $markUpRate = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $quotationDateTime;
+    public ?string $quotationDateTime = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $source;
+    public ?string $source = null;
 
-    // Methods
     /**
-     * @return float
+     * @return float|null
      */
-    public function getExchangeRate()
+    public function getExchangeRate(): ?float
     {
         return $this->exchangeRate;
     }
+
     /**
-     * @var float
+     * @param float|null $value
      */
-    public function setExchangeRate($value)
+    public function setExchangeRate(?float $value): void
     {
         $this->exchangeRate = $value;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getInvertedExchangeRate()
+    public function getInvertedExchangeRate(): ?float
     {
         return $this->invertedExchangeRate;
     }
+
     /**
-     * @var float
+     * @param float|null $value
      */
-    public function setInvertedExchangeRate($value)
+    public function setInvertedExchangeRate(?float $value): void
     {
         $this->invertedExchangeRate = $value;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getMarkUpRate()
+    public function getMarkUpRate(): ?float
     {
         return $this->markUpRate;
     }
+
     /**
-     * @var float
+     * @param float|null $value
      */
-    public function setMarkUpRate($value)
+    public function setMarkUpRate(?float $value): void
     {
         $this->markUpRate = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQuotationDateTime()
+    public function getQuotationDateTime(): ?string
     {
         return $this->quotationDateTime;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setQuotationDateTime($value)
+    public function setQuotationDateTime(?string $value): void
     {
         $this->quotationDateTime = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSource()
+    public function getSource(): ?string
     {
         return $this->source;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSource($value)
+    public function setSource(?string $value): void
     {
         $this->source = $value;
     }
@@ -118,22 +119,22 @@ class RateDetails extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->exchangeRate !== null) {
+        if (!is_null($this->exchangeRate)) {
             $object->exchangeRate = $this->exchangeRate;
         }
-        if ($this->invertedExchangeRate !== null) {
+        if (!is_null($this->invertedExchangeRate)) {
             $object->invertedExchangeRate = $this->invertedExchangeRate;
         }
-        if ($this->markUpRate !== null) {
+        if (!is_null($this->markUpRate)) {
             $object->markUpRate = $this->markUpRate;
         }
-        if ($this->quotationDateTime !== null) {
+        if (!is_null($this->quotationDateTime)) {
             $object->quotationDateTime = $this->quotationDateTime;
         }
-        if ($this->source !== null) {
+        if (!is_null($this->source)) {
             $object->source = $this->source;
         }
         return $object;
@@ -144,7 +145,7 @@ class RateDetails extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RateDetails
     {
         parent::fromObject($object);
         if (property_exists($object, 'exchangeRate')) {

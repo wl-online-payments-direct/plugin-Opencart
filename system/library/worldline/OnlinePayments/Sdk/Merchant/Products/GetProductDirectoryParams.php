@@ -1,11 +1,10 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Merchant\Products;
 
-use OnlinePayments\Sdk\RequestObject;
+use OnlinePayments\Sdk\Communication\RequestObject;
 
 /**
  * Query parameters for Get payment product directory
@@ -14,45 +13,44 @@ use OnlinePayments\Sdk\RequestObject;
  */
 class GetProductDirectoryParams extends RequestObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    protected $countryCode;
+    public ?string $countryCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $currencyCode;
-
-    // Methods
+    public ?string $currencyCode = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value): void
     {
         $this->countryCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): ?string
     {
         return $this->currencyCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCurrencyCode($value)
+    public function setCurrencyCode(?string $value): void
     {
         $this->currencyCode = $value;
     }
@@ -60,14 +58,14 @@ class GetProductDirectoryParams extends RequestObject
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
-        $array = array();
-        if ($this->countryCode !== null) {
-            $array["countryCode"] = $this->countryCode;
+        $array = [];
+        if ($this->countryCode != null) {
+            $array['countryCode'] = $this->countryCode;
         }
-        if ($this->currencyCode !== null) {
-            $array["currencyCode"] = $this->currencyCode;
+        if ($this->currencyCode != null) {
+            $array['currencyCode'] = $this->currencyCode;
         }
         return $array;
     }

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class GetPaymentProductGroupsResponse extends DataObject
 {
-    // Properties
     /**
-     * @var PaymentProductGroup[]
+     * @var PaymentProductGroup[]|null
      */
-    private $paymentProductGroups;
+    public ?array $paymentProductGroups = null;
 
-    // Methods
     /**
-     * @return PaymentProductGroup[]
+     * @return PaymentProductGroup[]|null
      */
-    public function getPaymentProductGroups()
+    public function getPaymentProductGroups(): ?array
     {
         return $this->paymentProductGroups;
     }
+
     /**
-     * @var PaymentProductGroup[]
+     * @param PaymentProductGroup[]|null $value
      */
-    public function setPaymentProductGroups($value)
+    public function setPaymentProductGroups(?array $value): void
     {
         $this->paymentProductGroups = $value;
     }
@@ -38,13 +35,13 @@ class GetPaymentProductGroupsResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->paymentProductGroups !== null) {
+        if (!is_null($this->paymentProductGroups)) {
             $object->paymentProductGroups = [];
             foreach ($this->paymentProductGroups as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentProductGroups[] = $element->toObject();
                 }
             }
@@ -57,7 +54,7 @@ class GetPaymentProductGroupsResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetPaymentProductGroupsResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'paymentProductGroups')) {

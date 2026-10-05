@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,404 +11,428 @@ use UnexpectedValueException;
  */
 class AirlineFlightLeg extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $airlineClass;
+    public ?string $airlineClass = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $arrivalAirport;
+    public ?string $arrivalAirport = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $arrivalTime;
+    public ?string $arrivalTime = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $carrierCode;
+    public ?string $carrierCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $conjunctionTicket;
+    public ?string $conjunctionTicket = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $couponNumber;
+    public ?string $couponNumber = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $date;
+    public ?string $date = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $departureTime;
+    public ?string $departureTime = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $endorsementOrRestriction;
+    public ?string $endorsementOrRestriction = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $exchangeTicket;
+    public ?string $exchangeTicket = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Use legFare instead. Fare of this leg
      */
-    private $fare;
+    public ?string $fare = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $fareBasis;
+    public ?string $fareBasis = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $fee;
+    public ?int $fee = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $flightNumber;
+    public ?string $flightNumber = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $legFare;
+    public ?int $legFare = null;
 
     /**
-     * @var int
+     * @var int|null
+     * @deprecated This field is not used by any payment product Sequence number of the flight leg
      */
-    private $number;
+    public ?int $number = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $originAirport;
+    public ?string $originAirport = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $passengerClass;
+    public ?string $passengerClass = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $stopoverCode;
+    public ?string $stopoverCode = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $taxes;
+    public ?int $taxes = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAirlineClass()
+    public function getAirlineClass(): ?string
     {
         return $this->airlineClass;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAirlineClass($value)
+    public function setAirlineClass(?string $value): void
     {
         $this->airlineClass = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getArrivalAirport()
+    public function getArrivalAirport(): ?string
     {
         return $this->arrivalAirport;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setArrivalAirport($value)
+    public function setArrivalAirport(?string $value): void
     {
         $this->arrivalAirport = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getArrivalTime()
+    public function getArrivalTime(): ?string
     {
         return $this->arrivalTime;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setArrivalTime($value)
+    public function setArrivalTime(?string $value): void
     {
         $this->arrivalTime = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCarrierCode()
+    public function getCarrierCode(): ?string
     {
         return $this->carrierCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCarrierCode($value)
+    public function setCarrierCode(?string $value): void
     {
         $this->carrierCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getConjunctionTicket()
+    public function getConjunctionTicket(): ?string
     {
         return $this->conjunctionTicket;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setConjunctionTicket($value)
+    public function setConjunctionTicket(?string $value): void
     {
         $this->conjunctionTicket = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCouponNumber()
+    public function getCouponNumber(): ?string
     {
         return $this->couponNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCouponNumber($value)
+    public function setCouponNumber(?string $value): void
     {
         $this->couponNumber = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDate()
+    public function getDate(): ?string
     {
         return $this->date;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDate($value)
+    public function setDate(?string $value): void
     {
         $this->date = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDepartureTime()
+    public function getDepartureTime(): ?string
     {
         return $this->departureTime;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDepartureTime($value)
+    public function setDepartureTime(?string $value): void
     {
         $this->departureTime = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEndorsementOrRestriction()
+    public function getEndorsementOrRestriction(): ?string
     {
         return $this->endorsementOrRestriction;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEndorsementOrRestriction($value)
+    public function setEndorsementOrRestriction(?string $value): void
     {
         $this->endorsementOrRestriction = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExchangeTicket()
+    public function getExchangeTicket(): ?string
     {
         return $this->exchangeTicket;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setExchangeTicket($value)
+    public function setExchangeTicket(?string $value): void
     {
         $this->exchangeTicket = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated Use legFare instead. Fare of this leg
      */
-    public function getFare()
+    public function getFare(): ?string
     {
         return $this->fare;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Use legFare instead. Fare of this leg
      */
-    public function setFare($value)
+    public function setFare(?string $value): void
     {
         $this->fare = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFareBasis()
+    public function getFareBasis(): ?string
     {
         return $this->fareBasis;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setFareBasis($value)
+    public function setFareBasis(?string $value): void
     {
         $this->fareBasis = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getFee()
+    public function getFee(): ?int
     {
         return $this->fee;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setFee($value)
+    public function setFee(?int $value): void
     {
         $this->fee = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFlightNumber()
+    public function getFlightNumber(): ?string
     {
         return $this->flightNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setFlightNumber($value)
+    public function setFlightNumber(?string $value): void
     {
         $this->flightNumber = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getLegFare()
+    public function getLegFare(): ?int
     {
         return $this->legFare;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setLegFare($value)
+    public function setLegFare(?int $value): void
     {
         $this->legFare = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
+     * @deprecated This field is not used by any payment product Sequence number of the flight leg
      */
-    public function getNumber()
+    public function getNumber(): ?int
     {
         return $this->number;
     }
+
     /**
-     * @var int
+     * @param int|null $value
+     * @deprecated This field is not used by any payment product Sequence number of the flight leg
      */
-    public function setNumber($value)
+    public function setNumber(?int $value): void
     {
         $this->number = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOriginAirport()
+    public function getOriginAirport(): ?string
     {
         return $this->originAirport;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setOriginAirport($value)
+    public function setOriginAirport(?string $value): void
     {
         $this->originAirport = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPassengerClass()
+    public function getPassengerClass(): ?string
     {
         return $this->passengerClass;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPassengerClass($value)
+    public function setPassengerClass(?string $value): void
     {
         $this->passengerClass = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStopoverCode()
+    public function getStopoverCode(): ?string
     {
         return $this->stopoverCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStopoverCode($value)
+    public function setStopoverCode(?string $value): void
     {
         $this->stopoverCode = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTaxes()
+    public function getTaxes(): ?int
     {
         return $this->taxes;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setTaxes($value)
+    public function setTaxes(?int $value): void
     {
         $this->taxes = $value;
     }
@@ -418,67 +440,67 @@ class AirlineFlightLeg extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->airlineClass !== null) {
+        if (!is_null($this->airlineClass)) {
             $object->airlineClass = $this->airlineClass;
         }
-        if ($this->arrivalAirport !== null) {
+        if (!is_null($this->arrivalAirport)) {
             $object->arrivalAirport = $this->arrivalAirport;
         }
-        if ($this->arrivalTime !== null) {
+        if (!is_null($this->arrivalTime)) {
             $object->arrivalTime = $this->arrivalTime;
         }
-        if ($this->carrierCode !== null) {
+        if (!is_null($this->carrierCode)) {
             $object->carrierCode = $this->carrierCode;
         }
-        if ($this->conjunctionTicket !== null) {
+        if (!is_null($this->conjunctionTicket)) {
             $object->conjunctionTicket = $this->conjunctionTicket;
         }
-        if ($this->couponNumber !== null) {
+        if (!is_null($this->couponNumber)) {
             $object->couponNumber = $this->couponNumber;
         }
-        if ($this->date !== null) {
+        if (!is_null($this->date)) {
             $object->date = $this->date;
         }
-        if ($this->departureTime !== null) {
+        if (!is_null($this->departureTime)) {
             $object->departureTime = $this->departureTime;
         }
-        if ($this->endorsementOrRestriction !== null) {
+        if (!is_null($this->endorsementOrRestriction)) {
             $object->endorsementOrRestriction = $this->endorsementOrRestriction;
         }
-        if ($this->exchangeTicket !== null) {
+        if (!is_null($this->exchangeTicket)) {
             $object->exchangeTicket = $this->exchangeTicket;
         }
-        if ($this->fare !== null) {
+        if (!is_null($this->fare)) {
             $object->fare = $this->fare;
         }
-        if ($this->fareBasis !== null) {
+        if (!is_null($this->fareBasis)) {
             $object->fareBasis = $this->fareBasis;
         }
-        if ($this->fee !== null) {
+        if (!is_null($this->fee)) {
             $object->fee = $this->fee;
         }
-        if ($this->flightNumber !== null) {
+        if (!is_null($this->flightNumber)) {
             $object->flightNumber = $this->flightNumber;
         }
-        if ($this->legFare !== null) {
+        if (!is_null($this->legFare)) {
             $object->legFare = $this->legFare;
         }
-        if ($this->number !== null) {
+        if (!is_null($this->number)) {
             $object->number = $this->number;
         }
-        if ($this->originAirport !== null) {
+        if (!is_null($this->originAirport)) {
             $object->originAirport = $this->originAirport;
         }
-        if ($this->passengerClass !== null) {
+        if (!is_null($this->passengerClass)) {
             $object->passengerClass = $this->passengerClass;
         }
-        if ($this->stopoverCode !== null) {
+        if (!is_null($this->stopoverCode)) {
             $object->stopoverCode = $this->stopoverCode;
         }
-        if ($this->taxes !== null) {
+        if (!is_null($this->taxes)) {
             $object->taxes = $this->taxes;
         }
         return $object;
@@ -489,7 +511,7 @@ class AirlineFlightLeg extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AirlineFlightLeg
     {
         parent::fromObject($object);
         if (property_exists($object, 'airlineClass')) {

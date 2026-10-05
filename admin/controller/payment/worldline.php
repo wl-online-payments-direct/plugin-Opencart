@@ -171,6 +171,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
+		// A shop that has not saved this tab since the option became a dropdown still
+		// carries the old boolean, so resolve it here rather than teaching the template
+		// about the legacy value.
+		require_once DIR_EXTENSION . 'worldline/system/library/worldline/CardSaving.php';
+
+		$data['setting']['advanced']['card_saving'] = \WorldlineCardSaving::getMode($data['setting']);
+
 		$this->response->setOutput($this->load->view('extension/worldline/payment/advanced', $data));
 	}
 	
@@ -1149,14 +1156,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 		
 			require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+			$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+			$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 			$client = new \OnlinePayments\Sdk\Client($communicator);
 			
@@ -1260,13 +1267,13 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					if (!$data['token']) $data['tokenize'] = 0;
 					if (!$data['tokenize']) $data['token'] = '';
 					
-					if (!$worldline_order_info['transaction_status']) {
+					if ($data['payment_product_id'] && !$worldline_order_info['transaction_status']) {
 						$payment_product_params = new \OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams();
 						$payment_product_params->setCurrencyCode($data['currency_code']);
 						$payment_product_params->setCountryCode($worldline_order_info['country_code']);	
 				
 						try {
-							$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct($data['payment_product_id'], $payment_product_params);
+							$payment_product_response = $client->merchant($merchant_id)->products()->getPaymentProduct((int)$data['payment_product_id'], $payment_product_params);
 						} catch (\OnlinePayments\Sdk\ResponseException $exception) {			
 							$errors = $exception->getResponse()->getErrors();
 								
@@ -1368,14 +1375,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 			require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+			$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+			$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 			$client = new \OnlinePayments\Sdk\Client($communicator);
 						
@@ -1512,14 +1519,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 			require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+			$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+			$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 			$client = new \OnlinePayments\Sdk\Client($communicator);
 
@@ -1660,14 +1667,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 			
 			require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-			$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 			$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 			$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 			$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-			$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+			$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+			$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 			$client = new \OnlinePayments\Sdk\Client($communicator);
 			
@@ -1852,14 +1859,14 @@ class Worldline extends \Opencart\System\Engine\Controller {
 				require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 
 				try {
-					$connection = new \OnlinePayments\Sdk\DefaultConnection();	
 
 					$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 					$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 					$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-					$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+					$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+					$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
 					$client = new \OnlinePayments\Sdk\Client($communicator);
 				

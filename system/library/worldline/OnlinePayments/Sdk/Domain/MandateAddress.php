@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,107 @@ use UnexpectedValueException;
  */
 class MandateAddress extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $city;
+    public ?string $city = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $countryCode;
+    public ?string $countryCode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $houseNumber;
+    public ?string $houseNumber = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $street;
+    public ?string $street = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $zip;
+    public ?string $zip = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->city;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCity($value)
+    public function setCity(?string $value): void
     {
         $this->city = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value): void
     {
         $this->countryCode = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHouseNumber()
+    public function getHouseNumber(): ?string
     {
         return $this->houseNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHouseNumber($value)
+    public function setHouseNumber(?string $value): void
     {
         $this->houseNumber = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet()
+    public function getStreet(): ?string
     {
         return $this->street;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStreet($value)
+    public function setStreet(?string $value): void
     {
         $this->street = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZip()
+    public function getZip(): ?string
     {
         return $this->zip;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setZip($value)
+    public function setZip(?string $value): void
     {
         $this->zip = $value;
     }
@@ -118,22 +119,22 @@ class MandateAddress extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->city !== null) {
+        if (!is_null($this->city)) {
             $object->city = $this->city;
         }
-        if ($this->countryCode !== null) {
+        if (!is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if ($this->houseNumber !== null) {
+        if (!is_null($this->houseNumber)) {
             $object->houseNumber = $this->houseNumber;
         }
-        if ($this->street !== null) {
+        if (!is_null($this->street)) {
             $object->street = $this->street;
         }
-        if ($this->zip !== null) {
+        if (!is_null($this->zip)) {
             $object->zip = $this->zip;
         }
         return $object;
@@ -144,7 +145,7 @@ class MandateAddress extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): MandateAddress
     {
         parent::fromObject($object);
         if (property_exists($object, 'city')) {

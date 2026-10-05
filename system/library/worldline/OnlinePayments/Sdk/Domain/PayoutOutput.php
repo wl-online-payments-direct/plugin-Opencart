@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class PayoutOutput extends DataObject
 {
-    // Properties
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $payoutReason;
+    public ?string $payoutReason = null;
 
-    // Methods
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getAmountOfMoney()
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPayoutReason()
+    public function getPayoutReason(): ?string
     {
         return $this->payoutReason;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPayoutReason($value)
+    public function setPayoutReason(?string $value): void
     {
         $this->payoutReason = $value;
     }
@@ -58,13 +56,13 @@ class PayoutOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->payoutReason !== null) {
+        if (!is_null($this->payoutReason)) {
             $object->payoutReason = $this->payoutReason;
         }
         return $object;
@@ -75,7 +73,7 @@ class PayoutOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PayoutOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {

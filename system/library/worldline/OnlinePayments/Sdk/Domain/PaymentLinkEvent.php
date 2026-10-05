@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class PaymentLinkEvent extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $dateTime;
+    public ?string $dateTime = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $details;
+    public ?string $details = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $type;
+    public ?string $type = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDateTime()
+    public function getDateTime(): ?string
     {
         return $this->dateTime;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDateTime($value)
+    public function setDateTime(?string $value): void
     {
         $this->dateTime = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDetails()
+    public function getDetails(): ?string
     {
         return $this->details;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDetails($value)
+    public function setDetails(?string $value): void
     {
         $this->details = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setType($value)
+    public function setType(?string $value): void
     {
         $this->type = $value;
     }
@@ -78,16 +77,16 @@ class PaymentLinkEvent extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->dateTime !== null) {
+        if (!is_null($this->dateTime)) {
             $object->dateTime = $this->dateTime;
         }
-        if ($this->details !== null) {
+        if (!is_null($this->details)) {
             $object->details = $this->details;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
@@ -98,7 +97,7 @@ class PaymentLinkEvent extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentLinkEvent
     {
         parent::fromObject($object);
         if (property_exists($object, 'dateTime')) {

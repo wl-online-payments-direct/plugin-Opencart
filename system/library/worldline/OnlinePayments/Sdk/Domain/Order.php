@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,197 +11,227 @@ use UnexpectedValueException;
  */
 class Order extends DataObject
 {
-    // Properties
     /**
-     * @var AdditionalOrderInput
+     * @var AdditionalOrderInput|null
      */
-    private $additionalInput;
+    public ?AdditionalOrderInput $additionalInput = null;
 
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $amountOfMoney;
+    public ?AmountOfMoney $amountOfMoney = null;
 
     /**
-     * @var Customer
+     * @var Customer|null
      */
-    private $customer;
+    public ?Customer $customer = null;
 
     /**
-     * @var Discount
+     * @var Discount|null
      */
-    private $discount;
+    public ?Discount $discount = null;
 
     /**
-     * @var OrderReferences
+     * @var OrderReferences|null
      */
-    private $references;
+    public ?OrderReferences $references = null;
 
     /**
-     * @var Shipping
+     * @var Shipping|null
      */
-    private $shipping;
+    public ?Shipping $shipping = null;
 
     /**
-     * @var ShoppingCart
+     * @var ShoppingCart|null
      */
-    private $shoppingCart;
+    public ?ShoppingCart $shoppingCart = null;
 
     /**
-     * @var SurchargeSpecificInput
+     * @var SurchargeSpecificInput|null
      */
-    private $surchargeSpecificInput;
+    public ?SurchargeSpecificInput $surchargeSpecificInput = null;
 
-    // Methods
     /**
-     * @return AdditionalOrderInput
+     * @var int|null
      */
-    public function getAdditionalInput()
+    public ?int $totalTaxAmount = null;
+
+    /**
+     * @return AdditionalOrderInput|null
+     */
+    public function getAdditionalInput(): ?AdditionalOrderInput
     {
         return $this->additionalInput;
     }
+
     /**
-     * @var AdditionalOrderInput
+     * @param AdditionalOrderInput|null $value
      */
-    public function setAdditionalInput($value)
+    public function setAdditionalInput(?AdditionalOrderInput $value): void
     {
         $this->additionalInput = $value;
     }
 
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getAmountOfMoney()
+    public function getAmountOfMoney(): ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value): void
     {
         $this->amountOfMoney = $value;
     }
 
     /**
-     * @return Customer
+     * @return Customer|null
      */
-    public function getCustomer()
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
+
     /**
-     * @var Customer
+     * @param Customer|null $value
      */
-    public function setCustomer($value)
+    public function setCustomer(?Customer $value): void
     {
         $this->customer = $value;
     }
 
     /**
-     * @return Discount
+     * @return Discount|null
      */
-    public function getDiscount()
+    public function getDiscount(): ?Discount
     {
         return $this->discount;
     }
+
     /**
-     * @var Discount
+     * @param Discount|null $value
      */
-    public function setDiscount($value)
+    public function setDiscount(?Discount $value): void
     {
         $this->discount = $value;
     }
 
     /**
-     * @return OrderReferences
+     * @return OrderReferences|null
      */
-    public function getReferences()
+    public function getReferences(): ?OrderReferences
     {
         return $this->references;
     }
+
     /**
-     * @var OrderReferences
+     * @param OrderReferences|null $value
      */
-    public function setReferences($value)
+    public function setReferences(?OrderReferences $value): void
     {
         $this->references = $value;
     }
 
     /**
-     * @return Shipping
+     * @return Shipping|null
      */
-    public function getShipping()
+    public function getShipping(): ?Shipping
     {
         return $this->shipping;
     }
+
     /**
-     * @var Shipping
+     * @param Shipping|null $value
      */
-    public function setShipping($value)
+    public function setShipping(?Shipping $value): void
     {
         $this->shipping = $value;
     }
 
     /**
-     * @return ShoppingCart
+     * @return ShoppingCart|null
      */
-    public function getShoppingCart()
+    public function getShoppingCart(): ?ShoppingCart
     {
         return $this->shoppingCart;
     }
+
     /**
-     * @var ShoppingCart
+     * @param ShoppingCart|null $value
      */
-    public function setShoppingCart($value)
+    public function setShoppingCart(?ShoppingCart $value): void
     {
         $this->shoppingCart = $value;
     }
 
     /**
-     * @return SurchargeSpecificInput
+     * @return SurchargeSpecificInput|null
      */
-    public function getSurchargeSpecificInput()
+    public function getSurchargeSpecificInput(): ?SurchargeSpecificInput
     {
         return $this->surchargeSpecificInput;
     }
+
     /**
-     * @var SurchargeSpecificInput
+     * @param SurchargeSpecificInput|null $value
      */
-    public function setSurchargeSpecificInput($value)
+    public function setSurchargeSpecificInput(?SurchargeSpecificInput $value): void
     {
         $this->surchargeSpecificInput = $value;
     }
 
     /**
+     * @return int|null
+     */
+    public function getTotalTaxAmount(): ?int
+    {
+        return $this->totalTaxAmount;
+    }
+
+    /**
+     * @param int|null $value
+     */
+    public function setTotalTaxAmount(?int $value): void
+    {
+        $this->totalTaxAmount = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->additionalInput !== null) {
+        if (!is_null($this->additionalInput)) {
             $object->additionalInput = $this->additionalInput->toObject();
         }
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->customer !== null) {
+        if (!is_null($this->customer)) {
             $object->customer = $this->customer->toObject();
         }
-        if ($this->discount !== null) {
+        if (!is_null($this->discount)) {
             $object->discount = $this->discount->toObject();
         }
-        if ($this->references !== null) {
+        if (!is_null($this->references)) {
             $object->references = $this->references->toObject();
         }
-        if ($this->shipping !== null) {
+        if (!is_null($this->shipping)) {
             $object->shipping = $this->shipping->toObject();
         }
-        if ($this->shoppingCart !== null) {
+        if (!is_null($this->shoppingCart)) {
             $object->shoppingCart = $this->shoppingCart->toObject();
         }
-        if ($this->surchargeSpecificInput !== null) {
+        if (!is_null($this->surchargeSpecificInput)) {
             $object->surchargeSpecificInput = $this->surchargeSpecificInput->toObject();
+        }
+        if (!is_null($this->totalTaxAmount)) {
+            $object->totalTaxAmount = $this->totalTaxAmount;
         }
         return $object;
     }
@@ -213,7 +241,7 @@ class Order extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): Order
     {
         parent::fromObject($object);
         if (property_exists($object, 'additionalInput')) {
@@ -271,6 +299,9 @@ class Order extends DataObject
             }
             $value = new SurchargeSpecificInput();
             $this->surchargeSpecificInput = $value->fromObject($object->surchargeSpecificInput);
+        }
+        if (property_exists($object, 'totalTaxAmount')) {
+            $this->totalTaxAmount = $object->totalTaxAmount;
         }
         return $this;
     }

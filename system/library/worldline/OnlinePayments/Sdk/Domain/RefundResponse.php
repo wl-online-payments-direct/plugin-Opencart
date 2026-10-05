@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class RefundResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var RefundOutput
+     * @var RefundOutput|null
      */
-    private $refundOutput;
+    public ?RefundOutput $refundOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
     /**
-     * @var OrderStatusOutput
+     * @var OrderStatusOutput|null
      */
-    private $statusOutput;
+    public ?OrderStatusOutput $statusOutput = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return RefundOutput
+     * @return RefundOutput|null
      */
-    public function getRefundOutput()
+    public function getRefundOutput(): ?RefundOutput
     {
         return $this->refundOutput;
     }
+
     /**
-     * @var RefundOutput
+     * @param RefundOutput|null $value
      */
-    public function setRefundOutput($value)
+    public function setRefundOutput(?RefundOutput $value): void
     {
         $this->refundOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return OrderStatusOutput
+     * @return OrderStatusOutput|null
      */
-    public function getStatusOutput()
+    public function getStatusOutput(): ?OrderStatusOutput
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var OrderStatusOutput
+     * @param OrderStatusOutput|null $value
      */
-    public function setStatusOutput($value)
+    public function setStatusOutput(?OrderStatusOutput $value): void
     {
         $this->statusOutput = $value;
     }
@@ -98,19 +98,19 @@ class RefundResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->refundOutput !== null) {
+        if (!is_null($this->refundOutput)) {
             $object->refundOutput = $this->refundOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
@@ -121,7 +121,7 @@ class RefundResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RefundResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'id')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,144 +11,149 @@ use UnexpectedValueException;
  */
 class CustomerDevice extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $acceptHeader;
+    public ?string $acceptHeader = null;
 
     /**
-     * @var BrowserData
+     * @var BrowserData|null
      */
-    private $browserData;
+    public ?BrowserData $browserData = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $deviceFingerprint;
+    public ?string $deviceFingerprint = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $ipAddress;
+    public ?string $ipAddress = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $locale;
+    public ?string $locale = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $timezoneOffsetUtcMinutes;
+    public ?string $timezoneOffsetUtcMinutes = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $userAgent;
+    public ?string $userAgent = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAcceptHeader()
+    public function getAcceptHeader(): ?string
     {
         return $this->acceptHeader;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAcceptHeader($value)
+    public function setAcceptHeader(?string $value): void
     {
         $this->acceptHeader = $value;
     }
 
     /**
-     * @return BrowserData
+     * @return BrowserData|null
      */
-    public function getBrowserData()
+    public function getBrowserData(): ?BrowserData
     {
         return $this->browserData;
     }
+
     /**
-     * @var BrowserData
+     * @param BrowserData|null $value
      */
-    public function setBrowserData($value)
+    public function setBrowserData(?BrowserData $value): void
     {
         $this->browserData = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDeviceFingerprint()
+    public function getDeviceFingerprint(): ?string
     {
         return $this->deviceFingerprint;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDeviceFingerprint($value)
+    public function setDeviceFingerprint(?string $value): void
     {
         $this->deviceFingerprint = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIpAddress()
+    public function getIpAddress(): ?string
     {
         return $this->ipAddress;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setIpAddress($value)
+    public function setIpAddress(?string $value): void
     {
         $this->ipAddress = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setLocale($value)
+    public function setLocale(?string $value): void
     {
         $this->locale = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTimezoneOffsetUtcMinutes()
+    public function getTimezoneOffsetUtcMinutes(): ?string
     {
         return $this->timezoneOffsetUtcMinutes;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setTimezoneOffsetUtcMinutes($value)
+    public function setTimezoneOffsetUtcMinutes(?string $value): void
     {
         $this->timezoneOffsetUtcMinutes = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUserAgent()
+    public function getUserAgent(): ?string
     {
         return $this->userAgent;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUserAgent($value)
+    public function setUserAgent(?string $value): void
     {
         $this->userAgent = $value;
     }
@@ -158,28 +161,28 @@ class CustomerDevice extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acceptHeader !== null) {
+        if (!is_null($this->acceptHeader)) {
             $object->acceptHeader = $this->acceptHeader;
         }
-        if ($this->browserData !== null) {
+        if (!is_null($this->browserData)) {
             $object->browserData = $this->browserData->toObject();
         }
-        if ($this->deviceFingerprint !== null) {
+        if (!is_null($this->deviceFingerprint)) {
             $object->deviceFingerprint = $this->deviceFingerprint;
         }
-        if ($this->ipAddress !== null) {
+        if (!is_null($this->ipAddress)) {
             $object->ipAddress = $this->ipAddress;
         }
-        if ($this->locale !== null) {
+        if (!is_null($this->locale)) {
             $object->locale = $this->locale;
         }
-        if ($this->timezoneOffsetUtcMinutes !== null) {
+        if (!is_null($this->timezoneOffsetUtcMinutes)) {
             $object->timezoneOffsetUtcMinutes = $this->timezoneOffsetUtcMinutes;
         }
-        if ($this->userAgent !== null) {
+        if (!is_null($this->userAgent)) {
             $object->userAgent = $this->userAgent;
         }
         return $object;
@@ -190,7 +193,7 @@ class CustomerDevice extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CustomerDevice
     {
         parent::fromObject($object);
         if (property_exists($object, 'acceptHeader')) {

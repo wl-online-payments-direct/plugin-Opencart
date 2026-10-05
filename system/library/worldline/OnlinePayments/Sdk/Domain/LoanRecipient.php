@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,107 @@ use UnexpectedValueException;
  */
 class LoanRecipient extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $accountNumber;
+    public ?string $accountNumber = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $dateOfBirth;
+    public ?string $dateOfBirth = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $partialPan;
+    public ?string $partialPan = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $surname;
+    public ?string $surname = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $zip;
+    public ?string $zip = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAccountNumber()
+    public function getAccountNumber(): ?string
     {
         return $this->accountNumber;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setAccountNumber($value)
+    public function setAccountNumber(?string $value): void
     {
         $this->accountNumber = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): ?string
     {
         return $this->dateOfBirth;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDateOfBirth($value)
+    public function setDateOfBirth(?string $value): void
     {
         $this->dateOfBirth = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPartialPan()
+    public function getPartialPan(): ?string
     {
         return $this->partialPan;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setPartialPan($value)
+    public function setPartialPan(?string $value): void
     {
         $this->partialPan = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSurname()
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSurname($value)
+    public function setSurname(?string $value): void
     {
         $this->surname = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZip()
+    public function getZip(): ?string
     {
         return $this->zip;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setZip($value)
+    public function setZip(?string $value): void
     {
         $this->zip = $value;
     }
@@ -118,22 +119,22 @@ class LoanRecipient extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->accountNumber !== null) {
+        if (!is_null($this->accountNumber)) {
             $object->accountNumber = $this->accountNumber;
         }
-        if ($this->dateOfBirth !== null) {
+        if (!is_null($this->dateOfBirth)) {
             $object->dateOfBirth = $this->dateOfBirth;
         }
-        if ($this->partialPan !== null) {
+        if (!is_null($this->partialPan)) {
             $object->partialPan = $this->partialPan;
         }
-        if ($this->surname !== null) {
+        if (!is_null($this->surname)) {
             $object->surname = $this->surname;
         }
-        if ($this->zip !== null) {
+        if (!is_null($this->zip)) {
             $object->zip = $this->zip;
         }
         return $object;
@@ -144,7 +145,7 @@ class LoanRecipient extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): LoanRecipient
     {
         parent::fromObject($object);
         if (property_exists($object, 'accountNumber')) {

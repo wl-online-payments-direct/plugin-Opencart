@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class CardSource extends DataObject
 {
-    // Properties
     /**
-     * @var SurchargeCalculationCard
+     * @var SurchargeCalculationCard|null
      */
-    private $card;
+    public ?SurchargeCalculationCard $card = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $encryptedCustomerInput;
+    public ?string $encryptedCustomerInput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $hostedTokenizationId;
+    public ?string $hostedTokenizationId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $token;
+    public ?string $token = null;
 
-    // Methods
     /**
-     * @return SurchargeCalculationCard
+     * @return SurchargeCalculationCard|null
      */
-    public function getCard()
+    public function getCard(): ?SurchargeCalculationCard
     {
         return $this->card;
     }
+
     /**
-     * @var SurchargeCalculationCard
+     * @param SurchargeCalculationCard|null $value
      */
-    public function setCard($value)
+    public function setCard(?SurchargeCalculationCard $value): void
     {
         $this->card = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEncryptedCustomerInput()
+    public function getEncryptedCustomerInput(): ?string
     {
         return $this->encryptedCustomerInput;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setEncryptedCustomerInput($value)
+    public function setEncryptedCustomerInput(?string $value): void
     {
         $this->encryptedCustomerInput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedTokenizationId()
+    public function getHostedTokenizationId(): ?string
     {
         return $this->hostedTokenizationId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedTokenizationId($value)
+    public function setHostedTokenizationId(?string $value): void
     {
         $this->hostedTokenizationId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setToken($value)
+    public function setToken(?string $value): void
     {
         $this->token = $value;
     }
@@ -98,19 +98,19 @@ class CardSource extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->card !== null) {
+        if (!is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if ($this->encryptedCustomerInput !== null) {
+        if (!is_null($this->encryptedCustomerInput)) {
             $object->encryptedCustomerInput = $this->encryptedCustomerInput;
         }
-        if ($this->hostedTokenizationId !== null) {
+        if (!is_null($this->hostedTokenizationId)) {
             $object->hostedTokenizationId = $this->hostedTokenizationId;
         }
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token;
         }
         return $object;
@@ -121,7 +121,7 @@ class CardSource extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CardSource
     {
         parent::fromObject($object);
         if (property_exists($object, 'card')) {

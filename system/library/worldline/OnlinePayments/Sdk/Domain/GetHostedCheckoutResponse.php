@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class GetHostedCheckoutResponse extends DataObject
 {
-    // Properties
     /**
-     * @var CreatedPaymentOutput
+     * @var CreatedPaymentOutput|null
      */
-    private $createdPaymentOutput;
+    public ?CreatedPaymentOutput $createdPaymentOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $status;
+    public ?string $status = null;
 
-    // Methods
     /**
-     * @return CreatedPaymentOutput
+     * @return CreatedPaymentOutput|null
      */
-    public function getCreatedPaymentOutput()
+    public function getCreatedPaymentOutput(): ?CreatedPaymentOutput
     {
         return $this->createdPaymentOutput;
     }
+
     /**
-     * @var CreatedPaymentOutput
+     * @param CreatedPaymentOutput|null $value
      */
-    public function setCreatedPaymentOutput($value)
+    public function setCreatedPaymentOutput(?CreatedPaymentOutput $value): void
     {
         $this->createdPaymentOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
@@ -58,13 +56,13 @@ class GetHostedCheckoutResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->createdPaymentOutput !== null) {
+        if (!is_null($this->createdPaymentOutput)) {
             $object->createdPaymentOutput = $this->createdPaymentOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
         return $object;
@@ -75,7 +73,7 @@ class GetHostedCheckoutResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): GetHostedCheckoutResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'createdPaymentOutput')) {

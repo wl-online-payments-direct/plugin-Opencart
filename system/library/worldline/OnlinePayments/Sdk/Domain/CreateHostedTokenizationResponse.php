@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,110 @@ use UnexpectedValueException;
  */
 class CreateHostedTokenizationResponse extends DataObject
 {
-    // Properties
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $expiredCardTokens;
+    public ?array $expiredCardTokens = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $hostedTokenizationId;
+    public ?string $hostedTokenizationId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $hostedTokenizationUrl;
+    public ?string $hostedTokenizationUrl = null;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    private $invalidTokens;
+    public ?array $invalidTokens = null;
 
     /**
-     * @var string
+     * @var string|null
+     * @deprecated Deprecated
      */
-    private $partialRedirectUrl;
+    public ?string $partialRedirectUrl = null;
 
-    // Methods
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getExpiredCardTokens()
+    public function getExpiredCardTokens(): ?array
     {
         return $this->expiredCardTokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setExpiredCardTokens($value)
+    public function setExpiredCardTokens(?array $value): void
     {
         $this->expiredCardTokens = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedTokenizationId()
+    public function getHostedTokenizationId(): ?string
     {
         return $this->hostedTokenizationId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedTokenizationId($value)
+    public function setHostedTokenizationId(?string $value): void
     {
         $this->hostedTokenizationId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHostedTokenizationUrl()
+    public function getHostedTokenizationUrl(): ?string
     {
         return $this->hostedTokenizationUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setHostedTokenizationUrl($value)
+    public function setHostedTokenizationUrl(?string $value): void
     {
         $this->hostedTokenizationUrl = $value;
     }
 
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getInvalidTokens()
+    public function getInvalidTokens(): ?array
     {
         return $this->invalidTokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]|null $value
      */
-    public function setInvalidTokens($value)
+    public function setInvalidTokens(?array $value): void
     {
         $this->invalidTokens = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
+     * @deprecated Deprecated
      */
-    public function getPartialRedirectUrl()
+    public function getPartialRedirectUrl(): ?string
     {
         return $this->partialRedirectUrl;
     }
+
     /**
-     * @var string
+     * @param string|null $value
+     * @deprecated Deprecated
      */
-    public function setPartialRedirectUrl($value)
+    public function setPartialRedirectUrl(?string $value): void
     {
         $this->partialRedirectUrl = $value;
     }
@@ -118,32 +122,32 @@ class CreateHostedTokenizationResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->expiredCardTokens !== null) {
+        if (!is_null($this->expiredCardTokens)) {
             $object->expiredCardTokens = [];
             foreach ($this->expiredCardTokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->expiredCardTokens[] = $element;
                 }
             }
         }
-        if ($this->hostedTokenizationId !== null) {
+        if (!is_null($this->hostedTokenizationId)) {
             $object->hostedTokenizationId = $this->hostedTokenizationId;
         }
-        if ($this->hostedTokenizationUrl !== null) {
+        if (!is_null($this->hostedTokenizationUrl)) {
             $object->hostedTokenizationUrl = $this->hostedTokenizationUrl;
         }
-        if ($this->invalidTokens !== null) {
+        if (!is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
         }
-        if ($this->partialRedirectUrl !== null) {
+        if (!is_null($this->partialRedirectUrl)) {
             $object->partialRedirectUrl = $this->partialRedirectUrl;
         }
         return $object;
@@ -154,7 +158,7 @@ class CreateHostedTokenizationResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreateHostedTokenizationResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'expiredCardTokens')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class AdditionalOrderInput extends DataObject
 {
-    // Properties
     /**
-     * @var AirlineData
+     * @var AirlineData|null
      */
-    private $airlineData;
+    public ?AirlineData $airlineData = null;
 
     /**
-     * @var LoanRecipient
+     * @var LoanRecipient|null
      */
-    private $loanRecipient;
+    public ?LoanRecipient $loanRecipient = null;
 
     /**
-     * @var LodgingData
+     * @var LodgingData|null
      */
-    private $lodgingData;
+    public ?LodgingData $lodgingData = null;
 
     /**
-     * @var OrderTypeInformation
+     * @var OrderTypeInformation|null
      */
-    private $typeInformation;
+    public ?OrderTypeInformation $typeInformation = null;
 
-    // Methods
     /**
-     * @return AirlineData
+     * @return AirlineData|null
      */
-    public function getAirlineData()
+    public function getAirlineData(): ?AirlineData
     {
         return $this->airlineData;
     }
+
     /**
-     * @var AirlineData
+     * @param AirlineData|null $value
      */
-    public function setAirlineData($value)
+    public function setAirlineData(?AirlineData $value): void
     {
         $this->airlineData = $value;
     }
 
     /**
-     * @return LoanRecipient
+     * @return LoanRecipient|null
      */
-    public function getLoanRecipient()
+    public function getLoanRecipient(): ?LoanRecipient
     {
         return $this->loanRecipient;
     }
+
     /**
-     * @var LoanRecipient
+     * @param LoanRecipient|null $value
      */
-    public function setLoanRecipient($value)
+    public function setLoanRecipient(?LoanRecipient $value): void
     {
         $this->loanRecipient = $value;
     }
 
     /**
-     * @return LodgingData
+     * @return LodgingData|null
      */
-    public function getLodgingData()
+    public function getLodgingData(): ?LodgingData
     {
         return $this->lodgingData;
     }
+
     /**
-     * @var LodgingData
+     * @param LodgingData|null $value
      */
-    public function setLodgingData($value)
+    public function setLodgingData(?LodgingData $value): void
     {
         $this->lodgingData = $value;
     }
 
     /**
-     * @return OrderTypeInformation
+     * @return OrderTypeInformation|null
      */
-    public function getTypeInformation()
+    public function getTypeInformation(): ?OrderTypeInformation
     {
         return $this->typeInformation;
     }
+
     /**
-     * @var OrderTypeInformation
+     * @param OrderTypeInformation|null $value
      */
-    public function setTypeInformation($value)
+    public function setTypeInformation(?OrderTypeInformation $value): void
     {
         $this->typeInformation = $value;
     }
@@ -98,19 +98,19 @@ class AdditionalOrderInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->airlineData !== null) {
+        if (!is_null($this->airlineData)) {
             $object->airlineData = $this->airlineData->toObject();
         }
-        if ($this->loanRecipient !== null) {
+        if (!is_null($this->loanRecipient)) {
             $object->loanRecipient = $this->loanRecipient->toObject();
         }
-        if ($this->lodgingData !== null) {
+        if (!is_null($this->lodgingData)) {
             $object->lodgingData = $this->lodgingData->toObject();
         }
-        if ($this->typeInformation !== null) {
+        if (!is_null($this->typeInformation)) {
             $object->typeInformation = $this->typeInformation->toObject();
         }
         return $object;
@@ -121,7 +121,7 @@ class AdditionalOrderInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AdditionalOrderInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'airlineData')) {

@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,104 +11,128 @@ use UnexpectedValueException;
  */
 class PaymentResponse extends DataObject
 {
-    // Properties
     /**
-     * @var HostedCheckoutSpecificOutput
+     * @var HostedCheckoutSpecificOutput|null
      */
-    private $hostedCheckoutSpecificOutput;
+    public ?HostedCheckoutSpecificOutput $hostedCheckoutSpecificOutput = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $id;
+    public ?string $id = null;
 
     /**
-     * @var PaymentOutput
+     * @var PaymentOutput|null
      */
-    private $paymentOutput;
+    public ?PaymentOutput $paymentOutput = null;
 
     /**
-     * @var string
+     * @var SessionDetails|null
      */
-    private $status;
+    public ?SessionDetails $sessionDetails = null;
 
     /**
-     * @var PaymentStatusOutput
+     * @var string|null
      */
-    private $statusOutput;
+    public ?string $status = null;
 
-    // Methods
     /**
-     * @return HostedCheckoutSpecificOutput
+     * @var PaymentStatusOutput|null
      */
-    public function getHostedCheckoutSpecificOutput()
+    public ?PaymentStatusOutput $statusOutput = null;
+
+    /**
+     * @return HostedCheckoutSpecificOutput|null
+     */
+    public function getHostedCheckoutSpecificOutput(): ?HostedCheckoutSpecificOutput
     {
         return $this->hostedCheckoutSpecificOutput;
     }
+
     /**
-     * @var HostedCheckoutSpecificOutput
+     * @param HostedCheckoutSpecificOutput|null $value
      */
-    public function setHostedCheckoutSpecificOutput($value)
+    public function setHostedCheckoutSpecificOutput(?HostedCheckoutSpecificOutput $value): void
     {
         $this->hostedCheckoutSpecificOutput = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setId($value)
+    public function setId(?string $value): void
     {
         $this->id = $value;
     }
 
     /**
-     * @return PaymentOutput
+     * @return PaymentOutput|null
      */
-    public function getPaymentOutput()
+    public function getPaymentOutput(): ?PaymentOutput
     {
         return $this->paymentOutput;
     }
+
     /**
-     * @var PaymentOutput
+     * @param PaymentOutput|null $value
      */
-    public function setPaymentOutput($value)
+    public function setPaymentOutput(?PaymentOutput $value): void
     {
         $this->paymentOutput = $value;
     }
 
     /**
-     * @return string
+     * @return SessionDetails|null
      */
-    public function getStatus()
+    public function getSessionDetails(): ?SessionDetails
+    {
+        return $this->sessionDetails;
+    }
+
+    /**
+     * @param SessionDetails|null $value
+     */
+    public function setSessionDetails(?SessionDetails $value): void
+    {
+        $this->sessionDetails = $value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus(): ?string
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value): void
     {
         $this->status = $value;
     }
 
     /**
-     * @return PaymentStatusOutput
+     * @return PaymentStatusOutput|null
      */
-    public function getStatusOutput()
+    public function getStatusOutput(): ?PaymentStatusOutput
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var PaymentStatusOutput
+     * @param PaymentStatusOutput|null $value
      */
-    public function setStatusOutput($value)
+    public function setStatusOutput(?PaymentStatusOutput $value): void
     {
         $this->statusOutput = $value;
     }
@@ -118,22 +140,25 @@ class PaymentResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->hostedCheckoutSpecificOutput !== null) {
+        if (!is_null($this->hostedCheckoutSpecificOutput)) {
             $object->hostedCheckoutSpecificOutput = $this->hostedCheckoutSpecificOutput->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->paymentOutput !== null) {
+        if (!is_null($this->paymentOutput)) {
             $object->paymentOutput = $this->paymentOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->sessionDetails)) {
+            $object->sessionDetails = $this->sessionDetails->toObject();
+        }
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
@@ -144,7 +169,7 @@ class PaymentResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'hostedCheckoutSpecificOutput')) {
@@ -163,6 +188,13 @@ class PaymentResponse extends DataObject
             }
             $value = new PaymentOutput();
             $this->paymentOutput = $value->fromObject($object->paymentOutput);
+        }
+        if (property_exists($object, 'sessionDetails')) {
+            if (!is_object($object->sessionDetails)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->sessionDetails, true) . '\' is not an object');
+            }
+            $value = new SessionDetails();
+            $this->sessionDetails = $value->fromObject($object->sessionDetails);
         }
         if (property_exists($object, 'status')) {
             $this->status = $object->status;

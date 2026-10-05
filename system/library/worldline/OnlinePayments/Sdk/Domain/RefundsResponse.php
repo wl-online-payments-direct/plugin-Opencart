@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class RefundsResponse extends DataObject
 {
-    // Properties
     /**
-     * @var RefundResponse[]
+     * @var RefundResponse[]|null
      */
-    private $refunds;
+    public ?array $refunds = null;
 
-    // Methods
     /**
-     * @return RefundResponse[]
+     * @return RefundResponse[]|null
      */
-    public function getRefunds()
+    public function getRefunds(): ?array
     {
         return $this->refunds;
     }
+
     /**
-     * @var RefundResponse[]
+     * @param RefundResponse[]|null $value
      */
-    public function setRefunds($value)
+    public function setRefunds(?array $value): void
     {
         $this->refunds = $value;
     }
@@ -38,13 +35,13 @@ class RefundsResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->refunds !== null) {
+        if (!is_null($this->refunds)) {
             $object->refunds = [];
             foreach ($this->refunds as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->refunds[] = $element->toObject();
                 }
             }
@@ -57,7 +54,7 @@ class RefundsResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RefundsResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'refunds')) {

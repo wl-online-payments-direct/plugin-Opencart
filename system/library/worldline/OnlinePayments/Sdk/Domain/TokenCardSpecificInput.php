@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class TokenCardSpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var TokenData
+     * @var TokenData|null
      */
-    private $data;
+    public ?TokenData $data = null;
 
-    // Methods
     /**
-     * @return TokenData
+     * @return TokenData|null
      */
-    public function getData()
+    public function getData(): ?TokenData
     {
         return $this->data;
     }
+
     /**
-     * @var TokenData
+     * @param TokenData|null $value
      */
-    public function setData($value)
+    public function setData(?TokenData $value): void
     {
         $this->data = $value;
     }
@@ -38,10 +35,10 @@ class TokenCardSpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->data !== null) {
+        if (!is_null($this->data)) {
             $object->data = $this->data->toObject();
         }
         return $object;
@@ -52,7 +49,7 @@ class TokenCardSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): TokenCardSpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'data')) {

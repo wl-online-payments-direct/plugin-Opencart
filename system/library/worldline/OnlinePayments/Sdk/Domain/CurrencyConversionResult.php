@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CurrencyConversionResult extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $result;
+    public ?string $result = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $resultReason;
+    public ?string $resultReason = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getResult()
+    public function getResult(): ?string
     {
         return $this->result;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setResult($value)
+    public function setResult(?string $value): void
     {
         $this->result = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getResultReason()
+    public function getResultReason(): ?string
     {
         return $this->resultReason;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setResultReason($value)
+    public function setResultReason(?string $value): void
     {
         $this->resultReason = $value;
     }
@@ -58,13 +56,13 @@ class CurrencyConversionResult extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->result !== null) {
+        if (!is_null($this->result)) {
             $object->result = $this->result;
         }
-        if ($this->resultReason !== null) {
+        if (!is_null($this->resultReason)) {
             $object->resultReason = $this->resultReason;
         }
         return $object;
@@ -75,7 +73,7 @@ class CurrencyConversionResult extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CurrencyConversionResult
     {
         parent::fromObject($object);
         if (property_exists($object, 'result')) {

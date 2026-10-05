@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class SurchargeRate extends DataObject
 {
-    // Properties
     /**
-     * @var float
+     * @var float|null
      */
-    private $adValoremRate;
+    public ?float $adValoremRate = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $specificRate;
+    public ?int $specificRate = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $surchargeProductTypeId;
+    public ?string $surchargeProductTypeId = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $surchargeProductTypeVersion;
+    public ?string $surchargeProductTypeVersion = null;
 
-    // Methods
     /**
-     * @return float
+     * @return float|null
      */
-    public function getAdValoremRate()
+    public function getAdValoremRate(): ?float
     {
         return $this->adValoremRate;
     }
+
     /**
-     * @var float
+     * @param float|null $value
      */
-    public function setAdValoremRate($value)
+    public function setAdValoremRate(?float $value): void
     {
         $this->adValoremRate = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getSpecificRate()
+    public function getSpecificRate(): ?int
     {
         return $this->specificRate;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setSpecificRate($value)
+    public function setSpecificRate(?int $value): void
     {
         $this->specificRate = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSurchargeProductTypeId()
+    public function getSurchargeProductTypeId(): ?string
     {
         return $this->surchargeProductTypeId;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSurchargeProductTypeId($value)
+    public function setSurchargeProductTypeId(?string $value): void
     {
         $this->surchargeProductTypeId = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSurchargeProductTypeVersion()
+    public function getSurchargeProductTypeVersion(): ?string
     {
         return $this->surchargeProductTypeVersion;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setSurchargeProductTypeVersion($value)
+    public function setSurchargeProductTypeVersion(?string $value): void
     {
         $this->surchargeProductTypeVersion = $value;
     }
@@ -98,19 +98,19 @@ class SurchargeRate extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->adValoremRate !== null) {
+        if (!is_null($this->adValoremRate)) {
             $object->adValoremRate = $this->adValoremRate;
         }
-        if ($this->specificRate !== null) {
+        if (!is_null($this->specificRate)) {
             $object->specificRate = $this->specificRate;
         }
-        if ($this->surchargeProductTypeId !== null) {
+        if (!is_null($this->surchargeProductTypeId)) {
             $object->surchargeProductTypeId = $this->surchargeProductTypeId;
         }
-        if ($this->surchargeProductTypeVersion !== null) {
+        if (!is_null($this->surchargeProductTypeVersion)) {
             $object->surchargeProductTypeVersion = $this->surchargeProductTypeVersion;
         }
         return $object;
@@ -121,7 +121,7 @@ class SurchargeRate extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SurchargeRate
     {
         parent::fromObject($object);
         if (property_exists($object, 'adValoremRate')) {

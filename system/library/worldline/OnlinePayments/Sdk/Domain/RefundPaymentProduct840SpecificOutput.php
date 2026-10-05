@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class RefundPaymentProduct840SpecificOutput extends DataObject
 {
-    // Properties
     /**
-     * @var RefundPaymentProduct840CustomerAccount
+     * @var RefundPaymentProduct840CustomerAccount|null
      */
-    private $customerAccount;
+    public ?RefundPaymentProduct840CustomerAccount $customerAccount = null;
 
-    // Methods
     /**
-     * @return RefundPaymentProduct840CustomerAccount
+     * @return RefundPaymentProduct840CustomerAccount|null
      */
-    public function getCustomerAccount()
+    public function getCustomerAccount(): ?RefundPaymentProduct840CustomerAccount
     {
         return $this->customerAccount;
     }
+
     /**
-     * @var RefundPaymentProduct840CustomerAccount
+     * @param RefundPaymentProduct840CustomerAccount|null $value
      */
-    public function setCustomerAccount($value)
+    public function setCustomerAccount(?RefundPaymentProduct840CustomerAccount $value): void
     {
         $this->customerAccount = $value;
     }
@@ -38,10 +35,10 @@ class RefundPaymentProduct840SpecificOutput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->customerAccount !== null) {
+        if (!is_null($this->customerAccount)) {
             $object->customerAccount = $this->customerAccount->toObject();
         }
         return $object;
@@ -52,7 +49,7 @@ class RefundPaymentProduct840SpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): RefundPaymentProduct840SpecificOutput
     {
         parent::fromObject($object);
         if (property_exists($object, 'customerAccount')) {

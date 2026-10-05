@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,64 +11,65 @@ use UnexpectedValueException;
  */
 class AcquirerSelectionInformation extends DataObject
 {
-    // Properties
     /**
-     * @var int
+     * @var int|null
      */
-    private $fallbackLevel;
+    public ?int $fallbackLevel = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $result;
+    public ?string $result = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $ruleName;
+    public ?string $ruleName = null;
 
-    // Methods
     /**
-     * @return int
+     * @return int|null
      */
-    public function getFallbackLevel()
+    public function getFallbackLevel(): ?int
     {
         return $this->fallbackLevel;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setFallbackLevel($value)
+    public function setFallbackLevel(?int $value): void
     {
         $this->fallbackLevel = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getResult()
+    public function getResult(): ?string
     {
         return $this->result;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setResult($value)
+    public function setResult(?string $value): void
     {
         $this->result = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRuleName()
+    public function getRuleName(): ?string
     {
         return $this->ruleName;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setRuleName($value)
+    public function setRuleName(?string $value): void
     {
         $this->ruleName = $value;
     }
@@ -78,16 +77,16 @@ class AcquirerSelectionInformation extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->fallbackLevel !== null) {
+        if (!is_null($this->fallbackLevel)) {
             $object->fallbackLevel = $this->fallbackLevel;
         }
-        if ($this->result !== null) {
+        if (!is_null($this->result)) {
             $object->result = $this->result;
         }
-        if ($this->ruleName !== null) {
+        if (!is_null($this->ruleName)) {
             $object->ruleName = $this->ruleName;
         }
         return $object;
@@ -98,7 +97,7 @@ class AcquirerSelectionInformation extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): AcquirerSelectionInformation
     {
         parent::fromObject($object);
         if (property_exists($object, 'fallbackLevel')) {

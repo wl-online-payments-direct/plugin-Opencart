@@ -70,9 +70,9 @@ class WorldlineHostedTokenization extends \Opencart\System\Engine\Controller {
 		$api_secret = $setting['account']['api_secret'][$environment];
 		$api_endpoint = $setting['account']['api_endpoint'][$environment];
 		
-		$data['forced_tokenization'] = $setting['advanced']['forced_tokenization'];
+		require_once DIR_EXTENSION . 'worldline/system/library/worldline/CardSaving.php';
 		
-		$data['logged'] = $this->customer->isLogged();
+		$card_saving = \WorldlineCardSaving::getEffectiveMode($setting, $this->customer->isLogged());
 		
 		$language_id = $this->config->get('config_language_id');
 					
@@ -84,22 +84,23 @@ class WorldlineHostedTokenization extends \Opencart\System\Engine\Controller {
 				
 		require_once DIR_EXTENSION . 'worldline/system/library/worldline/OnlinePayments.php';
 				
-		$connection = new \OnlinePayments\Sdk\DefaultConnection();
 
 		$shopping_cart_extension = new \OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
 		$communicator_configuration = new \OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
 		$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
-		$communicator = new \OnlinePayments\Sdk\Communicator($connection, $communicator_configuration);
+		$authenticator = new \OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
+		$communicator = new \OnlinePayments\Sdk\Communicator($communicator_configuration, $authenticator);
  
         $client = new \OnlinePayments\Sdk\Client($communicator);
 		
 		$create_hosted_tokenization_request = new \OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest();
 					
 		$tokens = [];
+		$card_customer_tokens = [];
 		
-		if ($this->customer->isLogged()) {
+		if ($card_saving != \WorldlineCardSaving::DISABLED) {
 			$card_customer_tokens = $this->model_extension_worldline_payment_worldline->getWorldlineCustomerTokens($this->customer->getId(), 'card');
 			
 			foreach ($card_customer_tokens as $card_customer_token) {				
@@ -114,6 +115,10 @@ class WorldlineHostedTokenization extends \Opencart\System\Engine\Controller {
 		if ($setting['hosted_tokenization']['template']) {
 			$create_hosted_tokenization_request->setVariant($setting['hosted_tokenization']['template']);
 		}
+		
+		// The iframe draws its own "save this card" checkbox from this. Forced needs no
+		// question and disabled must not ask one, so only enabled turns it on.
+		$create_hosted_tokenization_request->setAskConsumerConsent($card_saving == \WorldlineCardSaving::ENABLED);
 					
 		$errors = [];
 

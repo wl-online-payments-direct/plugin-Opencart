@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,24 +11,23 @@ use UnexpectedValueException;
  */
 class LineItemInvoiceData extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $description;
+    public ?string $description = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setDescription($value)
+    public function setDescription(?string $value): void
     {
         $this->description = $value;
     }
@@ -38,10 +35,10 @@ class LineItemInvoiceData extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->description !== null) {
+        if (!is_null($this->description)) {
             $object->description = $this->description;
         }
         return $object;
@@ -52,7 +49,7 @@ class LineItemInvoiceData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): LineItemInvoiceData
     {
         parent::fromObject($object);
         if (property_exists($object, 'description')) {

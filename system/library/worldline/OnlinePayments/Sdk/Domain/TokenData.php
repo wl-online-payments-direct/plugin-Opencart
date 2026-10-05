@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,36 +11,59 @@ use UnexpectedValueException;
  */
 class TokenData extends DataObject
 {
-    // Properties
     /**
-     * @var Card
+     * @var Card|null
      */
-    private $card;
+    public ?Card $card = null;
 
-    // Methods
     /**
-     * @return Card
+     * @var string|null
      */
-    public function getCard()
+    public ?string $cobrandSelectionIndicator = null;
+
+    /**
+     * @return Card|null
+     */
+    public function getCard(): ?Card
     {
         return $this->card;
     }
+
     /**
-     * @var Card
+     * @param Card|null $value
      */
-    public function setCard($value)
+    public function setCard(?Card $value): void
     {
         $this->card = $value;
     }
 
     /**
+     * @return string|null
+     */
+    public function getCobrandSelectionIndicator(): ?string
+    {
+        return $this->cobrandSelectionIndicator;
+    }
+
+    /**
+     * @param string|null $value
+     */
+    public function setCobrandSelectionIndicator(?string $value): void
+    {
+        $this->cobrandSelectionIndicator = $value;
+    }
+
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->card !== null) {
+        if (!is_null($this->card)) {
             $object->card = $this->card->toObject();
+        }
+        if (!is_null($this->cobrandSelectionIndicator)) {
+            $object->cobrandSelectionIndicator = $this->cobrandSelectionIndicator;
         }
         return $object;
     }
@@ -52,7 +73,7 @@ class TokenData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): TokenData
     {
         parent::fromObject($object);
         if (property_exists($object, 'card')) {
@@ -61,6 +82,9 @@ class TokenData extends DataObject
             }
             $value = new Card();
             $this->card = $value->fromObject($object->card);
+        }
+        if (property_exists($object, 'cobrandSelectionIndicator')) {
+            $this->cobrandSelectionIndicator = $object->cobrandSelectionIndicator;
         }
         return $this;
     }

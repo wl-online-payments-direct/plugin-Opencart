@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,84 +11,86 @@ use UnexpectedValueException;
  */
 class PaymentProduct130SpecificThreeDSecure extends DataObject
 {
-    // Properties
     /**
-     * @var bool
+     * @var bool|null
      */
-    private $acquirerExemption;
+    public ?bool $acquirerExemption = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $merchantScore;
+    public ?string $merchantScore = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $numberOfItems;
+    public ?int $numberOfItems = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $usecase;
+    public ?string $usecase = null;
 
-    // Methods
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAcquirerExemption()
+    public function getAcquirerExemption(): ?bool
     {
         return $this->acquirerExemption;
     }
+
     /**
-     * @var bool
+     * @param bool|null $value
      */
-    public function setAcquirerExemption($value)
+    public function setAcquirerExemption(?bool $value): void
     {
         $this->acquirerExemption = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMerchantScore()
+    public function getMerchantScore(): ?string
     {
         return $this->merchantScore;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMerchantScore($value)
+    public function setMerchantScore(?string $value): void
     {
         $this->merchantScore = $value;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNumberOfItems()
+    public function getNumberOfItems(): ?int
     {
         return $this->numberOfItems;
     }
+
     /**
-     * @var int
+     * @param int|null $value
      */
-    public function setNumberOfItems($value)
+    public function setNumberOfItems(?int $value): void
     {
         $this->numberOfItems = $value;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUsecase()
+    public function getUsecase(): ?string
     {
         return $this->usecase;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setUsecase($value)
+    public function setUsecase(?string $value): void
     {
         $this->usecase = $value;
     }
@@ -98,19 +98,19 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->acquirerExemption !== null) {
+        if (!is_null($this->acquirerExemption)) {
             $object->acquirerExemption = $this->acquirerExemption;
         }
-        if ($this->merchantScore !== null) {
+        if (!is_null($this->merchantScore)) {
             $object->merchantScore = $this->merchantScore;
         }
-        if ($this->numberOfItems !== null) {
+        if (!is_null($this->numberOfItems)) {
             $object->numberOfItems = $this->numberOfItems;
         }
-        if ($this->usecase !== null) {
+        if (!is_null($this->usecase)) {
             $object->usecase = $this->usecase;
         }
         return $object;
@@ -121,7 +121,7 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): PaymentProduct130SpecificThreeDSecure
     {
         parent::fromObject($object);
         if (property_exists($object, 'acquirerExemption')) {

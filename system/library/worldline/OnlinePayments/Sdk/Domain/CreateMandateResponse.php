@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class CreateMandateResponse extends DataObject
 {
-    // Properties
     /**
-     * @var MandateResponse
+     * @var MandateResponse|null
      */
-    private $mandate;
+    public ?MandateResponse $mandate = null;
 
     /**
-     * @var MandateMerchantAction
+     * @var MandateMerchantAction|null
      */
-    private $merchantAction;
+    public ?MandateMerchantAction $merchantAction = null;
 
-    // Methods
     /**
-     * @return MandateResponse
+     * @return MandateResponse|null
      */
-    public function getMandate()
+    public function getMandate(): ?MandateResponse
     {
         return $this->mandate;
     }
+
     /**
-     * @var MandateResponse
+     * @param MandateResponse|null $value
      */
-    public function setMandate($value)
+    public function setMandate(?MandateResponse $value): void
     {
         $this->mandate = $value;
     }
 
     /**
-     * @return MandateMerchantAction
+     * @return MandateMerchantAction|null
      */
-    public function getMerchantAction()
+    public function getMerchantAction(): ?MandateMerchantAction
     {
         return $this->merchantAction;
     }
+
     /**
-     * @var MandateMerchantAction
+     * @param MandateMerchantAction|null $value
      */
-    public function setMerchantAction($value)
+    public function setMerchantAction(?MandateMerchantAction $value): void
     {
         $this->merchantAction = $value;
     }
@@ -58,13 +56,13 @@ class CreateMandateResponse extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->mandate !== null) {
+        if (!is_null($this->mandate)) {
             $object->mandate = $this->mandate->toObject();
         }
-        if ($this->merchantAction !== null) {
+        if (!is_null($this->merchantAction)) {
             $object->merchantAction = $this->merchantAction->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class CreateMandateResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): CreateMandateResponse
     {
         parent::fromObject($object);
         if (property_exists($object, 'mandate')) {

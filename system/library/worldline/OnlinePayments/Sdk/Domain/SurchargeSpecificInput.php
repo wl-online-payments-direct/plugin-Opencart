@@ -1,11 +1,9 @@
 <?php
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-
 namespace OnlinePayments\Sdk\Domain;
 
-use OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 
 /**
@@ -13,44 +11,44 @@ use UnexpectedValueException;
  */
 class SurchargeSpecificInput extends DataObject
 {
-    // Properties
     /**
-     * @var string
+     * @var string|null
      */
-    private $mode;
+    public ?string $mode = null;
 
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    private $surchargeAmount;
+    public ?AmountOfMoney $surchargeAmount = null;
 
-    // Methods
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMode()
+    public function getMode(): ?string
     {
         return $this->mode;
     }
+
     /**
-     * @var string
+     * @param string|null $value
      */
-    public function setMode($value)
+    public function setMode(?string $value): void
     {
         $this->mode = $value;
     }
 
     /**
-     * @return AmountOfMoney
+     * @return AmountOfMoney|null
      */
-    public function getSurchargeAmount()
+    public function getSurchargeAmount(): ?AmountOfMoney
     {
         return $this->surchargeAmount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setSurchargeAmount($value)
+    public function setSurchargeAmount(?AmountOfMoney $value): void
     {
         $this->surchargeAmount = $value;
     }
@@ -58,13 +56,13 @@ class SurchargeSpecificInput extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject(): object
     {
         $object = parent::toObject();
-        if ($this->mode !== null) {
+        if (!is_null($this->mode)) {
             $object->mode = $this->mode;
         }
-        if ($this->surchargeAmount !== null) {
+        if (!is_null($this->surchargeAmount)) {
             $object->surchargeAmount = $this->surchargeAmount->toObject();
         }
         return $object;
@@ -75,7 +73,7 @@ class SurchargeSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object): SurchargeSpecificInput
     {
         parent::fromObject($object);
         if (property_exists($object, 'mode')) {
