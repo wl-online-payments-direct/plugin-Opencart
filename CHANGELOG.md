@@ -13,9 +13,11 @@ Write the entry in the same commit that bumps `'version'` in
 version and publishes a release, and the release notes are filled in by hand from
 what is written here.
 
-## [Unreleased]
+## [2.0.2] - 2026-10-24
+### Fixed
+- Google Pay and Apple Pay payments no longer crash on return to the shop
 
-## [2.0.0] - 2026-03-01
+## [2.0.1] - 2026-09-29
 ### Added
 - Enable/Disable save card option
 

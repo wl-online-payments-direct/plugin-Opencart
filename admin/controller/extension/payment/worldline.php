@@ -1069,7 +1069,12 @@ class ControllerExtensionPaymentWorldline extends Controller {
 			$data['liability'] = '';
 			$data['exemption'] = '';
 			$data['authentication_status'] = '';
-			
+
+			// Payment is not created yet (e.g. hosted checkout not completed), nothing to fetch
+			if (!$data['transaction_id']) {
+				return $this->load->view('extension/payment/worldline/order', $data);
+			}
+
 			$_config = new Config();
 			$_config->load('worldline');
 			
@@ -1152,13 +1157,15 @@ class ControllerExtensionPaymentWorldline extends Controller {
 					$data['payment_product_id'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 					$data['token'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 					$data['payment_type'] = 'card';
-					$data['card_last_digits'] = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
-					$data['card_expiry'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
-					$data['card_bin'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin();
-					$data['card_number'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber();					
-					$data['liability'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getThreeDSecureResults()->getLiability();
-					$data['exemption'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getThreeDSecureResults()->getAppliedExemption();
-					$data['authentication_status'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getThreeDSecureResults()->getAuthenticationStatus();
+					$card = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard();
+					$data['card_last_digits'] = $card ? str_replace('*', '', (string)$card->getCardNumber()) : '';
+					$data['card_expiry'] = $card ? (string)$card->getExpiryDate() : '';
+					$data['card_bin'] = $card ? (string)$card->getBin() : '';
+					$data['card_number'] = $card ? (string)$card->getCardNumber() : '';
+					$three_d_secure_results = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getThreeDSecureResults();
+					$data['liability'] = $three_d_secure_results ? $three_d_secure_results->getLiability() : '';
+					$data['exemption'] = $three_d_secure_results ? $three_d_secure_results->getAppliedExemption() : '';
+					$data['authentication_status'] = $three_d_secure_results ? $three_d_secure_results->getAuthenticationStatus() : '';
 					
 					if (!empty($payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getFraudResults())) {
 						$data['fraud_result'] = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getFraudResults()->getFraudServiceResult();
@@ -1166,10 +1173,16 @@ class ControllerExtensionPaymentWorldline extends Controller {
 				}
 				
 				if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
-					$data['payment_product_id'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();					
-					$data['liability'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getThreeDSecureResults()->getLiability();
-					$data['exemption'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getThreeDSecureResults()->getAppliedExemption();
-					$data['authentication_status'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getThreeDSecureResults()->getAuthenticationStatus();
+					$data['payment_product_id'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+					$data['payment_type'] = 'mobile';
+					$mobile_payment_data = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentData();
+					$dpan = $mobile_payment_data ? preg_replace('/\D/', '', (string)$mobile_payment_data->getDpan()) : '';
+					$data['card_last_digits'] = $dpan !== '' ? substr($dpan, -4) : $data['card_last_digits'];
+					$data['card_expiry'] = ($mobile_payment_data && (string)$mobile_payment_data->getExpiryDate() !== '') ? (string)$mobile_payment_data->getExpiryDate() : $data['card_expiry'];
+					$three_d_secure_results = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getThreeDSecureResults();
+					$data['liability'] = $three_d_secure_results ? $three_d_secure_results->getLiability() : '';
+					$data['exemption'] = $three_d_secure_results ? $three_d_secure_results->getAppliedExemption() : '';
+					$data['authentication_status'] = $three_d_secure_results ? $three_d_secure_results->getAuthenticationStatus() : '';
 					
 					if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getFraudResults())) {
 						$data['fraud_result'] = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getFraudResults()->getFraudServiceResult();
