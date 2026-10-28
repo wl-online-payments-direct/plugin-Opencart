@@ -2,6 +2,7 @@
 class ControllerExtensionPaymentWorldlineHostedTokenization extends Controller {
 	private $error = array();
 
+
 	public function index() {
 		$_config = new Config();
 		$_config->load('worldline');
@@ -71,7 +72,7 @@ class ControllerExtensionPaymentWorldlineHostedTokenization extends Controller {
 
 		$shopping_cart_extension = new OnlinePayments\Sdk\Domain\ShoppingCartExtension($extension['creator'], $extension['name'], $extension['version'], $extension['extension_id']);
 
-		$communicator_configuration = new OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);	
+		$communicator_configuration = new OnlinePayments\Sdk\CommunicatorConfiguration($api_key, $api_secret, $api_endpoint, $extension['integrator']);
 		$communicator_configuration->setShoppingCartExtension($shopping_cart_extension);
 
 		$authenticator = new OnlinePayments\Sdk\Authentication\V1HmacAuthenticator($communicator_configuration);
