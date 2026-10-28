@@ -719,11 +719,18 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					}
 				}
 				
-				if (!$errors && !empty($hosted_checkout_response->getCreatedPaymentOutput())) {
+				if (!$errors && !empty($hosted_checkout_response->getCreatedPaymentOutput()) && !empty($hosted_checkout_response->getCreatedPaymentOutput()->getPayment())) {
 					$transaction_id = $hosted_checkout_response->getCreatedPaymentOutput()->getPayment()->getId();
 				}
 			} else {
 				$transaction_id = $this->request->get['paymentId'];
+			}
+			
+			// Payment is not created yet (e.g. hosted checkout still in progress), status will be resolved by webhook / waiting page
+			if (!$transaction_id) {
+				$this->response->redirect($this->url->link('extension/worldline/payment/worldline' . $this->separator . 'waitingPage', 'language=' . $this->config->get('config_language')));
+				
+				return true;
 			}
 			
 			try {
@@ -762,12 +769,18 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 					$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 					$payment_type = 'card';
-					$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
-					$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
+					$card = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard();
+					$card_last_digits = $card ? str_replace('*', '', (string)$card->getCardNumber()) : '';
+					$card_expiry = $card ? (string)$card->getExpiryDate() : '';
 				}
 				
 				if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
 					$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+					$payment_type = 'mobile';
+					$mobile_payment_data = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentData();
+					$dpan = $mobile_payment_data ? preg_replace('/\D/', '', (string)$mobile_payment_data->getDpan()) : '';
+					$card_last_digits = $dpan !== '' ? substr($dpan, -4) : $card_last_digits;
+					$card_expiry = ($mobile_payment_data && (string)$mobile_payment_data->getExpiryDate() !== '') ? (string)$mobile_payment_data->getExpiryDate() : $card_expiry;
 				}
 				
 				if (!empty($payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
@@ -1073,7 +1086,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					$data['redirect'] = $this->url->link('extension/worldline/payment/worldline' . $this->separator . 'failurePage', 'language=' . $this->config->get('config_language'));
 				}
 			
-				if (!$data['redirect']) {
+				if (!$data['redirect'] && $transaction_id) {
 					$_config = new \Opencart\System\Engine\Config();
 					$_config->addPath(DIR_EXTENSION . 'worldline/system/config/');
 					$_config->load('worldline');
@@ -1136,12 +1149,18 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 							$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 							$payment_type = 'card';
-							$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
-							$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
+							$card = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard();
+							$card_last_digits = $card ? str_replace('*', '', (string)$card->getCardNumber()) : '';
+							$card_expiry = $card ? (string)$card->getExpiryDate() : '';
 						}
 				
 						if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
 							$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+							$payment_type = 'mobile';
+							$mobile_payment_data = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentData();
+							$dpan = $mobile_payment_data ? preg_replace('/\D/', '', (string)$mobile_payment_data->getDpan()) : '';
+							$card_last_digits = $dpan !== '' ? substr($dpan, -4) : $card_last_digits;
+							$card_expiry = ($mobile_payment_data && (string)$mobile_payment_data->getExpiryDate() !== '') ? (string)$mobile_payment_data->getExpiryDate() : $card_expiry;
 						}
 				
 						if (!empty($payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
@@ -1372,12 +1391,18 @@ class Worldline extends \Opencart\System\Engine\Controller {
 						$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 						$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 						$payment_type = 'card';
-						$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
-						$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
+						$card = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard();
+						$card_last_digits = $card ? str_replace('*', '', (string)$card->getCardNumber()) : '';
+						$card_expiry = $card ? (string)$card->getExpiryDate() : '';
 					}						
 									
 					if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
 						$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+						$payment_type = 'mobile';
+						$mobile_payment_data = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentData();
+						$dpan = $mobile_payment_data ? preg_replace('/\D/', '', (string)$mobile_payment_data->getDpan()) : '';
+						$card_last_digits = $dpan !== '' ? substr($dpan, -4) : $card_last_digits;
+						$card_expiry = ($mobile_payment_data && (string)$mobile_payment_data->getExpiryDate() !== '') ? (string)$mobile_payment_data->getExpiryDate() : $card_expiry;
 					}
 				
 					if (!empty($payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
@@ -1399,7 +1424,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 					$worldline_order_info = $this->model_extension_worldline_payment_worldline->getWorldlineOrder($order_id);
 					$order_info = $this->model_checkout_order->getOrder($order_id);
 					
-					if ($worldline_order_info && ($worldline_order_info['transaction_id'] == $transaction_id) && $order_info) {
+					if ($worldline_order_info && (!$worldline_order_info['transaction_id'] || ($worldline_order_info['transaction_id'] == $transaction_id)) && $order_info) {
 						$order_status_id = 0;
 					
 						if ($transaction_status == 'created') {
@@ -1471,6 +1496,7 @@ class Worldline extends \Opencart\System\Engine\Controller {
 							
 							$worldline_order_data = [
 								'order_id' => $order_id,
+								'transaction_id' => $transaction_id,
 								'transaction_status' => $transaction_status,
 								'payment_product' => $payment_product,
 								'payment_type' => $payment_type,
@@ -1558,6 +1584,11 @@ class Worldline extends \Opencart\System\Engine\Controller {
 						$order_id = $waiting_worldline_order['order_id'];
 						$transaction_id = $waiting_worldline_order['transaction_id'];
 						
+						// Payment is not created yet (e.g. abandoned hosted checkout), nothing to fetch
+						if (!$transaction_id) {
+							continue;
+						}
+						
 						$order_info = $this->model_checkout_order->getOrder($order_id);
 										
 						$errors = [];
@@ -1591,12 +1622,18 @@ class Worldline extends \Opencart\System\Engine\Controller {
 								$payment_product_id = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 								$token = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getToken();
 								$payment_type = 'card';
-								$card_last_digits = str_replace('*', '', $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
-								$card_expiry = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getExpiryDate();
+								$card = $payment_response->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard();
+								$card_last_digits = $card ? str_replace('*', '', (string)$card->getCardNumber()) : '';
+								$card_expiry = $card ? (string)$card->getExpiryDate() : '';
 							}
 				
 							if (!empty($payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput())) {
 								$payment_product_id = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentProductId();
+								$payment_type = 'mobile';
+								$mobile_payment_data = $payment_response->getPaymentOutput()->getMobilePaymentMethodSpecificOutput()->getPaymentData();
+								$dpan = $mobile_payment_data ? preg_replace('/\D/', '', (string)$mobile_payment_data->getDpan()) : '';
+								$card_last_digits = $dpan !== '' ? substr($dpan, -4) : $card_last_digits;
+								$card_expiry = ($mobile_payment_data && (string)$mobile_payment_data->getExpiryDate() !== '') ? (string)$mobile_payment_data->getExpiryDate() : $card_expiry;
 							}
 				
 							if (!empty($payment_response->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())) {
